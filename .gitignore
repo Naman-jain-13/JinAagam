@@ -1,0 +1,38 @@
+# ---------------------------------------------------------------- heavy, regenerable
+# Rendered scan pages (300 dpi PNGs). ~1.65 GB. Regenerate from the source PDF with
+# pymupdf whenever a text is being worked on — see each work folder's progress.md.
+*/img/
+*/pages/
+
+# npm packages for the docx builders — `npm install` restores them
+node_modules/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# ---------------------------------------------------------------- documents
+# Source scans stay local: they are large and already published by the libraries
+# that digitised them (jainelibrary.org, Veer Seva Mandir and others).
+# Finished commentaries are attached to GitHub Releases instead of the git history,
+# so a clone stays small and the history is not rewritten on every rebuild.
+*.pdf
+*.docx
+*.doc
+
+# Word lock files and pre-edit backups
+~$*
+*.bak
+*.bak.*
+*.pre-honorific.*
+
+# ---------------------------------------------------------------- build noise
+*.log
+finalize.log*
+build_log.txt
+*.tmp
+
+# Generated single-file edition of the Kosh (5 MB, rebuilt by build_online.py).
+# The site published from this repo uses encyclopedia/index.html + encyclopedia/data/.
+encyclopedia/online.html
+encyclopedia/_check.js

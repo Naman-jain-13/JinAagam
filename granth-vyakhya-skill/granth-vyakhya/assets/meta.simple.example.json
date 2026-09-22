@@ -1,0 +1,11 @@
+{
+  "title": "Gagar Mein Sagar",
+  "subtitle": "(\"An Ocean in a Pot\")",
+  "pre_lines": ["Blessings of", "Param Pujya Acharya Shiromani 108 Shri Vardhaman Sagar Ji Maharaj"],
+  "lines": ["Compiler: Br. Bhagchand Sethi", "Translated into English from the 5th Hindi Edition (2023)"],
+  "note": "**Translator's note:** structure, topic numbering and question-answer format are kept identical to the original …",
+  "toc_title": "Contents",
+  "toc_levels": "1-1",
+  "font": "Calibri",
+  "out": "../Gagar_Saar_English.docx"
+}

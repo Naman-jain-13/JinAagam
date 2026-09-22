@@ -1,0 +1,566 @@
+<title>जिनागम कोश</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F7F5F1; --paper-2:#FFFFFF; --paper-3:#EFEBE4;
+  --ink:#22262B; --ink-2:#4A525C; --ink-3:#79828E;
+  --rule:#DCD6CC; --rule-2:#C9C1B4;
+  --mool:#7A1F1F; --head:#1F4E79; --sub:#833C0B;
+  --mark:#F6E08A; --mark-ink:#3A2E00;
+  --chip:#E9E3D9; --focus:#1F4E79;
+  --sans:'Noto Sans Devanagari',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --serif:'Noto Serif Devanagari',Georgia,'Times New Roman',serif;
+  --shadow:0 1px 2px rgba(34,38,43,.06),0 8px 24px rgba(34,38,43,.07);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#15181C; --paper-2:#1C2026; --paper-3:#252A31;
+  --ink:#E6E3DD; --ink-2:#B3B8BF; --ink-3:#848C96;
+  --rule:#2E343C; --rule-2:#3D444E;
+  --mool:#E59A9A; --head:#8FBDEA; --sub:#D9A46A;
+  --mark:#6A5416; --mark-ink:#FFE9A8;
+  --chip:#262C34; --focus:#8FBDEA;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --paper:#15181C; --paper-2:#1C2026; --paper-3:#252A31;
+  --ink:#E6E3DD; --ink-2:#B3B8BF; --ink-3:#848C96;
+  --rule:#2E343C; --rule-2:#3D444E;
+  --mool:#E59A9A; --head:#8FBDEA; --sub:#D9A46A;
+  --mark:#6A5416; --mark-ink:#FFE9A8;
+  --chip:#262C34; --focus:#8FBDEA;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;text-wrap:balance;font-weight:600}
+mark{background:var(--mark);color:var(--mark-ink);border-radius:2px;padding:0 1px}
+
+/* ---------- shell ---------- */
+.shell{display:flex;flex-direction:column;height:100%}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--paper-2);border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:14px;padding:10px 16px;flex-wrap:wrap}
+.brand{display:flex;align-items:baseline;gap:10px;margin-inline-end:auto;min-width:0}
+.brand b{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--mool);letter-spacing:.01em;white-space:nowrap}
+.brand span{font-size:12px;color:var(--ink-3);white-space:nowrap}
+.tabs{display:flex;gap:2px;background:var(--paper-3);border-radius:8px;padding:3px}
+.tabs button{border:0;background:transparent;padding:6px 13px;border-radius:6px;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--ink-2)}
+.tabs button[aria-selected="true"]{background:var(--paper-2);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.util{display:flex;gap:6px}
+.util button{border:1px solid var(--rule-2);background:var(--paper-2);border-radius:7px;padding:5px 10px;cursor:pointer;font-size:12.5px;color:var(--ink-2)}
+.util button:hover{border-color:var(--head);color:var(--head)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+.main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(330px,400px) 1fr}
+.pane{min-height:0;overflow-y:auto;overscroll-behavior:contain}
+.left{border-inline-end:1px solid var(--rule);background:var(--paper)}
+.right{background:var(--paper-2)}
+
+/* ---------- search ---------- */
+.searchwrap{position:sticky;top:0;z-index:10;background:var(--paper);padding:14px 16px 10px;border-bottom:1px solid var(--rule)}
+.sbox{display:flex;align-items:center;gap:9px;background:var(--paper-2);border:1.5px solid var(--rule-2);border-radius:10px;padding:9px 12px}
+.sbox:focus-within{border-color:var(--head);box-shadow:0 0 0 3px color-mix(in srgb,var(--head) 18%,transparent)}
+.sbox svg{flex:none;color:var(--ink-3)}
+.sbox input{flex:1;min-width:0;border:0;background:transparent;outline:0;font-size:15.5px}
+.sbox kbd{font-family:var(--sans);font-size:11px;color:var(--ink-3);border:1px solid var(--rule-2);border-radius:4px;padding:1px 5px}
+.filters{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.chip{border:1px solid var(--rule-2);background:var(--paper-2);color:var(--ink-2);border-radius:99px;padding:3px 10px;font-size:12px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--head);border-color:var(--head);color:#fff}
+.bar{height:2px;background:var(--rule);border-radius:2px;overflow:hidden;margin-top:9px}
+.bar i{display:block;height:100%;background:var(--head);width:0;transition:width .25s}
+.count{font-size:12px;color:var(--ink-3);margin-top:8px;display:flex;justify-content:space-between;gap:8px}
+
+/* ---------- result list ---------- */
+.list{padding:6px 10px 40px}
+.res{display:block;width:100%;text-align:start;border:0;border-bottom:1px solid var(--rule);background:transparent;
+  padding:11px 8px;cursor:pointer;border-radius:6px}
+.res:hover{background:var(--paper-3)}
+.res[aria-current="true"]{background:var(--paper-3);box-shadow:inset 3px 0 0 var(--mool)}
+.res .meta{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink-3);margin-bottom:3px;flex-wrap:wrap}
+.tag{background:var(--chip);color:var(--ink-2);border-radius:4px;padding:1px 6px;font-weight:500}
+.res .ttl{font-family:var(--serif);font-size:14.5px;line-height:1.45;color:var(--ink)}
+.res .snip{font-size:12.5px;color:var(--ink-2);margin-top:4px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.empty{padding:40px 20px;text-align:center;color:var(--ink-3);font-size:13.5px}
+
+/* ---------- reader ---------- */
+.reader{max-width:72ch;margin:0 auto;padding:28px 24px 80px}
+.crumb{font-size:12px;color:var(--ink-3);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.crumb b{color:var(--sub);font-weight:600}
+.reader h2{font-family:var(--serif);font-size:24px;line-height:1.35;color:var(--mool);margin:10px 0 6px}
+.cite{font-size:12.5px;color:var(--ink-3);padding-bottom:14px;border-bottom:2px solid var(--rule);margin-bottom:22px}
+.part{margin-bottom:26px}
+.part h3{font-size:12px;letter-spacing:.09em;text-transform:uppercase;color:var(--sub);margin-bottom:8px;font-weight:600}
+.part p{margin:0 0 10px;font-family:var(--serif);font-size:15.5px;line-height:1.85}
+.part .mool{color:var(--mool)}
+.part table{border-collapse:collapse;width:100%;font-size:13px;font-family:var(--sans)}
+.part td{border:1px solid var(--rule);padding:5px 8px;vertical-align:top}
+.part tr:first-child td{background:var(--paper-3);font-weight:600}
+.tablewrap{overflow-x:auto;margin:0 0 12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:30px;padding-top:18px;border-top:1px solid var(--rule)}
+.actions button{border:1px solid var(--rule-2);background:var(--paper);border-radius:7px;padding:7px 12px;font-size:12.5px;cursor:pointer;color:var(--ink-2)}
+.actions button:hover{border-color:var(--head);color:var(--head)}
+.hint{padding:64px 24px;max-width:60ch;margin:0 auto;color:var(--ink-2)}
+.hint h2{font-family:var(--serif);font-size:22px;color:var(--mool);margin-bottom:10px}
+.hint ul{padding-inline-start:18px;margin:14px 0}
+.hint li{margin-bottom:7px;font-size:14px}
+
+/* ---------- browse / glossary / about ---------- */
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;padding:20px 24px 60px;max-width:1100px;margin:0 auto}
+.gcard{text-align:start;border:1px solid var(--rule);background:var(--paper);border-radius:10px;padding:14px 15px;cursor:pointer}
+.gcard:hover{border-color:var(--head);box-shadow:var(--shadow)}
+.gcard b{display:block;font-family:var(--serif);font-size:16.5px;color:var(--mool);margin-bottom:2px}
+.gcard i{display:block;font-style:normal;font-size:12px;color:var(--ink-3);margin-bottom:8px}
+.gcard u{display:block;text-decoration:none;font-size:12px;color:var(--ink-2)}
+.grouphd{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--sub);font-weight:600;
+  padding:16px 8px 6px;border-bottom:1px solid var(--rule);margin-bottom:2px}
+.termrow{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:14px;padding:9px 8px;border-bottom:1px solid var(--rule);font-size:13.5px}
+.termrow b{font-family:var(--serif);font-size:14.5px;color:var(--head);font-weight:600}
+.termrow em{font-style:normal;color:var(--ink-3);font-size:11.5px;display:block;margin-top:2px}
+.termrow button{margin-top:5px;border:1px solid var(--rule-2);background:transparent;border-radius:6px;padding:2px 8px;font-size:11.5px;cursor:pointer;color:var(--ink-2)}
+.termrow button:hover{border-color:var(--head);color:var(--head)}
+.about{max-width:66ch;margin:0 auto;padding:30px 24px 80px}
+.about h2{font-family:var(--serif);font-size:22px;color:var(--mool);margin-bottom:14px}
+.about h3{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--sub);margin:26px 0 8px}
+.about p{margin:0 0 12px;font-size:14px;color:var(--ink-2)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin:18px 0 6px}
+.stat{border:1px solid var(--rule);border-radius:9px;padding:11px 13px;background:var(--paper)}
+.stat b{display:block;font-size:22px;font-family:var(--serif);color:var(--head);font-variant-numeric:tabular-nums}
+.stat span{font-size:11.5px;color:var(--ink-3)}
+.note{border-inline-start:3px solid var(--sub);background:var(--paper-3);padding:11px 14px;border-radius:0 8px 8px 0;font-size:13px;color:var(--ink-2)}
+.srcrow{font-size:13px;padding:9px 0;border-bottom:1px solid var(--rule);color:var(--ink-2)}
+.srcrow b{color:var(--ink);font-family:var(--serif);font-size:14.5px}
+
+.back{display:none}
+body[data-pane="full"] .main{grid-template-columns:1fr}
+body[data-pane="full"] .left{display:none}
+@media (max-width:820px){
+  .main{grid-template-columns:1fr}
+  .right{display:none}
+  body[data-view="read"] .left{display:none}
+  body[data-view="read"] .right{display:block}
+  .back{display:inline-block}
+  .brand span{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="shell">
+  <header class="top">
+    <div class="brand"><b>जिनागम कोश</b><span id="brandsub"></span></div>
+    <div class="tabs" role="tablist">
+      <button role="tab" data-tab="search" aria-selected="true">खोज</button>
+      <button role="tab" data-tab="browse" aria-selected="false">ग्रन्थ</button>
+      <button role="tab" data-tab="terms" aria-selected="false">शब्दकोश</button>
+      <button role="tab" data-tab="about" aria-selected="false">परिचय</button>
+    </div>
+    <div class="util">
+      <button id="lang" title="भाषा / Language">EN</button>
+      <button id="theme" title="रंग-रूप / Theme">◐</button>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="pane left" id="left">
+      <div class="searchwrap" id="searchwrap">
+        <label class="sbox">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg>
+          <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="कोई शब्द खोजें — व्याप्ति, सर्वज्ञ, आह्वान…">
+          <kbd>/</kbd>
+        </label>
+        <div class="filters" id="filters"></div>
+        <div class="bar" id="bar" hidden><i></i></div>
+        <div class="count"><span id="count"></span><span id="loadnote"></span></div>
+      </div>
+      <div class="list" id="list"></div>
+    </div>
+    <div class="pane right" id="right"></div>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const el = (t, c, h) => { const n = document.createElement(t); if (c) n.className = c; if (h != null) n.innerHTML = h; return n; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+const T = {
+  hi: { search:'खोज', browse:'ग्रन्थ', terms:'शब्दकोश', about:'परिचय',
+    ph:'कोई शब्द खोजें — व्याप्ति, सर्वज्ञ, आह्वान…', all:'सब ग्रन्थ',
+    results:n=>`${n} अनुच्छेद मिले`, none:'कुछ नहीं मिला', typing:'खोजने के लिए कोई शब्द लिखें',
+    loading:'पूरा पाठ लोड हो रहा है…', ready:'पूरा पाठ तैयार', sec:'अनुच्छेद', page:'मुद्रित पृष्ठ',
+    findMore:'इस शीर्षक के शब्द खोजें', copy:'सन्दर्भ कॉपी करें', copied:'कॉपी हो गया',
+    welcomeH:'एक जगह पर सब ग्रन्थ', gloss:'शब्द', meaning:'अर्थ', where:'कहाँ', seeAll:'सब जगह खोजें',
+    sections:'अनुच्छेद', granths:'ग्रन्थ', chars:'लाख अक्षर', tcount:'शब्दावली',
+    gsearch:'शब्द या अर्थ खोजें…', back:'← वापस' },
+  en: { search:'Search', browse:'Texts', terms:'Glossary', about:'About',
+    ph:'Search any term — vyapti, sarvajna, ahvana…', all:'All texts',
+    results:n=>`${n} passages found`, none:'Nothing found', typing:'Type a word to search',
+    loading:'Loading full text…', ready:'Full text ready', sec:'Section', page:'printed page',
+    findMore:'Search words from this title', copy:'Copy citation', copied:'Copied',
+    welcomeH:'Every text in one place', gloss:'Term', meaning:'Meaning', where:'Source',
+    seeAll:'Find everywhere', sections:'sections', granths:'texts', chars:'lakh characters',
+    tcount:'glossary terms', gsearch:'Search term or meaning…', back:'← Back' }
+};
+
+const S = { lang:'hi', tab:'search', granths:[], terms:[], stats:{}, full:{}, hay:null,
+  loading:false, loaded:0, results:[], cur:null, filter:new Set(), q:'' };
+const L = () => T[S.lang];
+
+/* ---------------------------------------------------------------- data */
+async function boot() {
+  try {
+    if (window.__KOSH__) {                       // embedded (online) build
+      S.granths = window.__KOSH__.granths; S.terms = window.__KOSH__.terms;
+      S.stats = window.__KOSH__.stats; S.full = window.__KOSH__.full || {};
+      S.lite = !!window.__KOSH__.lite; S.loaded = Object.keys(S.full).length;
+    } else {                                      // offline build — fetch from data/
+      const [m, t, st] = await Promise.all([
+        fetch('data/meta.json').then(r => r.json()),
+        fetch('data/terms.json').then(r => r.json()),
+        fetch('data/stats.json').then(r => r.json())
+      ]);
+      S.granths = m.granths; S.terms = t; S.stats = st;
+    }
+  } catch (e) {
+    $('#right').innerHTML = `<div class="hint"><h2>डेटा नहीं मिला</h2>
+      <p>यह पृष्ठ <b>start.cmd</b> से खोलिए (वह एक छोटा लोकल सर्वर चलाता है)।
+      सीधे फ़ाइल पर डबल-क्लिक करने से ब्राउज़र डेटा फ़ाइलें पढ़ने नहीं देता।</p></div>`;
+    return;
+  }
+  $('#brandsub').textContent = `${S.stats.sections} ${L().sections} · ${S.stats.granths} ${L().granths}`;
+  drawFilters(); paintTab(); welcome();
+  if (!window.__KOSH__) loadAll();
+}
+
+async function loadAll() {
+  if (S.loading) return; S.loading = true;
+  $('#bar').hidden = false;
+  const done = () => { const p = S.loaded / S.granths.length * 100;
+    $('#bar').firstElementChild.style.width = p + '%';
+    $('#loadnote').textContent = p < 100 ? L().loading : L().ready;
+    if (p >= 100) setTimeout(() => { $('#bar').hidden = true; }, 700); };
+  done();
+  for (const g of S.granths) {
+    try { S.full[g.id] = await fetch(`data/full/${g.id}.json`).then(r => r.json()); }
+    catch (e) { S.full[g.id] = []; }
+    S.loaded++; S.hay = null; done();
+    if (S.q) run(S.q);
+  }
+  S.loading = false;
+}
+
+/* haystack: one lowercase blob per section, built once */
+function haystack() {
+  if (S.hay) return S.hay;
+  const out = [];
+  for (const g of S.granths) {
+    const rows = S.full[g.id]; if (!rows) continue;
+    for (const s of rows) {
+      const body = s.c.map(c => c.b).join('\n');
+      out.push({ g:g.id, gt:g[S.lang] || g.hi, k:s.k, n:s.n, t:s.t, p:s.p, grp:s.grp,
+                 body, hay:(s.t + ' ' + s.grp + ' ' + body).toLowerCase() });
+    }
+  }
+  S.hay = out; return out;
+}
+
+/* ---------------------------------------------------------------- search */
+function tokens(q) { return q.toLowerCase().split(/[\s,।|]+/).filter(x => x.length > 0); }
+
+function run(q) {
+  S.q = q;
+  const list = $('#list'), cnt = $('#count');
+  const toks = tokens(q);
+  if (!toks.length) { list.innerHTML = ''; cnt.textContent = L().typing; S.results = []; return; }
+  const rows = haystack(), hits = [];
+  for (const r of rows) {
+    if (S.filter.size && !S.filter.has(r.g)) continue;
+    let ok = true, score = 0, first = -1;
+    for (const t of toks) {
+      const i = r.hay.indexOf(t);
+      if (i < 0) { ok = false; break; }
+      let c = 0, j = i; while (j >= 0) { c++; j = r.hay.indexOf(t, j + t.length); }
+      score += c; if (first < 0 || i < first) first = i;
+      if (r.t.toLowerCase().includes(t)) score += 40;
+      if (r.grp.toLowerCase().includes(t)) score += 12;
+    }
+    if (ok) hits.push({ r, score, first });
+  }
+  hits.sort((a, b) => b.score - a.score || a.first - b.first);
+  S.results = hits.slice(0, 300);
+  cnt.textContent = L().results(hits.length);
+  list.innerHTML = '';
+  if (!hits.length) { list.appendChild(el('div', 'empty', esc(L().none))); return; }
+  const frag = document.createDocumentFragment();
+  for (const h of S.results) frag.appendChild(resultRow(h.r, toks));
+  list.appendChild(frag);
+}
+
+function hl(text, toks) {
+  let out = esc(text);
+  for (const t of toks) {
+    if (!t) continue;
+    out = out.replace(new RegExp('(' + t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi'), '<mark>$1</mark>');
+  }
+  return out;
+}
+
+function snippet(body, toks) {
+  const low = body.toLowerCase();
+  let i = -1; for (const t of toks) { const j = low.indexOf(t); if (j >= 0 && (i < 0 || j < i)) i = j; }
+  if (i < 0) return hl(body.slice(0, 190), toks);
+  const a = Math.max(0, i - 70), b = Math.min(body.length, i + 190);
+  return (a ? '… ' : '') + hl(body.slice(a, b), toks) + (b < body.length ? ' …' : '');
+}
+
+function resultRow(r, toks) {
+  const b = el('button', 'res');
+  b.dataset.g = r.g; b.dataset.k = r.k;
+  const num = r.n ? `§${r.n}` : '';
+  b.innerHTML = `<div class="meta"><span class="tag">${esc(r.gt)}</span>${num ? '<span>' + esc(num) + '</span>' : ''}` +
+    (r.p ? `<span>${esc(L().page)} ${esc(r.p)}</span>` : '') + `</div>` +
+    `<div class="ttl">${hl(r.t, toks)}</div>` +
+    `<div class="snip">${snippet(r.body, toks)}</div>`;
+  b.onclick = () => openSection(r.g, r.k, toks);
+  return b;
+}
+
+/* ---------------------------------------------------------------- reader */
+function findSection(gid, k) {
+  const rows = S.full[gid]; if (!rows) return null;
+  return rows.find(s => s.k === k) || null;
+}
+
+function openSection(gid, k, toks) {
+  const g = S.granths.find(x => x.id === gid); const s = findSection(gid, k);
+  if (!s) return;
+  S.cur = { gid, k };
+  document.querySelectorAll('.res').forEach(n =>
+    n.setAttribute('aria-current', n.dataset.g === gid && n.dataset.k === k ? 'true' : 'false'));
+  const wrap = el('div', 'reader');
+  const crumb = el('div', 'crumb');
+  crumb.innerHTML = `<button class="back" id="backbtn" style="border:0;background:transparent;color:var(--head);cursor:pointer;padding:0 6px 0 0">${esc(L().back)}</button>` +
+    `<b>${esc(g[S.lang] || g.hi)}</b>` + (s.grp ? ` › ${esc(s.grp)}` : '') + (s.n ? ` › §${esc(s.n)}` : '');
+  wrap.appendChild(crumb);
+  wrap.appendChild(el('h2', null, toks ? hl(s.t, toks) : esc(s.t)));
+  const cite = [g[S.lang] || g.hi, s.n ? `§${s.n}` : '', s.p ? `${L().page} ${s.p}` : ''].filter(Boolean).join(' · ');
+  wrap.appendChild(el('div', 'cite', esc(cite)));
+  for (const c of s.c) {
+    const p = el('div', 'part');
+    p.appendChild(el('h3', null, esc(c.h)));
+    const isMool = /मूल/.test(c.h);
+    let tbl = null;
+    for (const line of c.b.split('\n')) {
+      if (!line.trim()) continue;
+      if (line.includes(' | ') || (line.startsWith('|') && line.endsWith('|'))) {
+        if (!tbl) { tbl = el('table'); const w = el('div', 'tablewrap'); w.appendChild(tbl); p.appendChild(w); }
+        const tr = el('tr');
+        for (const cell of line.replace(/^\||\|$/g, '').split('|'))
+          tr.appendChild(el('td', null, toks ? hl(cell.trim(), toks) : esc(cell.trim())));
+        tbl.appendChild(tr); continue;
+      }
+      tbl = null;
+      const para = el('p', isMool ? 'mool' : null, toks ? hl(line, toks) : esc(line));
+      p.appendChild(para);
+    }
+    wrap.appendChild(p);
+  }
+  if (S.lite) wrap.appendChild(el('div', 'note', S.lang === 'hi'
+    ? 'यह ऑनलाइन संस्करण है, इसलिए ऊपर हर भाग का आरम्भिक अंश ही दिखाया गया है। पूरा पाठ मुद्रित ग्रन्थ में तथा इस कोश के ऑफ़लाइन संस्करण में है — ऊपर दी गई अनुच्छेद-संख्या और पृष्ठ-संख्या से वहाँ मिलान कीजिए।'
+    : 'This is the online edition, so each part is shown only in part. The complete text is in the printed book and in the offline edition of this Kosh — use the section and page number above to find it there.'));
+  const act = el('div', 'actions');
+  const b1 = el('button', null, esc(L().findMore));
+  b1.onclick = () => { switchTab('search'); $('#q').value = s.t.split(/[:—–(]/)[0].trim().split(/\s+/).slice(0, 3).join(' '); run($('#q').value); };
+  const b2 = el('button', null, esc(L().copy));
+  b2.onclick = async () => { try { await navigator.clipboard.writeText(`${cite} — ${s.t}`); b2.textContent = L().copied;
+    setTimeout(() => b2.textContent = L().copy, 1400); } catch (e) {} };
+  act.append(b1, b2); wrap.appendChild(act);
+  const right = $('#right'); right.innerHTML = ''; right.appendChild(wrap); right.scrollTop = 0;
+  document.body.dataset.view = 'read';
+  const bb = $('#backbtn'); if (bb) bb.onclick = () => { document.body.dataset.view = 'list'; };
+}
+
+function welcome() {
+  $('#right').innerHTML = `<div class="hint">
+    <h2>${esc(L().welcomeH)}</h2>
+    <p>${S.lang === 'hi'
+      ? 'ऊपर खोज-पेटी में कोई भी शब्द लिखिए — वह सब ग्रन्थों में एक साथ खोजा जाएगा, और हर परिणाम पर ग्रन्थ, अनुच्छेद-संख्या और मुद्रित पृष्ठ लिखा मिलेगा।'
+      : 'Type any word in the search box — it is searched across every text at once, and each result carries its text name, section number and printed page.'}</p>
+    <ul>
+      <li>${S.lang === 'hi' ? '<b>व्याप्ति</b> — जहाँ-जहाँ यह न्याय-सिद्धान्त समझाया गया' : '<b>vyapti</b> — wherever this logical principle is explained'}</li>
+      <li>${S.lang === 'hi' ? '<b>सर्वज्ञ सिद्धि</b> — दोनों शब्द जिस अनुच्छेद में साथ हों' : '<b>sarvajna siddhi</b> — passages containing both words'}</li>
+      <li>${S.lang === 'hi' ? '<b>आह्वान</b> — पूजा-विधि की क्रिया, अभिषेक-संग्रह में' : '<b>ahvana</b> — the ritual act, in the Abhishek collection'}</li>
+    </ul>
+    <p style="font-size:13px;color:var(--ink-3)">${S.lang === 'hi'
+      ? 'कीबोर्ड: <b>/</b> दबाकर सीधे खोज-पेटी में जाइए।' : 'Keyboard: press <b>/</b> to jump to the search box.'}</p>
+  </div>`;
+}
+
+/* ---------------------------------------------------------------- tabs */
+function drawFilters() {
+  const f = $('#filters'); f.innerHTML = '';
+  for (const g of S.granths) {
+    const c = el('button', 'chip', esc(g[S.lang] || g.hi));
+    c.setAttribute('aria-pressed', 'false');
+    c.onclick = () => {
+      const on = c.getAttribute('aria-pressed') === 'true';
+      c.setAttribute('aria-pressed', on ? 'false' : 'true');
+      on ? S.filter.delete(g.id) : S.filter.add(g.id);
+      run($('#q').value);
+    };
+    f.appendChild(c);
+  }
+}
+
+function switchTab(name) {
+  S.tab = name;
+  document.querySelectorAll('.tabs button').forEach(b =>
+    b.setAttribute('aria-selected', b.dataset.tab === name ? 'true' : 'false'));
+  paintTab();
+}
+
+function paintTab() {
+  const sw = $('#searchwrap'), list = $('#list');
+  document.body.dataset.view = 'list';
+  document.body.dataset.pane = S.tab === 'search' ? '' : 'full';
+  if (S.tab === 'search') { sw.hidden = false; list.hidden = false; run($('#q').value); welcome(); return; }
+  sw.hidden = true; list.hidden = true;
+  if (S.tab === 'browse') return paintBrowse();
+  if (S.tab === 'terms') return paintTerms();
+  paintAbout();
+}
+
+function paintBrowse() {
+  const right = $('#right'); right.innerHTML = '';
+  const grid = el('div', 'gcards');
+  for (const g of S.granths) {
+    const c = el('button', 'gcard');
+    c.innerHTML = `<b>${esc(g.hi)}</b><i>${esc(g.en)}</i>` +
+      `<u>${g.n} ${esc(L().sections)}${g.author ? ' · ' + esc(g.author.slice(0, 46)) : ''}</u>`;
+    c.onclick = () => paintGranth(g);
+    grid.appendChild(c);
+  }
+  right.appendChild(grid);
+}
+
+async function paintGranth(g) {
+  if (!S.full[g.id] && !window.__KOSH__) {
+    try { S.full[g.id] = await fetch(`data/full/${g.id}.json`).then(r => r.json()); S.hay = null; } catch (e) {}
+  }
+  const right = $('#right'); right.innerHTML = '';
+  const wrap = el('div', 'reader');
+  const back = el('button', null, esc(L().back));
+  back.style.cssText = 'border:0;background:transparent;color:var(--head);cursor:pointer;padding:0;font-size:12.5px';
+  back.onclick = paintBrowse;
+  wrap.appendChild(back);
+  wrap.appendChild(el('h2', null, esc(g.hi)));
+  if (g.author) wrap.appendChild(el('div', 'cite', esc(g.author)));
+  let grp = null;
+  for (const s of g.idx) {
+    if (s.grp !== grp) { grp = s.grp; if (grp) wrap.appendChild(el('div', 'grouphd', esc(grp))); }
+    const b = el('button', 'res');
+    b.innerHTML = `<div class="meta">${s.n ? '<span class="tag">§' + esc(s.n) + '</span>' : ''}` +
+      (s.p ? `<span>${esc(L().page)} ${esc(s.p)}</span>` : '') + `</div><div class="ttl">${esc(s.t)}</div>`;
+    b.onclick = () => openSection(g.id, s.k, null);
+    wrap.appendChild(b);
+  }
+  right.appendChild(wrap);
+}
+
+function paintTerms() {
+  const right = $('#right'); right.innerHTML = '';
+  const wrap = el('div', 'reader'); wrap.style.maxWidth = '86ch';
+  wrap.appendChild(el('h2', null, esc(L().terms)));
+  wrap.appendChild(el('div', 'cite', `${S.terms.length} ${esc(L().tcount)}`));
+  const box = el('label', 'sbox');
+  box.innerHTML = `<input id="tq" type="search" placeholder="${esc(L().gsearch)}" autocomplete="off">`;
+  box.style.marginBottom = '16px';
+  wrap.appendChild(box);
+  const holder = el('div'); wrap.appendChild(holder);
+  const draw = (q) => {
+    holder.innerHTML = '';
+    const ql = (q || '').toLowerCase();
+    const rows = S.terms.filter(t => !ql || t.t.toLowerCase().includes(ql) || t.m.toLowerCase().includes(ql));
+    for (const t of rows.slice(0, 500)) {
+      const r = el('div', 'termrow');
+      const left = el('div'); left.innerHTML = `<b>${esc(t.t)}</b><em>${esc(t.gt)}</em>`;
+      const rt = el('div'); rt.innerHTML = esc(t.m);
+      const go = el('button', null, esc(L().seeAll));
+      go.onclick = () => { switchTab('search'); $('#q').value = t.t; run(t.t); };
+      rt.appendChild(go);
+      r.append(left, rt); holder.appendChild(r);
+    }
+    if (!rows.length) holder.appendChild(el('div', 'empty', esc(L().none)));
+  };
+  draw('');
+  right.appendChild(wrap);
+  const ti = $('#tq'); ti.oninput = () => draw(ti.value);
+}
+
+function paintAbout() {
+  const right = $('#right'); right.innerHTML = '';
+  const w = el('div', 'about');
+  const hi = S.lang === 'hi';
+  w.appendChild(el('h2', null, hi ? 'जिनागम कोश के बारे में' : 'About JinAagam Kosh'));
+  w.appendChild(el('p', null, hi
+    ? 'यह इस परियोजना में तैयार की गई सब हिन्दी व्याख्याओं और अंग्रेज़ी अनुवादों का एक साझा, खोजने-योग्य संग्रह है। हर अनुच्छेद अपने ग्रन्थ, अनुच्छेद-संख्या और मुद्रित पृष्ठ के साथ यहाँ रखा गया है, ताकि कोई भी बात तुरन्त खोजी और मूल पुस्तक में मिलाई जा सके।'
+    : 'A shared, searchable collection of every Hindi commentary and English translation prepared in this project. Each passage carries its text name, section number and printed page, so anything can be found here and checked against the original book.'));
+  const st = el('div', 'stats');
+  const cells = [[S.stats.sections, L().sections], [S.stats.granths, L().granths],
+    [(S.stats.chars / 100000).toFixed(1), L().chars], [S.stats.terms, L().tcount]];
+  for (const [v, k] of cells) { const c = el('div', 'stat'); c.innerHTML = `<b>${esc(v)}</b><span>${esc(k)}</span>`; st.appendChild(c); }
+  w.appendChild(st);
+  w.appendChild(el('h3', null, hi ? 'सम्मिलित ग्रन्थ' : 'Texts included'));
+  for (const g of S.granths) {
+    const r = el('div', 'srcrow');
+    r.innerHTML = `<b>${esc(g.hi)}</b> — ${g.n} ${esc(L().sections)}` +
+      (g.author ? `<br>${esc(g.author)}` : '') +
+      (g.basis ? `<br><span style="font-size:12px;color:var(--ink-3)">${esc(g.basis.slice(0, 220))}…</span>` : '');
+    w.appendChild(r);
+  }
+  w.appendChild(el('h3', null, hi ? 'सावधानी' : 'Please note'));
+  w.appendChild(el('div', 'note', hi
+    ? 'ये व्याख्याएँ कृत्रिम बुद्धि (AI) की सहायता से, मानव-पर्यवेक्षण के साथ तैयार की गई हैं; प्रूफ-रीडिंग पूर्ण नहीं है। मूल पाठ स्कैन-छवियों से लिपिबद्ध किया गया है। प्रामाणिक उद्धरण के लिए सदैव मूल मुद्रित ग्रन्थ से मिलान करें — इसी कारण हर अनुच्छेद पर मुद्रित पृष्ठ-संख्या दी गई है।'
+    : 'These commentaries were prepared with AI assistance under human supervision; proof-reading is not complete, and the source text was transcribed from scanned images. For authoritative citation always check the original printed book — which is why every passage here carries its printed page number.'));
+  w.appendChild(el('h3', null, hi ? 'संकलन' : 'Compiled by'));
+  w.appendChild(el('p', null, hi ? 'नमन सेठी एवं मोहित जैन' : 'Naman Sethi and Mohit Jain'));
+  right.appendChild(w);
+}
+
+/* ---------------------------------------------------------------- wiring */
+let tmr;
+$('#q').addEventListener('input', e => { clearTimeout(tmr); tmr = setTimeout(() => run(e.target.value), 140); });
+document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => switchTab(b.dataset.tab));
+$('#lang').onclick = () => {
+  S.lang = S.lang === 'hi' ? 'en' : 'hi';
+  $('#lang').textContent = S.lang === 'hi' ? 'EN' : 'हि';
+  document.querySelectorAll('.tabs button').forEach(b => b.textContent = L()[b.dataset.tab]);
+  $('#q').placeholder = L().ph;
+  $('#brandsub').textContent = `${S.stats.sections} ${L().sections} · ${S.stats.granths} ${L().granths}`;
+  S.hay = null; drawFilters(); paintTab();
+  try { localStorage.setItem('kosh-lang', S.lang); } catch (e) {}
+};
+$('#theme').onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : cur === 'light' ? '' : 'dark';
+  next ? document.documentElement.setAttribute('data-theme', next) : document.documentElement.removeAttribute('data-theme');
+  try { localStorage.setItem('kosh-theme', next); } catch (e) {}
+};
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement !== $('#q') && !/input|textarea/i.test(document.activeElement.tagName)) {
+    e.preventDefault(); switchTab('search'); $('#q').focus(); $('#q').select();
+  }
+  if (e.key === 'Escape') { document.body.dataset.view = 'list'; }
+});
+try {
+  const t = localStorage.getItem('kosh-theme'); if (t) document.documentElement.setAttribute('data-theme', t);
+  const lg = localStorage.getItem('kosh-lang');
+  if (lg === 'en') { S.lang = 'en'; $('#lang').textContent = 'हि';
+    document.querySelectorAll('.tabs button').forEach(b => b.textContent = L()[b.dataset.tab]);
+    $('#q').placeholder = L().ph; }
+} catch (e) {}
+boot();
+</script>
