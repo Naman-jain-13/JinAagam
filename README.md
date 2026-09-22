@@ -57,6 +57,34 @@ python -m http.server 8777      # फिर ब्राउज़र में  
 
 ---
 
+## 💾 लैपटॉप बदल जाए / रीसेट हो जाए तो
+
+पूरा काम यहीं सुरक्षित है। नए कंप्यूटर पर इतना कीजिए:
+
+```bash
+# 1. सारा स्रोत-कार्य वापस
+git clone https://github.com/Naman-jain-13/JinAagam.git
+cd JinAagam
+
+# 2. ज़रूरी औज़ार
+pip install python-docx pymupdf
+#   docx बनाने वाले ग्रन्थों में:  cd <ग्रन्थ>_work && npm install
+```
+
+| क्या | कहाँ से वापस आएगा |
+|---|---|
+| सब व्याख्या-पाठ (`parts/`, `addenda/`, `backmatter/`) | `git clone` से — यही असली मेहनत है |
+| build स्क्रिप्ट, `meta.json`, `groups.json`, `progress.md` | `git clone` से |
+| जिनागम कोश (ऐप + डेटा) | `git clone` से |
+| बनी हुई किताबें (DOCX/PDF) | [Releases](../../releases) से डाउनलोड |
+| मूल स्कैन PDF | दोबारा डाउनलोड — सूची [`SOURCES.md`](SOURCES.md) में |
+| `*/img/` स्कैन-पन्ने | मूल PDF से दोबारा बनाइए — विधि [`SOURCES.md`](SOURCES.md) में |
+
+हर ग्रन्थ का `progress.md` बताता है कि काम कहाँ तक हुआ और आगे क्या करना है —
+अधूरे ग्रन्थ वहीं से उठाए जा सकते हैं।
+
+---
+
 ## काम कैसे होता है
 
 ```
