@@ -34,6 +34,10 @@ Paragraph-by-paragraph Hindi commentary on classical Jain texts of *nyāya* (log
 
 **2,865 अनुच्छेद · 10 लाख अक्षर · 420 पारिभाषिक शब्द**
 
+### 🔍 [कोश यहाँ खोलिए → naman-jain-13.github.io/JinAagam](https://naman-jain-13.github.io/JinAagam/)
+
+अपने कंप्यूटर पर चलाना हो तो:
+
 ```bash
 cd encyclopedia
 python -m http.server 8777      # फिर ब्राउज़र में  http://localhost:8777
