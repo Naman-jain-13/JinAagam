@@ -127,7 +127,7 @@ reader hasn't approved (build a tiny docx from just that content; don't touch th
 - Jain आचार्य are always named with respect: "श्री … स्वामी" (or "श्री" alone when the name already carries
   देव/सूरि/स्वामी or follows आचार्य/भट्टारक). Opponent philosophers (कुमारिल, धर्मकीर्ति …) are unchanged;
   the मूल पाठ is never altered. `postprocess_docx.py` enforces this on the whole book.
-- सन्दर्भ एवं पाद-टिप्पणी (part 6) is printed dictionary-size — 7 pt, single-spaced, 9 pt heading.
+- सन्दर्भ एवं पाद-टिप्पणी (part 6) is printed dictionary-size — 7 pt, single-spaced, 9 pt heading, ZERO space between bullets (one entry runs straight into the next); keep the content itself very short (1–3 tiny bullets).
 - Every § has all six headings; a heading with nothing to say gets the standard one-liner, not deletion.
 - Real TOC page numbers and footer page numbers — only Word produces them; LibreOffice will not.
 - Nothing about the *process* (batches, sessions, files, "the user") appears in the book.

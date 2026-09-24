@@ -3,7 +3,8 @@
 Post-processor for the ग्रन्थ-व्याख्या docx files (run AFTER build, BEFORE finalize_word.ps1).
 
 1. "सन्दर्भ एवं पाद-टिप्पणी" (part 6 of every §): shrink to dictionary-size font
-   (7 pt body, tighter line spacing); the part heading itself to 9 pt.
+   (7 pt body, single line spacing) and remove the gap between bullets entirely — one
+   runs straight into the next, no space-after; the part heading itself to 9 pt.
 2. Jain आचार्य names: add honorific "श्री" (and "स्वामी" after bare names) everywhere
    outside the मूल संस्कृत पाठ blocks and outside the TOC.
 
@@ -11,16 +12,17 @@ Usage:  python postprocess_docx.py [--dry-run] <file.docx> [<file.docx> ...]
         --dry-run : report what would change (paragraph and name counts, sample names) without writing.
 Pipeline position:  build_docx.js  ->  postprocess_docx.py  ->  finalize_word.ps1
 Works on the raw word/document.xml so Word's namespace declarations stay intact. Idempotent: running it
-twice adds nothing (names already preceded by श्री are left alone).
+twice adds nothing (names already preceded by श्री are left alone; spacing is re-applied to the same value).
 Why: the reader asked (a) that guru-paramparā names be written with respect — श्री … स्वामी — and
-(b) that reference/footnote matter take minimal space (dictionary size). Extend NAMES when a new आचार्य appears.
+(b) that reference/footnote matter take minimal space (dictionary size, zero gap between entries).
+Extend NAMES when a new आचार्य appears.
 """
 import re, sys, zipfile, shutil, os, io
 
 REF_SIZE = 14        # half-points -> 7 pt
 REF_HEAD_SIZE = 18   # 9 pt
 REF_LINE = 240       # single spacing
-REF_AFTER = 40
+REF_AFTER = 0        # no gap between part-6 bullets — one runs straight into the next
 
 # Names (longest variants first inside each alternation group). Bare form gets "श्री X स्वामी";
 # forms already carrying a title-suffix (देव/सूरि/स्वामी…) only get "श्री ".

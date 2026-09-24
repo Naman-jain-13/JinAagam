@@ -79,8 +79,9 @@ Depth target: **≈ 2.5–3 pages per §** in the final PDF. Parts 1–3 are wri
   or used as a compound ("जिनसेन-कृत") → `श्री <name>`. Non-Jain opponents (कुमारिल, धर्मकीर्ति, उदयन…)
   stay as they are. Never touch the मूल पाठ or the TOC. `scripts/postprocess_docx.py` applies this to the
   whole book after the build — but write it correctly at source too.
-- **Part 6 at dictionary size:** सन्दर्भ एवं पाद-टिप्पणी body 7 pt, single spacing, heading 9 pt (the
-  reader wants references present but taking minimal space). Applied by `postprocess_docx.py`.
+- **Part 6 at dictionary size:** सन्दर्भ एवं पाद-टिप्पणी body 7 pt, single spacing, heading 9 pt, and **zero
+  space between bullets** (one entry runs straight into the next); the content itself is kept very short —
+  1–3 tiny bullets (the reader wants references present but taking minimal space). Applied by `postprocess_docx.py` (REF_AFTER = 0).
 - **No working-process language** in the document: no "बैच", "सत्र", "अगले बैच में", "progress.md",
   file names, "उपयोगकर्ता", "हमने पिछली बातचीत में", "Q3/Q4", English project nicknames. Cross-refer with
   "§ 14", "पूर्व-वर्णित", "आगामी अंश". This is a book for मुनि/श्रावक, not a work log.

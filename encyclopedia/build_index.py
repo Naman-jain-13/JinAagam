@@ -1,6 +1,6 @@
 """JinAagam Encyclopedia — corpus indexer.
 
-Walks every *_work folder (markdown) plus the Pramana Pariksha .docx (no md source
+Walks every granth/<name> folder (markdown) plus the Pramana Pariksha .docx (no md source
 survives) and produces one normalised dataset:
 
     data/meta.json          granth list + every section's id/number/title/page/group   (small, always loaded)
@@ -43,13 +43,13 @@ def page_of(title: str):
 
 CORPORA = [
     # id, folder, display title (hi), display title (en), language of content
-    ("asht",   "ashtasahasri_work",    "अष्टसहस्री",                 "Ashtasahasri",              "hi"),
-    ("bruhat", "bruhat_sarvagya_work", "बृहत् सर्वज्ञसिद्धि",          "Bruhat Sarvagya Siddhi",    "hi"),
-    ("laghu",  "sarvagya_siddhi_work", "लघु सर्वज्ञसिद्धि",           "Laghu Sarvagya Siddhi",     "hi"),
-    ("nyaya",  "nyayakumud_work",      "न्यायकुमुदचन्द्र",            "Nyayakumudachandra",        "hi"),
-    ("abhi",   "abhishek_work",        "अभिषेक पाठ संग्रह",           "Abhishek Path Sangrah",     "hi"),
-    ("gagar",  "gagar_saar_work",      "गागर में सागर (English)",      "Gagar Mein Sagar (English)", "en"),
-    ("shanti", "shantisagar_work",     "आचार्य शान्तिसागर जी (English)", "Acharya Shantisagar Ji (English)", "en"),
+    ("asht",   "granth/ashtasahasri",    "अष्टसहस्री",                 "Ashtasahasri",              "hi"),
+    ("bruhat", "granth/bruhat-sarvagya-siddhi", "बृहत् सर्वज्ञसिद्धि",          "Bruhat Sarvagya Siddhi",    "hi"),
+    ("laghu",  "granth/laghu-sarvagya-siddhi", "लघु सर्वज्ञसिद्धि",           "Laghu Sarvagya Siddhi",     "hi"),
+    ("nyaya",  "granth/nyayakumudachandra-1",      "न्यायकुमुदचन्द्र",            "Nyayakumudachandra",        "hi"),
+    ("abhi",   "granth/abhishek-path-sangrah",        "अभिषेक पाठ संग्रह",           "Abhishek Path Sangrah",     "hi"),
+    ("gagar",  "granth/gagar-mein-sagar-english",      "गागर में सागर (English)",      "Gagar Mein Sagar (English)", "en"),
+    ("shanti", "granth/shantisagar-english",     "आचार्य शान्तिसागर जी (English)", "Acharya Shantisagar Ji (English)", "en"),
 ]
 
 PART_ORDER = ["मूल पाठ", "मूल संस्कृत पाठ", "हिन्दी अनुवाद", "जैनागम", "पूरक", "सरल उदाहरण",
@@ -424,7 +424,7 @@ def main():
         print(f"  \u2713 {title_hi:28s} {len(gdata):5d} sections  {chars/1024:8.0f} KB")
 
     # Pramana Pariksha — only the finished docx survives
-    pp = ROOT / "Pramana_Pariksha_Sampurna_Vyakhya.docx"
+    pp = ROOT / "granth" / "pramana-pariksha" / "vyakhya" / "Pramana_Pariksha_Sampurna_Vyakhya.docx"
     if pp.exists():
         sections, order = parse_docx(pp)
         if order:

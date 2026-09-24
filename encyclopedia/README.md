@@ -50,7 +50,7 @@ https://claude.ai/artifact/TUTaqs3TfXwG6Zm5A7jSEw
 
 ```
 cd E:\Projects\JinAagam\encyclopedia
-python build_index.py     # सब *_work फ़ोल्डर पढ़कर data/ बनाता है
+python build_index.py     # सब granth/<ग्रन्थ> फ़ोल्डर पढ़कर data/ बनाता है
 python build_online.py    # उसी से online.html बनाता है
 ```
 

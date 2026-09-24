@@ -1,8 +1,8 @@
 # ---------------------------------------------------------------- heavy, regenerable
 # Rendered scan pages (300 dpi PNGs). ~1.65 GB. Regenerate from the source PDF with
 # pymupdf whenever a text is being worked on — see each work folder's progress.md.
-*/img/
-*/pages/
+**/img/
+**/pages/
 
 # npm packages for the docx builders — `npm install` restores them
 node_modules/
@@ -26,6 +26,9 @@ __pycache__/
 *.bak.*
 *.pre-honorific.*
 
+# Scratch crops and stray build logs kept out of the way
+_scratch/
+
 # ---------------------------------------------------------------- build noise
 *.log
 finalize.log*
@@ -36,3 +39,9 @@ build_log.txt
 # The site published from this repo uses encyclopedia/index.html + encyclopedia/data/.
 encyclopedia/online.html
 encyclopedia/_check.js
+
+# Scratch crops from scan-checking (regenerable from the source PDF; the A/B
+# test's actual results — the .md and .txt files — stay tracked).
+**/tmp_check/
+**/_model_test/crops/
+**/_model_test/pdfcheck/

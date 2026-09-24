@@ -69,4 +69,4 @@ granth-vyakhya/
 - The book never names Jain sub-sects (बीसपंथ/तेरापंथ). Variants are described neutrally.
 - Nothing about the working process (batches, sessions, file names) appears in the book.
 - Every आचार्य is named with respect — श्री विद्यानन्द स्वामी, श्री अकलंकदेव — never a bare name.
-- सन्दर्भ एवं पाद-टिप्पणी is printed dictionary-size (7 pt) so references take minimal space.
+- सन्दर्भ एवं पाद-टिप्पणी is printed dictionary-size (7 pt, single-spaced, ZERO gap between bullets) and its content is kept very short (1–3 tiny bullets) so references take minimal space.
