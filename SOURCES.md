@@ -19,8 +19,6 @@ jainelibrary.org तथा अन्य जैन डिजिटल पुस�
 | `Laghu Sarvagya Siddhi [Acharya Anantkeertiji Vicharit]-Pt. Kallappa Nitave.pdf` | 1.6 MB | `granth/laghu-sarvagya-siddhi/` | पूर्ण (75 §) |
 | `Nayachakko [Naya Chakra] [Shree Maailladhaval].pdf` | 32 MB | `granth/nayachakra/` | आरम्भ |
 | `Aapt_pariksha_001613.pdf` | 11 MB | `granth/aapta-pariksha/` | आरम्भ |
-| `Shantusagar jee.pdf` | 1.9 MB | `granth/shantisagar-english/` (अंग्रेज़ी अनुवाद) | पूर्ण |
-| `Gagar Saar.pdf` · `GAGAR MEN SAGAR - Book.pdf` · `Gagar Me Sagar 23-9-2025.pdf` | 3.5 + 41 + 6.3 MB | `granth/gagar-mein-sagar-english/` (अंग्रेज़ी अनुवाद) | पूर्ण |
 | `praman_pariksha_last_chapter_67_pages.pdf` | 3.8 MB | प्रमाण-परीक्षा का अन्तिम अध्याय | पूर्ण |
 
 > **प्रमाण-परीक्षा** का पूरा स्कैन अब पास नहीं है; उसका markdown स्रोत भी नहीं बचा।

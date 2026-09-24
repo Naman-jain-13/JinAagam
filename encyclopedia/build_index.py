@@ -48,8 +48,6 @@ CORPORA = [
     ("laghu",  "granth/laghu-sarvagya-siddhi", "लघु सर्वज्ञसिद्धि",           "Laghu Sarvagya Siddhi",     "hi"),
     ("nyaya",  "granth/nyayakumudachandra-1",      "न्यायकुमुदचन्द्र",            "Nyayakumudachandra",        "hi"),
     ("abhi",   "granth/abhishek-path-sangrah",        "अभिषेक पाठ संग्रह",           "Abhishek Path Sangrah",     "hi"),
-    ("gagar",  "granth/gagar-mein-sagar-english",      "गागर में सागर (English)",      "Gagar Mein Sagar (English)", "en"),
-    ("shanti", "granth/shantisagar-english",     "आचार्य शान्तिसागर जी (English)", "Acharya Shantisagar Ji (English)", "en"),
 ]
 
 PART_ORDER = ["मूल पाठ", "मूल संस्कृत पाठ", "हिन्दी अनुवाद", "जैनागम", "पूरक", "सरल उदाहरण",
