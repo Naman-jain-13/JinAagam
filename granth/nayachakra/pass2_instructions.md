@@ -189,6 +189,16 @@ credits श्री माइल्लधवल with setting the दोहा-c
 - **No working-process language anywhere**: no "बैच", "इस सत्र", "अगले भाग में", file names, scan pages,
   "उपयोगकर्ता", no mention of other agents or of how the book was made. Cross-refer only as "§ 42",
   "पूर्व-वर्णित गाथा", "आगामी अधिकार में".
+- **तत्त्वार्थसूत्र numbering: use the दिगम्बर (सर्वार्थसिद्धि) recension, not the श्वेताम्बर one.** They
+  diverge in अध्याय 5 and the wrong one is easy to reach for, because the श्वेताम्बर numbering is commoner
+  in print. This ग्रन्थ is दिगम्बर and its own footnotes cite सर्वार्थसिद्धि, so:
+  `सद्द्रव्यलक्षणम्` = **5.29** · `उत्पादव्ययध्रौव्ययुक्तं सत्` = **5.30** · `तद्भावाव्ययं नित्यम्` = **5.31** ·
+  `गुणपर्यायवद् द्रव्यम्` = **5.38**.
+  (In the श्वेताम्बर numbering those last two are 5.30 and 5.37 — if you find yourself writing 5.29 for
+  उत्पाद-व्यय-ध्रौव्य *and* 5.38 for गुण-पर्याय, you have mixed the two systems. Four files in the first wave
+  did exactly that and were corrected.) When you are not certain of a सूत्र number, cite the सूत्र text and
+  the अध्याय alone — that is always safe and always useful.
+
 - **Never fabricate.** Not a citation, not a verse number, not a doctrine. "लगभग" / "सम्भवतः" where unsure;
   silence where you do not know. A व्याख्या that invents a सूत्र number is worse than one that omits it —
   this book will be cited.

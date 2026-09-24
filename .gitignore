@@ -45,3 +45,6 @@ encyclopedia/_check.js
 **/tmp_check/
 **/_model_test/crops/
 **/_model_test/pdfcheck/
+
+# ग्रन्थ-सेटअप के समय बनी पृष्ठ-अङ्क पट्टियाँ (pagemap.json में नतीजा सुरक्षित है)
+**/_pagemap/*.png
