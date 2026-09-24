@@ -17,6 +17,7 @@ jainelibrary.org तथा अन्य जैन डिजिटल पुस�
 | `02611 Abhishek Path - Sangrah, Soni, Pannalal.pdf` | 13 MB | `granth/abhishek-path-sangrah/` | पूर्ण (349 अनुच्छेद) |
 | `Bruhat Sarvagya Siddhi [Acharya Anantkeertiji Vicharit]-Pt. Kallappa Nitave.pdf` | 5.7 MB | `granth/bruhat-sarvagya-siddhi/` | पूर्ण (80 §) |
 | `Laghu Sarvagya Siddhi [Acharya Anantkeertiji Vicharit]-Pt. Kallappa Nitave.pdf` | 1.6 MB | `granth/laghu-sarvagya-siddhi/` | पूर्ण (75 §) |
+| `Prameyakamal -detail sanskrit only.pdf` | 33 MB | `granth/Prameyakamal/` | चल रहा है |
 | `Nayachakko [Naya Chakra] [Shree Maailladhaval].pdf` | 32 MB | `granth/nayachakra/` | आरम्भ |
 | `Aapt_pariksha_001613.pdf` | 11 MB | `granth/aapta-pariksha/` | आरम्भ |
 | `praman_pariksha_last_chapter_67_pages.pdf` | 3.8 MB | प्रमाण-परीक्षा का अन्तिम अध्याय | पूर्ण |

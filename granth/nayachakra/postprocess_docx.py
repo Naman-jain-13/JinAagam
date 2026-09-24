@@ -20,7 +20,7 @@ import re, sys, zipfile, shutil, os, io
 REF_SIZE = 14        # half-points -> 7 pt
 REF_HEAD_SIZE = 18   # 9 pt
 REF_LINE = 240       # single spacing
-REF_AFTER = 40
+REF_AFTER = 0        # compact part 9: no gap between reference bullets
 
 # Names (longest variants first inside each alternation group). Bare form gets "श्री X स्वामी";
 # forms already carrying a title-suffix (देव/सूरि/स्वामी…) only get "श्री ".
