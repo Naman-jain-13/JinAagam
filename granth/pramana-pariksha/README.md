@@ -11,6 +11,6 @@
 | | |
 |---|---|
 | `mool/` | मूल ग्रन्थ का स्कैन — `praman_pariksha_last_chapter_67_pages.pdf` |
-| `vyakhya/` | बनी हुई किताब — `Pramana_Pariksha_Paragraph_1-180_Translation_Gloss_Explanation.docx`, `Pramana_Pariksha_Sampurna_Vyakhya.docx`, `Pramana_Pariksha_Sampurna_Vyakhya.pdf`, `Shanka_Samadhan_QA.docx`, `Shanka_Samadhan_QA.txt` |
+| `vyakhya/` | बनी हुई किताब — `Pramana_Pariksha_Paragraph_1-180_Translation_Gloss_Explanation.docx`, `Pramana_Pariksha_Sampurna_Vyakhya.docx`, `Pramana_Pariksha_Sampurna_Vyakhya.pdf`, `Shanka_Samadhan_QA.docx`, `Shanka_Samadhan_QA.txt`, `Mkj.docx` (भाग १ का आरम्भिक मसौदा) |
 
 सब रास्ते इसी फ़ोल्डर के सापेक्ष हैं — स्क्रिप्ट यहीं से चलाइए।
