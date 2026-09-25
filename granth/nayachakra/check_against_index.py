@@ -28,6 +28,13 @@ reading and to targeted lookups against the index IMAGE, which is how it has act
 The index transcription's own error rate is visible in its totals: 27 गाथा numbers absent and
 19 numbers carrying two different openings — a signature of misread digits (342 read as 242,
 326 as 226, 378 as 278).
+
+KNOWN BLIND SPOT: comparing only the OPENING consonants cannot see a divergence further into the
+line. गाथा 423 is printed `सियसत्तु` in the body against `सिय सद्दु` in the index — a substantive
+difference, settled in favour of the index by §71's own `सियसद्देण` — and this check passed it,
+because both witnesses open `सिय`. Widening the signature would trade that for a flood of false
+alarms from the index's own noise, so the blind spot is accepted: catching wrong गाथा NUMBERS is
+this check's job, and reading the whole line is the व्याख्या pass's.
 """
 import io, re, sys, glob, os, unicodedata
 

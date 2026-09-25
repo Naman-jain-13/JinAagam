@@ -5,6 +5,7 @@ Post-processor for the ग्रन्थ-व्याख्या docx files (r
 1. "सन्दर्भ एवं पाद-टिप्पणी" (part 6 of every §): shrink to dictionary-size font
    (7 pt body, single line spacing) and remove the gap between bullets entirely — one
    runs straight into the next, no space-after; the part heading itself to 9 pt.
+   A back-matter chapter whose Heading 1 contains a SMALL_H1 key is set at the same 7 pt throughout.
 2. Jain आचार्य names: add honorific "श्री" (and "स्वामी" after bare names) everywhere
    outside the मूल संस्कृत पाठ blocks and outside the TOC.
 
@@ -19,10 +20,15 @@ Extend NAMES when a new आचार्य appears.
 """
 import re, sys, zipfile, shutil, os, io
 
-REF_SIZE = 14        # half-points -> 7 pt
+import os as _os
+# half-points. 14 -> 7 pt is the project default; a book may ask for smaller
+# via  REF_PT=6.5  in the environment (अभिषेक पाठ संग्रह uses 6.5).
+REF_SIZE = int(round(float(_os.environ.get('REF_PT', 7)) * 2))
 REF_HEAD_SIZE = 18   # 9 pt
 REF_LINE = 240       # single spacing
 REF_AFTER = 0        # no gap between part-6 bullets — one runs straight into the next
+# Back-matter chapters printed wholly at dictionary size (body + tables): Heading 1 containing any of these.
+SMALL_H1 = ('अनुवाद-भेद',)
 
 # Names (longest variants first inside each alternation group). Bare form gets "श्री X स्वामी";
 # forms already carrying a title-suffix (देव/सूरि/स्वामी…) only get "श्री ".
@@ -104,12 +110,16 @@ def process(xml):
     def fix_para(m):
         nonlocal sec
         p = m.group(0); st = para_style(p); txt = para_text(p)
-        if st == 'Heading3':
+        if sec == 'small' and st in ('Heading2', 'Heading3'):
+            pass                                   # sub-headings inside a small-print appendix keep their size
+        elif st == 'Heading3':
             # part-1 heading may read "मूल संस्कृत पाठ", "मूल पाठ", "मूल प्राकृत गाथा" … ; part-6 "सन्दर्भ एवं पाद-टिप्पणी"
             if 'मूल' in txt: sec = 'mool'
             elif 'सन्दर्भ' in txt and 'टिप्पणी' in txt: sec = 'ref'
             else: sec = 'other'
-        elif st in ('Heading1', 'Heading2'):
+        elif st == 'Heading1':
+            sec = 'small' if any(k in txt for k in SMALL_H1) else 'other'
+        elif st == 'Heading2':
             sec = 'other'
         is_ref_heading = (st == 'Heading3' and sec == 'ref')
         # --- honorifics (skip mool text and TOC) ---
@@ -130,6 +140,9 @@ def process(xml):
                 if nr != r: newp = newp.replace(r, nr, 1)
             p = newp
         # --- dictionary size for part 6 ---
+        if sec == 'small' and not st.startswith('Heading'):
+            p = R_RE.sub(lambda r: set_run_size(r.group(0), REF_SIZE), p)
+            stats['small_paras'] = stats.get('small_paras', 0) + 1
         if sec == 'ref':
             sz = REF_HEAD_SIZE if is_ref_heading else REF_SIZE
             p = R_RE.sub(lambda r: set_run_size(r.group(0), sz), p)

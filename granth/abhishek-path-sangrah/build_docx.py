@@ -207,6 +207,66 @@ def add_toc(doc):
     r._r.append(end)
 
 
+# सन्दर्भ एवं पाद-टिप्पणी का आकार — पाठक ने कहा: शीर्षक छोटा, और बुलेट अगली पंक्ति में
+# जाने के बजाय उसी पंक्ति में दो स्पेस छोड़कर बहते रहें, ताकि जगह बचे।
+REF_HEAD_PT = 8.5
+REF_BODY_PT = 6.5
+
+
+def is_ref_heading(text):
+    return "सन्दर्भ" in text and "पाद-टिप्पणी" in text
+
+
+def add_ref_notes(doc, entries):
+    """सब टिप्पणियाँ एक ही अनुच्छेद में — '• पहली।  • दूसरी।  • तीसरी।'"""
+    if not entries:
+        return
+    p = doc.add_paragraph()
+    pf = p.paragraph_format
+    pf.space_before = Pt(0)
+    pf.space_after = Pt(4)
+    pf.line_spacing = 1.0
+    pf.left_indent = Cm(0.4)
+    for k, e in enumerate(entries):
+        if k:
+            set_font(p.add_run("  "), size=REF_BODY_PT)   # दो पतले स्पेस
+        set_font(p.add_run("• "), size=REF_BODY_PT, color="777777")
+        add_inline(p, e, size=REF_BODY_PT)
+
+
+# चलता-शीर्षक (running head): हर ग्रन्थ के पन्नों के ऊपर उसी ग्रन्थ का नाम,
+# अति-लघु अक्षरों में, बाहरी किनारे पर। यह ऊपर के हाशिये के अन्दर बैठता है,
+# इसलिए मुख्य पाठ के लिए एक भी पंक्ति की जगह नहीं लेता।
+RUN_HEAD_PT = 6.5
+RUN_HEAD_COLOR = "8A8A8A"
+
+
+def short_title(h1):
+    """'ग्रन्थ-५: जैनाभिषेकः (श्री गजांकुश कवि …)' -> 'ग्रन्थ-५: जैनाभिषेकः'"""
+    s = re.sub(r"\*\*", "", h1)
+    s = re.sub(r"\s*\(.*$", "", s).strip(" —-–:;,")
+    return s if len(s) <= 62 else s[:60].rstrip() + "…"
+
+
+def start_chapter_section(doc, title, first):
+    """नया खण्ड आरम्भ कीजिए और उसके पन्नों पर ग्रन्थ-नाम लगाइए।
+    फ़ुटर को छूना नहीं है — वह खण्ड 0 से जुड़ा रहता है, वरना PAGE फ़ील्ड दुगुनी हो जाती है।"""
+    sec = doc.add_section(WD_SECTION.CONTINUOUS if first else WD_SECTION.NEW_PAGE)
+    sec.left_margin = sec.right_margin = Cm(1.5)
+    sec.top_margin = sec.bottom_margin = Cm(1.3)
+    sec.header.is_linked_to_previous = False
+    sec.header_distance = Cm(0.55)
+    p = sec.header.paragraphs[0]
+    p.text = ""
+    p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+    pf = p.paragraph_format
+    pf.space_before = Pt(0)
+    pf.space_after = Pt(0)
+    pf.line_spacing = 1.0
+    set_font(p.add_run(short_title(title)), size=RUN_HEAD_PT, color=RUN_HEAD_COLOR)
+    return sec
+
+
 def main():
     doc = Document()
     sec = doc.sections[0]
@@ -290,17 +350,38 @@ def main():
                 add_table(doc, rows)
                 continue
             elif s.startswith("### "):
+                title = s[4:]
+                if is_ref_heading(title):
+                    h = doc.add_heading(level=3)
+                    h.paragraph_format.space_before = Pt(4)
+                    h.paragraph_format.space_after = Pt(0)
+                    add_inline(h, title, size=REF_HEAD_PT, color="1F4E79")
+                    i += 1
+                    notes = []
+                    while i < len(lines):
+                        nxt = lines[i]
+                        if re.match(r"^\s*[-*] ", nxt):
+                            notes.append(re.sub(r"^\s*[-*] ", "", nxt).rstrip())
+                            i += 1
+                        elif not nxt.strip():
+                            i += 1
+                            if any(l.strip() and not re.match(r"^\s*[-*] ", l)
+                                   for l in lines[i:i + 1]):
+                                break
+                        else:
+                            break
+                    add_ref_notes(doc, notes)
+                    continue
                 h = doc.add_heading(level=3)
-                add_inline(h, s[4:], size=12.5, color="1F4E79")
+                add_inline(h, title, size=12.5, color="1F4E79")
             elif s.startswith("## "):
                 # अनुच्छेद-स्तरीय शीर्षक: कोई पृष्ठ-विभाजन नहीं, केवल दृश्य-अन्तराल (ऊपर पतली रेखा + स्पेसिंग)
                 first_h2 = after_h1 = False
                 h = doc.add_heading(level=2)
                 add_inline(h, s[3:], size=15, color="8B4513")
             elif s.startswith("# "):
-                # ग्रन्थ/अध्याय-स्तरीय शीर्षक: नया पृष्ठ (पहले शीर्षक को छोड़कर)
-                if not first_h2:
-                    doc.add_page_break()
+                # ग्रन्थ/अध्याय-स्तरीय शीर्षक: नया खण्ड — नया पृष्ठ + इस ग्रन्थ का चलता-शीर्षक
+                start_chapter_section(doc, s[2:], first=first_h2)
                 first_h2, after_h1 = False, True
                 h = doc.add_heading(level=1)
                 add_inline(h, s[2:], size=18, color="7A2E00")

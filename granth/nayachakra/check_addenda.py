@@ -40,6 +40,12 @@ BARE = ['कुन्दकुन्द', 'कुंदकुंद', 'देव
         'माइल्लधवल', 'योगीन्दु', 'शुभचन्द्र', 'प्रभाचन्द्र', 'माणिक्यनन्दी']
 # 'अनन्तवीर्य' is excluded: in this ग्रन्थ it is always the quality of the अनन्तचतुष्टय, never the आचार्य.
 HONOURED = re.compile(r'(श्री|आचार्य|स्वामी|भट्ट|भट्टारक|मुनि|भगवान्?|पण्डित|पं\.)[\s\-–]*$')
+# Anything inside quotes is being CITED, not referred to: a manuscript reading, a Sanskrit टिप्पणी,
+# a छाया form. Such a name must stay exactly as the source has it, so the bare-name check skips
+# quoted spans. postprocess_docx.py leaves them alone too (a Devanagari character follows the name
+# in each), so this keeps the gate and the post-processor agreeing.
+QUOTES = '‘’“”\'"'
+QUOTED = re.compile('[' + QUOTES + '][^' + QUOTES + '\n]{0,120}?[' + QUOTES + ']')
 
 problems = []
 
@@ -102,12 +108,24 @@ for n in sorted(add):
         if w in t:
             problems.append('%s — forbidden word "%s"' % (b, w))
 
-    # 6. bare आचार्य names
+    # 6. bare आचार्य names — only in the PROSE parts (6-9). Parts 2-4 reproduce the गाथा's own words:
+    # the छाया, the अन्वय, and the अन्वयार्थ's पद, Sanskrit forms and compound splits
+    # ('देवसेण = देवसेन + देव'). A name there is quoted matter and must stay bare; postprocess_docx.py
+    # exempts the same parts.
+    prose = t
+    m6 = re.search(r'^##\s*6\.', t, re.M)
+    if m6:
+        prose = t[m6.start():]
+    # Drop quoted spans before looking for bare names. A name inside quotes is being CITED — a manuscript
+    # reading ('देवसेनके शिष्य'), a Sanskrit टिप्पणी ('देवसेनशिष्येण'), a छाया form ('[माइल्लधवलेन]') — and
+    # must stay exactly as the source has it. postprocess_docx.py leaves these alone anyway, because a
+    # Devanagari character follows the name in each; this keeps the gate agreeing with it.
+    prose = QUOTED.sub(' ', prose)
     for name in BARE:
-        for m in re.finditer(r'(?<![ऀ-ॿ])' + name, t):
-            pre = t[max(0, m.start() - 24):m.start()]
+        for m in re.finditer(r'(?<![ऀ-ॿ])' + name, prose):
+            pre = prose[max(0, m.start() - 24):m.start()]
             if not HONOURED.search(pre):
-                problems.append('%s — bare "%s" (needs श्री … स्वामी)' % (b, name))
+                problems.append('%s — bare "%s" in prose (needs श्री … स्वामी)' % (b, name))
                 break
 
     # 7. thin व्याख्या

@@ -34,14 +34,29 @@ const DEV = '०१२३४५६७८९';
 const devToInt = s => parseInt(s.replace(/[०-९]/g, d => DEV.indexOf(d)), 10);
 const intToDev = n => String(n).replace(/\d/g, d => DEV[d]);
 // English numerals everywhere except inside मूल text (verse numbers like ॥१२॥ stay Devanagari there).
-const toEn = t => EN_NUMERALS ? t.replace(/[०-९]/g, d => String(DEV.indexOf(d))) : t;
+// English digits outside मूल text — but a verse number sitting inside dandas (॥१७॥) is quoted मूल
+// wherever it appears, including in the अन्वयार्थ's closing "॥१७॥ = गाथा-क्रमांक" line, so it keeps
+// its Devanagari digits. Without this guard that line rendered as the half-converted "॥17॥".
+const toEn = t => EN_NUMERALS
+  ? t.split(/(॥[^॥]*॥)/).map((seg, i) =>
+      i % 2 ? seg : seg.replace(/[०-९]/g, d => String(DEV.indexOf(d)))).join('')
+  : t;
 
 // ---------- inline / paragraph helpers ----------
+// **bold** and *italic*. The single-asterisk arm matters: the व्याख्या marks *दार्ष्टान्तिक*, *सीमा* and
+// ग्रन्थ names that way — 700 spans across 159 files — and without it the asterisks print literally.
+// The guards (?<![*\w]) … (?!\s) … (?<!\s) … (?![*\w]) stop it firing on ** delimiters or on an asterisk
+// used as a footnote mark. Nested emphasis (*italic* inside **bold**) is NOT supported — the bold arm
+// wins and the inner asterisks would print literally; write the inner phrase in ‘ ’ quotes instead.
 function parseInline(line) {
-  const out = []; const re = /\*\*(.+?)\*\*/g; let last = 0, m;
+  const out = [];
+  const re = /\*\*(.+?)\*\*|(?<![*\w])\*(?!\s)([^*\n]+?)(?<!\s)\*(?![*\w])/g;
+  let last = 0, m;
   while ((m = re.exec(line)) !== null) {
     if (m.index > last) out.push({ text: line.slice(last, m.index), bold: false });
-    out.push({ text: m[1], bold: true }); last = re.lastIndex;
+    if (m[1] !== undefined) out.push({ text: m[1], bold: true });
+    else out.push({ text: m[2], bold: false, italics: true });
+    last = re.lastIndex;
   }
   if (last < line.length) out.push({ text: line.slice(last), bold: false });
   if (!out.length) out.push({ text: line, bold: false });
@@ -50,7 +65,7 @@ function parseInline(line) {
 const MOOL_COLOR = '7A1F1F';
 const runs = (line, extra) => {
   const keep = extra && extra.color === MOOL_COLOR;
-  return parseInline(line).map(r => new TextRun(Object.assign({ text: keep ? r.text : toEn(r.text), bold: r.bold, size: BODY, font: FONT }, extra || {})));
+  return parseInline(line).map(r => new TextRun(Object.assign({ text: keep ? r.text : toEn(r.text), bold: r.bold, italics: !!r.italics, size: BODY, font: FONT }, extra || {})));
 };
 const pNormal = (line, extra) => new Paragraph({ alignment: AlignmentType.JUSTIFIED, spacing: { after: 120, line: 320 }, children: runs(line, extra) });
 const pBullet = line => new Paragraph({ bullet: { level: 0 }, alignment: AlignmentType.JUSTIFIED, spacing: { after: 80, line: 320 }, children: runs(line) });

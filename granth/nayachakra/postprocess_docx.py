@@ -108,7 +108,17 @@ def process(xml):
         p = m.group(0); st = para_style(p); txt = para_text(p)
         if st == 'Heading3':
             # part-1 heading may read "मूल संस्कृत पाठ", "मूल पाठ", "मूल प्राकृत गाथा" … ; part-6 "सन्दर्भ एवं पाद-टिप्पणी"
-            if 'मूल' in txt: sec = 'mool'
+            # 'mool' means "quoted text — do not touch". Besides part 1, that covers the संस्कृत छाया and
+            # the अन्वय: both reproduce the गाथा's own words (the छाया as a literal correspondence, the
+            # अन्वय as the same Prakrit words reordered). गाथा 423–425 name देवसेन and माइल्लधवल, so
+            # without this guard the honorific pass would inject "श्री … स्वामी" into what is meant to be
+            # a word-for-word rendering of the verse.
+            # 'mool' = quoted text, do not touch: part 1, the संस्कृत छाया, the अन्वय, AND the अन्वयार्थ.
+            # The अन्वयार्थ is mostly quoted matter — the प्राकृत पद, its Sanskrit form, and compound
+            # splits like 'देवसेण = देवसेन + देव'. Honouring that last one would print
+            # 'देवसेण = श्री देवसेन स्वामी + देव'. Its short Hindi glosses are written with the
+            # honorific at source already, so nothing is lost by exempting the whole part.
+            if 'मूल' in txt or 'छाया' in txt or 'अन्वय' in txt: sec = 'mool'
             elif 'सन्दर्भ' in txt and 'टिप्पणी' in txt: sec = 'ref'
             else: sec = 'other'
         elif st in ('Heading1', 'Heading2'):

@@ -1,5 +1,32 @@
 # नयचक्र (णयचक्को) व्याख्या — progress log
 
+## COMPLETE — 2026-09-25
+
+`vyakhya/Nayachakra_Vyakhya.docx` (3.9 MB) and `vyakhya/Nayachakra_Vyakhya.pdf` (15.5 MB, **1,514 pages**).
+
+- **369 अनुच्छेद covering all 425 गाथा**, each with nine parts: मूल प्राकृत गाथा · संस्कृत छाया · अन्वय ·
+  अन्वयार्थ · हिन्दी अनुवाद · जैनागम-सम्मत विस्तृत व्याख्या · सरल उदाहरण · तुलनात्मक तालिका · सन्दर्भ.
+  46 § are merged units where the edition gives several गाथा one विशेषार्थ.
+- **14 खण्ड headers** from the ग्रन्थ's own `इति …अधिकारः` lines, plus भूमिका, उपसंहार, 7 परिशिष्ट,
+  33-entry सन्दर्भ ग्रन्थ सूची and a 90-term शब्दावली.
+- Real TOC page numbers, centred footer numbers, 0 headings stranded at a page bottom,
+  part 9 at 7 pt with no gap between bullets.
+
+Gates, all green: `check_coverage.py` · `check_addenda.py` · `check_quality.py docx` · `check_quality.py pdf`.
+
+**Rebuild from source** (run from inside this folder):
+
+    node build_docx.js .
+    python postprocess_docx.py vyakhya/Nayachakra_Vyakhya.docx
+    python check_quality.py docx vyakhya/Nayachakra_Vyakhya.docx
+    powershell -File finalize_word.ps1 -Docx "<abs>/vyakhya/Nayachakra_Vyakhya.docx" -ChunkPages 200
+
+Word takes about 80 minutes: ~27 min for the TOC field update, then eight 200-page export chunks.
+
+**Not in this book, deliberately:** the सम्पादकीय प्रस्तावना (scan 2–41), and परिशिष्ट 1–4 of the source
+volume — आलापपद्धति, नयविवरणम् and the गाथानुक्रमणी (scan 249–315). They are independent texts; the
+गाथानुक्रमणी was used as a verification witness and is transcribed in `gatha_index.md`.
+
 *Working notes only. Nothing from this file goes into the book.*
 
 ## Source
@@ -232,6 +259,59 @@ redefined, part 9 compact (1–3 bullets, no blank line between), no forbidden v
 names, and a warning list for thin व्याख्या (part 6 under 400 words or fewer than 4 bullets).
 
 Waves of 5. Run the gate only after every agent of a wave has reported — the same rule as pass 1.
+
+**Fixed during pass 2, once, centrally rather than in 369 files:**
+- *build_docx.js digit guard* — the अन्वयार्थ's closing `॥१७॥ = गाथा-क्रमांक` rendered as the half-converted
+  `॥17॥`. A number inside dandas is quoted मूल wherever it sits, so `toEn` now preserves `॥…॥` spans.
+- *तत्त्वार्थसूत्र recension* — five files mixed the two numberings, citing `उत्पादव्ययध्रौव्ययुक्तं सत्` as 5.29
+  (श्वेताम्बर) while citing `गुणपर्यायवद् द्रव्यम्` as 5.38 (दिगम्बर). दिगम्बर throughout: 5.29 सद्द्रव्यलक्षणम्,
+  5.30 उत्पाद-व्यय-ध्रौव्य, 5.31 तद्भावाव्ययं, 5.38 गुण-पर्याय. Now a crib in the spec.
+- *postprocess_docx.py* — `अनन्तवीर्य` removed from the honorifics list: in this ग्रन्थ every occurrence is the
+  quality of the अनन्तचतुष्टय, and honouring it would print "अनन्तसुख और श्री अनन्तवीर्य स्वामी" mid-sentence.
+- *meta.json* — the ग्रन्थ-विषय asserted one resolution of the colophon's authorship contradiction; it now
+  states all three claims and says the ग्रन्थ does not settle the question.
+- *Bare names with case-endings* (`देवसेनके`, `माइल्लधवलकी`) slip past `postprocess_docx.py`, whose regex
+  needs a non-Devanagari character after the name. `check_addenda.py` catches them; fix at source.
+
+## Spots that need a physical copy — the honest residue
+
+These survived every check available from this scan. Each is recorded as a `पाठ-सूचना` in the book itself,
+so a reader is never misled; but a collation against a printed copy would settle them.
+
+| § | what | status |
+|---|---|---|
+| 101 | `अवखरं` — no derivable Prakrit form. छाया `अपरपरम्` rests wholly on the printed हिन्दी ("आगे-पीछे या दूर-निकट"). Flagged independently by the transcription agent and the व्याख्या agent; I re-cropped it at the scan's native limit and could not resolve it | unresolved |
+| 176 | second quoted श्लोक, stamp-damaged; `[एकान्त्यरूपेण]` supplied from the हिन्दी | bracketed |
+| 179 | first line wholly `[अस्पष्ट]`; the four-step शृंखला rests on the printed हिन्दी alone | unresolved |
+| 196 | printed गाथा corrupt (`विबहावं णहि जो`); the editor himself translates from श्री देवसेन स्वामी's नयचक्र 24 instead | noted |
+| 91, 263, 368, 419, 424 | one word each buried by the library stamp, supplied in `[ ]` from the printed हिन्दी | bracketed |
+| 220, 293, 353, 364, 382 | `[अस्पष्ट]` — stamp damage that magnification could not recover | unresolved |
+
+The scan is about **200 dpi native**. Rendering above roughly 600 dpi interpolates and adds no information —
+several agents burned effort at 2400–3600 dpi before this was established. Where a glyph will not resolve,
+the ग्रन्थ's own गाथानुक्रमणी (`img/p0310–p0315`) or a clean occurrence of the same word elsewhere is worth
+more than another zoom level, and it settled `जम्हा`, `भेदुवयारं`, `देहजुदो`, `सुद्धो`, `तिक्काले` and
+`उदयादिसु पंचण्हं`.
+
+## What the व्याख्या pass found in the text itself
+
+Beyond writing the commentary, the pass turned up things about the printed edition that belong on record:
+
+- **§217–218 have no printed हिन्दी at all** — the edition prints the मूल and jumps from §216's विशेषार्थ to
+  §219. The agent covering them found a probable reason: the printed footnote on p. 115 reads
+  `एषा गाथा आ प्रतौ नास्ति`, recording a गाथा missing from the आ manuscript at that very spot. The व्याख्या
+  there is the only thing between the reader and two untranslated गाथा, and says so plainly.
+- **A typesetting habit, not a reading error.** §399's मूल prints ज्ञ-conjuncts (`ज्ञायंतो`, `ज्ञाणपच्चयं`) where
+  the sense needs झ (ध्यान). The evidence is inside the edition: §416's पाठान्तर prints `ज्झाइदुं` for झाइदुं.
+  So झ→ज्झ/ज्ञ is how this fount behaves, and the छाया follows the sense with the alternative recorded.
+- **Two verses both cited as "पञ्चास्ति० गा० 159"** (§402 and §404) — a misnumbering in the printed
+  apparatus, noted without asserting what the right numbers are.
+- **The ग्रन्थ contradicts itself in places, and the व्याख्या says so** rather than choosing: §135 calls काल
+  निमित्तमात्र while §137 calls it मुख्य कारण (resolved as उपादान vs प्रधान निमित्त, stated); §182's निश्चय/व्यवहार
+  against §183's द्रव्यार्थिक/पर्यायार्थिक as "the two मूल नय" (सिद्धान्त vs अध्यात्म परम्परा); §285 denying
+  कार्यकारणभाव between शुभ and शुद्धोपयोग against §289–290 calling उपचार a साधनहेतु (ज्ञापक, not कारक).
+- **Where the editor himself gives up**, the व्याख्या reports it: §369's 42 भेद of प्रथम शुक्लध्यान are called
+  untraceable by the editor, and a तीर्थंकर-प्रकृति sequence is marked `चिन्त्य`.
 
 ## The coverage gate
 
