@@ -1,0 +1,86 @@
+# -*- coding: utf-8 -*-
+"""पूरे खण्ड का एक साथ मिलान — पृष्ठ-टैग पर निर्भर नहीं।
+
+compare_readings.py पृष्ठ-दर-पृष्ठ मिलाती है, जो तभी ठीक है जब दोनों ओर
+(पृष्ठ N) टैग सही लगे हों। एक बैच में एजेंट ने पृष्ठ 75 का टैग लिखा ही नहीं था,
+जिससे पाठ ग़लत पन्ने के नीचे गिना गया और 41% पाठ ग़ायब दिखने लगा — जबकि असल में
+केवल 8% कम था। यह स्क्रिप्ट दोनों पाठ पूरे जोड़कर एक ही बार मिलाती है, इसलिए
+टैग की गड़बड़ी से नतीजा नहीं बिगड़ता।
+
+चलाइए:  python compare_whole.py parts/batchNN_pXXX-YYY.md _recheck/pXXX-YYY_second.md
+"""
+import sys
+import difflib
+import importlib.util
+import pathlib
+
+_spec = importlib.util.spec_from_file_location(
+    "cr", str(pathlib.Path(__file__).resolve().parent / "compare_readings.py"))
+cr = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(cr)
+
+
+def joined(d):
+    return " ".join(d[k] for k in sorted(d))
+
+
+def all_part1(path):
+    """भाग 1 का सारा पाठ — पृष्ठ-टैग की परवाह किए बिना।
+
+    cr.first_reading() केवल वह पाठ उठाती है जो किसी (पृष्ठ N) टैग के बाद आता है,
+    इसलिए टैग से पहले लिखा हुआ अंश छूट जाता है। पूरे खण्ड की तुलना में पृष्ठ-विभाजन
+    की ज़रूरत नहीं, इसलिए यहाँ सब कुछ लिया जाता है।
+    """
+    import re
+    keep, buf = False, []
+    for ln in pathlib.Path(path).read_text(encoding="utf-8").splitlines():
+        s = ln.strip()
+        if s.startswith("## 1. मूल पाठ"):
+            keep = True
+            continue
+        if s.startswith("## ") or s.startswith("§"):
+            keep = False
+            continue
+        if keep and s and not s.startswith("पाद-टिप्पणी"):
+            buf.append(re.sub(r"\(\s*पृष्ठ[^)]*\)", " ", s))
+    return cr.norm(" ".join(buf))
+
+
+def main(a, b):
+    A, B = cr.first_reading(a), cr.second_reading(b)
+
+    missing = sorted(set(B) - set(A))
+    if missing:
+        print(f"** पहले पाठ में इन पृष्ठों का (पृष्ठ N) टैग नहीं है: {missing}")
+        print("   पाठ शायद मौजूद हो, पर उसका पृष्ठ-सन्दर्भ ग़लत निकलेगा — टैग जोड़िए।\n")
+
+    wa, wb = all_part1(a).split(), joined(B).split()
+    sm = difflib.SequenceMatcher(None, wa, wb, autojunk=False)
+    print(f"पूरे खण्ड का मिलान — शब्द {len(wa)}/{len(wb)} | समानता {sm.ratio():.0%}")
+
+    real, spell, rows = 0, 0, []
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == "equal":
+            continue
+        x, y = wa[i1:i2], wb[j1:j2]
+        if tag == "replace" and cr.is_spelling_only(x, y):
+            spell += 1
+            continue
+        real += 1
+        rows.append((x, y))
+
+    print(f"  {real} पाठ-भेद · {spell} वर्तनी-भेद")
+    print()
+    for x, y in rows:
+        sx, sy = " ".join(x), " ".join(y)
+        if len(sx) > 74:
+            sx = sx[:71] + "…"
+        if len(sy) > 74:
+            sy = sy[:71] + "…"
+        print(f"  पहला : {sx or '—'}")
+        print(f"  दूसरा: {sy or '—'}")
+        print()
+
+
+if __name__ == "__main__":
+    main(sys.argv[1], sys.argv[2])
