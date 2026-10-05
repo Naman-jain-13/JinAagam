@@ -49,10 +49,21 @@ def all_part1(path):
 def main(a, b):
     A, B = cr.first_reading(a), cr.second_reading(b)
 
-    missing = sorted(set(B) - set(A))
+    # श्रेणी-टैग भी गिनिए। एजेंट प्रायः (पृष्ठ 130-131) लिखते हैं और यह इस परियोजना
+    # में चलन में है (अष्टसहस्री में 85, न्यायकुमुदचन्द्र में 66 ऐसे टैग हैं)।
+    # केवल एकल टैग गिनने से बार-बार झूठी चेतावनी आती थी।
+    import re as _re
+    raw = pathlib.Path(a).read_text(encoding="utf-8")
+    tagged = set()
+    for _m in _re.finditer(r"\(\s*पृष्ठ\s*(\d+)\s*(?:[-–]\s*(\d+))?\s*\)", raw):
+        _lo = int(_m.group(1))
+        _hi = int(_m.group(2)) if _m.group(2) else _lo
+        tagged.update(range(_lo, _hi + 1))
+
+    missing = sorted(set(B) - tagged)
     if missing:
-        print(f"** पहले पाठ में इन पृष्ठों का (पृष्ठ N) टैग नहीं है: {missing}")
-        print("   पाठ शायद मौजूद हो, पर उसका पृष्ठ-सन्दर्भ ग़लत निकलेगा — टैग जोड़िए।\n")
+        print(f"** इन पृष्ठों का कोई टैग नहीं (श्रेणी-टैग भी गिने): {missing}")
+        print("   इनका पृष्ठ-सन्दर्भ ग़लत निकलेगा — टैग जोड़िए।\n")
 
     wa, wb = all_part1(a).split(), joined(B).split()
     sm = difflib.SequenceMatcher(None, wa, wb, autojunk=False)
