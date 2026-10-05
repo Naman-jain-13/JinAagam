@@ -22,6 +22,15 @@ for f in sorted(glob.glob(os.path.join(HERE, 'anuvad_bhed', 'a[0-9][0-9].md'))):
                 entries.append((sec, pg, d))
 
 cell = lambda s: (s or '—').replace('|', '/').strip()
+# मूल-स्तम्भ में पुराने (लिपि-भूल वाले) पाठ के स्थान पर मुद्रित पुस्तक का पुष्ट पाठ
+FIXES = []
+_conf = io.open(os.path.join(HERE, 'anuvad_bhed', 'mool_confirmed.md'), encoding='utf-8').read().split('## अपुष्ट')[0]
+for a, b in re.findall(r'हमारा:\s*`([^`]+)`\s*·\s*मुद्रित:\s*`([^`]+)`', _conf):
+    if '[' not in a and '?' not in b and '/' not in a: FIXES.append((a, b))
+FIXES.append(('संक्षेपस्तद्विनिश्चयात्', 'समासतस्तद्विनिश्चयात्'))
+def mool_fix(t):
+    for a, b in FIXES: t = t.replace(a, b)
+    return t
 out = ['# अनुवाद-भेद सूची (मुद्रित एवं प्रस्तुत हिन्दी अनुवाद)', '',
        'इस व्याख्या का हिन्दी अनुवाद केवल मूल संस्कृत पाठ से, स्वतन्त्र रूप में किया गया है। अनुवाद पूर्ण होने के '
        'पश्चात् उसका मिलान आधार-संस्करण में प्रकाशित हिन्दी अनुवाद (पं. दरबारीलाल जैन कोठिया) से किया गया। यह सूची '
@@ -32,7 +41,7 @@ out = ['# अनुवाद-भेद सूची (मुद्रित ए�
        '**कोटियाँ —** *अर्थ-भेद:* किसी पद/वाक्य का अर्थ भिन्न समझा गया · *पाठ-आधार:* दोनों ने भिन्न पाठ के आधार पर '
        'अनुवाद किया · *छूट:* मूल का कोई अर्थवान् अंश एक अनुवाद में नहीं आया · *मुद्रण-दोष:* मुद्रित अनुवाद में अर्थ '
        'बदलने वाला मुद्रण-भेद · *प्रस्तुत-संशोधन:* मुद्रित अनुवाद मूल के अधिक अनुकूल पाया गया और प्रस्तुत अनुवाद '
-       'उसके अनुसार सुधारा गया।', '']
+       'उसके अनुसार सुधारा गया — ऐसी पंक्तियों में "प्रस्तुत अनुवाद" स्तम्भ पूर्व-अनुवाद दिखाता है, (पूर्व) चिह्न सहित।', '']
 c = Counter(d['कोटि'].strip() for _, _, d in entries)
 out += ['**सारांश —** मिलान किए गए अनुच्छेद: %d · भेद-स्थल: %d (%s)' % (
     len(checked), len(entries), ', '.join('%s %d' % (k, c[k]) for k in KOTI if c[k])), '']
@@ -45,7 +54,8 @@ for sec, pg, d in sorted(entries, key=lambda e: e[0]):
     if g != cur:
         cur = g; out += ['', '## ' + GROUPS[g].strip('[] ').strip(), ''] + head
     out.append('| %d (%s) | %s | %s | %s | **%s** — %s |' % (
-        sec, pg, cell(d.get('मूल')), cell(d.get('मुद्रित')), cell(d.get('प्रस्तुत')),
+        sec, pg, cell(mool_fix(d.get('मूल') or '')), cell(d.get('मुद्रित')),
+        ('(पूर्व) ' if d.get('कोटि', '').strip() == 'प्रस्तुत-संशोधन' else '') + cell(d.get('प्रस्तुत')),
         cell(d.get('कोटि')), cell(d.get('टिप्पणी'))))
 io.open(os.path.join(HERE, 'backmatter', '02b_anuvad_bhed.md'), 'w', encoding='utf-8', newline='\n').write('\n'.join(out) + '\n')
 print('entries', len(entries), dict(c), '| checked §', len(checked))

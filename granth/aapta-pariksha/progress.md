@@ -128,3 +128,12 @@
 - निर्माण: `meta.json`, `groups.json` (11 प्रकरण) → `node ../../granth-vyakhya-skill/granth-vyakhya/scripts/build_docx.js .`
   → postprocess_docx.py → check_quality.py → finalize_word.ps1 → `vyakhya/Aapta_Pariksha_Vyakhya.docx/.pdf`।
 - पास 3 (पश्च-सामग्री): `backmatter/01–04` — BACKMATTER_SPEC.md।
+
+## अनुवाद-भेद परिशिष्ट एवं संशोधन-पास (2026-09-25 → 10-05)
+- पाठक के अनुरोध पर मुद्रित हिन्दी अनुवाद (पं. दरबारीलाल जैन कोठिया) से तुलना — 30 batch (`anuvad_bhed/aNN.md`,
+  `ANUVAD_BHED_SPEC.md`) → 126 अर्थ-भेद स्थल: अर्थ-भेद 48, प्रस्तुत-संशोधन 58, पाठ-आधार 9, छूट 6, मुद्रण-दोष 5।
+  परिशिष्ट: `backmatter/02b_anuvad_bhed.md` (`assemble_anuvad_bhed.py`; postprocess इसे 7 pt में छापता है)।
+- तुलना से मूल-पाठ की ~100 लिपि-भूलें मिलीं → स्वतन्त्र छवि-सत्यापन (`VERIFY_MOOL_SPEC.md`, verify_*.md) +
+  स्वयं निर्णय → 100 पुष्ट (`anuvad_bhed/mool_confirmed.md` + § 321 समासतस्), 13 अपुष्ट यथावत्।
+- संशोधन लागू (`FIX_SPEC.md`, लॉग `anuvad_bhed/fixlog_G1–G6.md`): parts भाग 1–6, mool/b*.md, shuddhipatra
+  (33 वापस, 13 नए), VERIFICATION_LOG, परिशिष्ट की कारिका-सूची।
