@@ -187,6 +187,28 @@ verse is probably quoted twice in the book. Check that the words really match yo
 
 If a quotation in your range is absent from that file altogether, treat it as unattributed.
 
+## When you split a समास, apply the fount's confusion table too
+
+The extraction pass corrects the systematic misprints it can see, but a compound can hide one from it and
+reach you intact. **If a split only works by reading a `म` as something else, stop and try `प्र` first.**
+
+A real case from this ग्रन्थ: `शुद्धात्मतत्त्वभावनामतिकूलेषु` was split as भावना + **अतिकूल**, and
+`सुखामृतमतिबन्धकैः` as अमृत + **अतिबन्धक**. Both "work" in the sense that they yield the right general idea.
+But **neither अतिकूल nor अतिबन्धक is a Sanskrit word**, while `प्रतिकूल` occurs eight times and
+`प्रतिबन्धक` four times elsewhere in this very corpus. And the splits do not even account for the printed
+letters: भावना + अतिकूल would give *भावनातिकूल*, with no `म` at all.
+
+Two tests, both cheap:
+
+1. **Is the member you produced actually a word?** `अतिकूल` is not. `प्रतिकूल` is. A split that invents
+   vocabulary is wrong however well the sense comes out.
+2. **Does your split use every printed letter, and no more?** If a `म` is left unexplained, you have not
+   split the compound — you have replaced it.
+
+The sense usually survives a wrong split, which is exactly why this is dangerous: in the case above the
+Hindi still said "obstructing", but it had acquired an "अत्यन्त" the Sanskrit never licensed. **A wrong
+split leaks small additions into the Hindi**, and those are the hardest errors to see later.
+
 ## The other parts
 
 ### 3. अन्वय
