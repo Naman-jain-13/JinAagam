@@ -43,7 +43,9 @@ NUMERALS = [
 _MATRA = {'ए': ['े', 'ै'], 'अ': ['ा'], 'ओ': ['ो']}
 NUMERALS = NUMERALS + [(m + w[1:], n) for w, n in NUMERALS
                        for m in _MATRA.get(w[0], [])]
-# 'ष्ठक' for 'अष्टक' is the edition's own spelling in one colophon (स्वरूपष्ठकं); treat it as 8.
+# 'ष्ठक' kept as a fallback for 'अष्टक'. One colophon was transcribed `स्वरूपष्ठकं`; the audit pass
+# showed it is simply `स्वरूपाष्टकं` (eight, दोहा 8-15) and `parts/` is corrected, but the entry costs
+# nothing and would catch the same misreading again.
 NUMERALS.append(('ष्ठक', 8))
 NUMERALS.sort(key=lambda x: -len(x[0]))
 

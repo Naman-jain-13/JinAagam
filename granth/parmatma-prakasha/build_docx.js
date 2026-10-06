@@ -50,12 +50,15 @@ const toEn = t => EN_NUMERALS
 // wins and the inner asterisks would print literally; write the inner phrase in ‘ ’ quotes instead.
 function parseInline(line) {
   const out = [];
-  const re = /\*\*(.+?)\*\*|(?<![*\w])\*(?!\s)([^*\n]+?)(?<!\s)\*(?![*\w])/g;
+  // The third arm is for `backtick` spans. The व्याख्या cites a Sanskrit word or a printed reading
+  // that way; without this the backticks printed literally (34 of them reached a build).
+  // They render as italics, like *emphasis*, which is what a cited form wants.
+  const re = /\*\*(.+?)\*\*|(?<![*\w])\*(?!\s)([^*\n]+?)(?<!\s)\*(?![*\w])|`([^`\n]+?)`/g;
   let last = 0, m;
   while ((m = re.exec(line)) !== null) {
     if (m.index > last) out.push({ text: line.slice(last, m.index), bold: false });
     if (m[1] !== undefined) out.push({ text: m[1], bold: true });
-    else out.push({ text: m[2], bold: false, italics: true });
+    else out.push({ text: m[2] !== undefined ? m[2] : m[3], bold: false, italics: true });
     last = re.lastIndex;
   }
   if (last < line.length) out.push({ text: line.slice(last), bold: false });
@@ -221,8 +224,11 @@ function renderTika(secs) {
     .sort((a, b) => parseInt(a.slice(1), 10) - parseInt(b.slice(1), 10));
   for (const k of keys) {
     const sa = sans.get(k), hi = hind.get(k);
-    if (sa) out.push(...renderBlock([`**संस्कृत:** ${sa.join(' ')}`], true));
-    if (hi) out.push(...renderBlock([`**हिन्दी:** ${hi.join(' ')}`]));
+    // The segment label is PRINTED, not merely used for pairing. Parts 7 and 10 cite segments by it
+    // ("(T11) में संस्कृत …") — 215 such references across the book — and without a visible label
+    // every one of those points at something the reader cannot see.
+    if (sa) out.push(...renderBlock([`**(${k}) संस्कृत:** ${sa.join(' ')}`], true));
+    if (hi) out.push(...renderBlock([`**(${k}) हिन्दी:** ${hi.join(' ')}`]));
     else if (sa) out.push(pNormal('**हिन्दी:** [इस खण्ड का अनुवाद उपलब्ध नहीं]'));
   }
   return out;
