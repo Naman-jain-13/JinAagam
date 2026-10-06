@@ -238,6 +238,26 @@ the person or the भाव is what generates karma, and that is a real doctrina
 Where following the टीका puts part 6 visibly at odds with part 2 on the same page, **that is the correct
 result**, not a problem to hide.
 
+## Do not convict the edition of an error it did not make
+
+Recording a divergence is the point of this book. **Inventing one is worse than missing one**, because a
+printed charge against the edition carries authority a reader cannot check.
+
+A real case: योगसार दोहा 36's printed अर्थ reads *"चेतन तो **केवल एक जीव** ही है"*. A note was drafted saying
+that, taken literally, this denies the consciousness of other जीव and contradicts the अनन्त-जीव doctrine.
+It does not. **`एक` here is ordinary Hindi for "alone", not the numeral** — "the जीव *alone* is conscious",
+exactly the six-द्रव्य point the verse makes. No reader would take it otherwise, and the note would have
+accused the edition of a doctrinal blunder on the strength of a reading nobody holds.
+
+The sound observation in the same place was grammatical and checkable: **the छाया's `जीव` is a vocative**
+(`जानीहि जीव` — "know, O जीव") **while the printed अर्थ makes it the subject** of सचेतन. Same sense,
+different construction, and worth one line.
+
+So before writing a divergence, ask: **is this a difference in what the two texts say, or only in how I
+would have phrased it?** Idiom is not error. A free भावार्थ is not error. An expansion that the Sanskrit
+supports is not error. Record what the printed text *does* differently — a dropped qualifier, a changed
+case, a named school the Sanskrit does not name, an omitted segment — and leave its Hindi style alone.
+
 ## The other parts
 
 ### 3. अन्वय
