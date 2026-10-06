@@ -238,6 +238,28 @@ the person or the भाव is what generates karma, and that is a real doctrina
 Where following the टीका puts part 6 visibly at odds with part 2 on the same page, **that is the correct
 result**, not a problem to hide.
 
+## How to handle the editor's own `(?)` — a worked example
+
+The edition marks its own uncertain readings with a bracketed `(?)`. **Never resolve one.** But "do not
+resolve" does not mean "do not discuss": the reader is better served by understanding what is at stake than
+by a silent bracket.
+
+योगसार दोहा 49 is the pattern to follow. The छाया prints `मनः` and immediately adds `(मानः?)`. Part 7 there
+says, in substance:
+
+> The edition has left two readings open here — it prints `मनः` and at once adds `(मानः?)`, so the editor
+> himself treats the word as uncertain. **Both yield sense and both are आगम-सम्मत, so their question is not
+> decided here.** If `मनः` is taken, the line says body and lifespan tire but the mind does not — a thing
+> anyone may verify in an old body whose mind still races. If `मानः` is taken, the line pairs two कषाय,
+> मान and आशा …
+
+**That is the shape:** name the uncertainty as the edition's, say explicitly that you are not deciding it,
+then set out what each reading gives — **symmetrically**, with neither made to look obviously right. A
+reader can then hold the question open as the editor did.
+
+What to avoid: arguing for one side and leaving the other as a token alternative. That resolves the `(?)`
+in substance while appearing not to.
+
 ## Do not convict the edition of an error it did not make
 
 Recording a divergence is the point of this book. **Inventing one is worse than missing one**, because a

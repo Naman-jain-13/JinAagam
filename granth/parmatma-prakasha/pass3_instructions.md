@@ -48,6 +48,68 @@ The order of attack that has actually worked on this edition, cheapest first:
    `ल` can stand for the suffix `त्व`. Both are in the flags file with worked examples.
 5. Only then magnify.
 
+## What pass 2 already did, so you do not re-do it
+
+The व्याख्या agents worked to a detailed spec and reported honestly. Before auditing, know what is already
+settled, so your effort goes where it is needed.
+
+**Already handled, and not findings:**
+- **Divergences from the edition's printed हिन्दी.** Over a hundred are recorded. The rule was: render the
+  **Sanskrit** in part 6, leave part 5 exactly as printed, note the difference in part 10. Confirm the note
+  exists and the Sanskrit was read right; do not report the divergence itself as an error.
+- **The टीका against the printed छाया.** Part 6 follows the **टीका** (the छाया is the edition's rendering of
+  the दोहा; the टीका is श्री ब्रह्मदेव's own gloss). Where that puts part 6 at odds with part 2 on the same
+  page, **that is correct**, not a fault.
+- **The edition's own `(?)` marks** are kept verbatim everywhere. They are the editor's uncertainty and are
+  evidence. Never report their presence as a defect.
+- **Internal inconsistencies left unharmonised** — `संपितं` for `संपादितं`, three spellings of `पडियारि`,
+  शुद्ध- against अशुद्धनिश्चयनय in adjacent segments. Reproducing them is the standing rule.
+- **Grammatical vocabulary read as grammatical** — `कर्मता`, `कर्तृत्व`, `कर्तृभूत`, `करणभूत`, `अभिधेय`,
+  `वाच्य`. If part 6 renders one of these as a doctrinal claim, *that* is a finding.
+
+**Known printing faults already corrected in `parts/`** — do not re-flag them, but do check the Hindi used the
+corrected reading: `प्र` printing as a plain `म` (about seventy instances), `ल` for `त्व`, `श्च` for `ञ्च`,
+`छ` for `ह`, `ङ्ग` for `ज्ञ`, `द्वि` for `दि`, and word-initial `अ` lost in sandhi. `verify/pass1_flags.md`
+lists every one with its evidence.
+
+## The four methods that actually settled hard passages
+
+Use these before proposing an emendation. Each has resolved a real case here, and two of them **stopped**
+an unnecessary one.
+
+1. **Look for the same construction elsewhere in the same §.** §21900's `रहितान्` looked impossible until T8
+   of the same § turned out to run the identical frame in the ablative — so it was `रहितात्`, agreeing with
+   `शुद्धात्मद्रव्यात्`. §20250's missing `न` was proved genuinely lost the same way, by T1 and T8.
+2. **Ask whether some other feature already carries the force you think is missing.** §10870 seemed to need
+   a `न`; it did not — the contrast was in the case (locative `स्वात्मनि` against instrumental
+   `स्वशुद्धात्मस्वरूपेण`). The verb was not negated, it was redirected.
+3. **Look for the fault's own fingerprints nearby.** §21140's `अग्निर्ज्ञानिलोक…` was settled because the
+   initial `अ` of `अग्निः` is demonstrably missing *earlier in the same line* — so a second loss needed no
+   separate argument.
+4. **Grep `parts/` before emending.** This टीका reuses a small stock of formulas. `कं कर्मतापत्वम्` was
+   settled by finding `किं कर्मतापन्नम्` dozens of times. **It cuts both ways:** `पञ्चकलेन` was twice
+   proposed for emendation before a grep showed `कल` is the edition's *own* term for a verse-group —
+   `त्रिकलम्`, `षट्कलेन`, and the अपभ्रंश `तिघलं`. A word must be real *in this text*, not merely in
+   classical Sanskrit.
+
+## Do not convict the edition of an error it did not make
+
+Finding divergences is the job. **Inventing one is worse than missing one**, because a printed charge
+carries authority a reader cannot check.
+
+One was caught and removed: a note claimed योगसार दोहा 36's अर्थ — *"चेतन तो केवल एक जीव ही है"* — denies
+other जीव their consciousness. It does not. **`एक` there is "alone", not the numeral.** The sound point in
+the same place was grammatical: the छाया's `जीव` is a vocative while the अर्थ makes it the subject.
+
+**Idiom is not error. A free भावार्थ is not error. An expansion the Sanskrit supports is not error.**
+
+## If your range is योगसार (keys 30000+)
+
+योगसार has **no टीका**, so there is **no part 6 to audit**. Its § carry parts 3, 4, 7, 8, 9, 10 only, and the
+part-6 slot holds the edition's **पाठान्तर**, reproduced verbatim. Audit the अन्वय and अन्वयार्थ against the
+**छाया**, and check part 10 explains the variants honestly — what each changes, whether it touches the
+sense, and that no variant is presented as the text.
+
 ## What counts as a finding
 
 | प्रकार | meaning |

@@ -226,3 +226,22 @@ This is the **same class of bug** as `check_colophons.py` reading the first numb
 colophon and reporting a स्थल of 8 as 41. Both times a regex found *a* match where the *right* match lay
 further on. When a field appears more than once in a string, say which occurrence is authoritative —
 never let position decide by accident.
+
+## A derived file went stale and nearly dropped three दोहा — again
+
+`pass2_assignments.json` is generated from `parts/`. It was generated while योगसार still began at **दोहा 4**,
+because the three opening verses had not yet been found (they sit on योगसार's *title page*, which the
+header-based scan map had classed as back matter). The repair that added §30010–§30030 to `parts/` landed
+afterwards, and **nobody regenerated the assignments**. Thirty व्याख्या agents were dispatched from a file
+that did not know those three दोहा existed.
+
+Nothing in the व्याख्या pass could have caught it: every agent completed its own list correctly. It showed
+up only in `check_addenda.py`'s count of § in `parts/` against files in `addenda/`.
+
+**The general fault: a derived artefact silently outlived its source.** The same three verses have now been
+missed twice, by two different mechanisms — first by a scan map that could not see a title page, then by an
+assignment file generated before they were found.
+
+**Rule for the next ग्रन्थ: regenerate every derived file immediately after any repair to `parts/`, and make
+the completion check compare against the source, never against the plan.** A plan that is wrong will look
+perfectly complete.

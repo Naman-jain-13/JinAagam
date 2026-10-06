@@ -126,6 +126,23 @@ Each of these cost real time once. Read before starting; re-read before the fina
   and is idempotent; `check_quality.py docx` fails if it was skipped. Watch hyphenated compounds
   ("श्रीमदाचार्य-अनन्तकीर्ति") — an early version doubled the श्री there; the title page is the place to look.
 
+## Regenerate derived files after every repair, and check against the source
+
+Work assignments, section lists and page maps are **derived** from the extracted text. When a repair adds
+units to the source, those files do not update themselves, and every agent dispatched from them will report
+complete while the new units sit untouched.
+
+On परमात्मप्रकाश the same three verses were lost **twice, by two different mechanisms**: first by a scan map
+built from running headers, which could not see that they sat on a *title page* (a title page has no running
+header); then by a work-assignment file generated before they were found, so thirty agents were dispatched
+from a plan that did not know they existed. Each agent completed its own list correctly both times.
+
+Two habits prevent it:
+
+- **regenerate every derived file immediately after any repair to the source**, and
+- **make the completion check compare against the source, never against the plan.** A plan that is wrong
+  looks perfectly complete; only `units in source` vs `outputs on disk` exposes it.
+
 ## Gates have bugs too, and they are nearly always the same bug
 
 Three times on one book, in three different gates, a check reported a false result because **a regex found

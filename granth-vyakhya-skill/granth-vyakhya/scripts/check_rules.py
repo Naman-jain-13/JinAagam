@@ -106,3 +106,23 @@ else:
             print(f"   {_k}: {_m}")
     else:
         print("   पृष्ठ-आवरण: हर मुद्रित पृष्ठ का टैग मौजूद")
+
+# ---------------------------------------------------------------- अनुच्छेद-क्रम
+# Edit-कॉल का लंगर इच्छित जगह से पहले वाले पाठ से मेल खा जाए तो नया अनुच्छेद चुपचाप
+# फ़ाइल के अन्त में जुड़ जाता है, क्रम में नहीं। एक एजेंट ने स्वयं पकड़ा था।
+print()
+_bad = 0
+for _f in files:
+    _nums = [int(_m.group(1)) for _m in
+             re.finditer(r"^§(\d+)", pathlib.Path(_f).read_text(encoding="utf-8"), re.M)]
+    if not _nums:
+        continue
+    _name = pathlib.Path(_f).name
+    _desc = [(_nums[i-1], _nums[i]) for i in range(1, len(_nums)) if _nums[i] < _nums[i-1]]
+    _dups = sorted({n for n in _nums if _nums.count(n) > 1})
+    if _desc or _dups:
+        _bad += 1
+        print(f"** {_name}: " + (f"क्रम उलटा {_desc} " if _desc else "")
+              + (f"दोहरे अनुच्छेद {_dups}" if _dups else ""))
+if not _bad:
+    print("   अनुच्छेद-क्रम: सब फ़ाइलें क्रम में, कोई दोहरा नहीं")
