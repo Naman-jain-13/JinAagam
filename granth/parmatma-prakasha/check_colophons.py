@@ -51,7 +51,9 @@ NUMERALS.sort(key=lambda x: -len(x[0]))
 
 # A colophon names a स्थल or महाधिकार and says it is finished. Require both, so that an ordinary
 # भावार्थ sentence ending '… समाप्तम्' is not mistaken for one.
-COLOPHON = re.compile(r'[^।"]*(?:स्थल|महाधिकार)[^।"]*(?:समाप्तम्|समाप्तः|गतम्|गतः)\s*(?:॥\s*\d+\s*॥)?\s*।')
+# A colophon may close with । OR ॥ — requiring । alone missed seven of the thirty-eight
+# divisions in this ग्रन्थ, including the five-दोहा शुद्धोपयोग अन्तरस्थल.
+COLOPHON = re.compile(r'[^।॥"]*(?:स्थल|महाधिकार)[^।॥"]*(?:समाप्तम्|समाप्तः|गतम्|गतः)\s*(?:॥\s*\d+\s*॥)?\s*[।॥]')
 
 # The edition prints a हिन्दी twin of every colophon, and it states the SAME arithmetic independently:
 #   "इकतालीस दोहोंके महास्थलमें … आठ दोहोंका तीसरा अंतरस्थल पूर्ण हुआ"
