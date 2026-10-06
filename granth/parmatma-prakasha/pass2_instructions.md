@@ -209,6 +209,35 @@ The sense usually survives a wrong split, which is exactly why this is dangerous
 Hindi still said "obstructing", but it had acquired an "अत्यन्त" the Sanskrit never licensed. **A wrong
 split leaks small additions into the Hindi**, and those are the hardest errors to see later.
 
+## When the टीका and the printed छाया disagree, the टीका governs part 6
+
+This happens often enough to need a settled rule. Both are Sanskrit, so the "follow the Sanskrit" instruction
+does not decide it on its own.
+
+**The छाया is the edition's rendering of the अपभ्रंश दोहा. The टीका is श्री ब्रह्मदेव's own gloss of the same
+words.** Part 6 is the टीका, so when the two differ, **part 6 follows the टीका** — it is the thing you are
+translating, and his gloss is the commentary's own reading of the verse.
+
+Cases already met:
+
+| § | the टीका glosses | the छाया prints |
+|---|---|---|
+| §20790 | `सो पर` = **`स एव भावः`** — the *भाव* generates the karma | `स परं कर्म` — the *person* is the agent |
+| §11010 | `रविरागो रविप्रकाशः` — the light | `रविराजः` — the orb |
+| §21000 | `निर्गच्छन्ति जानन्ति` | `पश्यन्ति` |
+| §11120 | `मरणेन कृत्वा` (instrumental) | `मरणमपि` (accusative) |
+| §11233 | `अन्यत्` | `अन्यः` |
+| §20230 | `एव` | `अपि` |
+
+In every one of these, follow the टीका in part 6, **leave parts 1 and 2 exactly as the edition prints them**,
+and record the difference in part 10 in one line. Do not alter the छाया to agree with the टीका, and do not
+soften the टीका to agree with the छाया. The reader is entitled to see that the commentator read his own
+verse in a particular way, which is often the most interesting thing on the page — §20790 turns on whether
+the person or the भाव is what generates karma, and that is a real doctrinal point, not a slip.
+
+Where following the टीका puts part 6 visibly at odds with part 2 on the same page, **that is the correct
+result**, not a problem to hide.
+
 ## The other parts
 
 ### 3. अन्वय

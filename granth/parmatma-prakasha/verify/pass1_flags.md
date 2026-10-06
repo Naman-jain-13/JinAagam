@@ -569,3 +569,40 @@ exclusive ("ज्ञान का **ही** गम्य"), which carries its 
 `परम् उत्कृष्टम्`, §11090 gives both, §11110 uses both in one line — read as context-decided rather than
 inconsistent. Also §20230 T6, where कालद्रव्य is taken as the उपादान and the परमाणु as mere व्यंजक,
 inverting the usual potter-analogy expectation.
+
+### §20540 — the printed हिन्दी moves the cause of मोक्ष
+
+The sharpest divergence found so far, and a doctrinal one. The phrase `मोक्षस्य कारणं भणित्वा`:
+
+- **the टीका** attaches it to the **रत्नत्रय-परिणत आत्मा** — consistently, in T1, T3 *and* T4;
+- **the printed हिन्दी** attaches it to **पुण्य-पाप**.
+
+Those are not shades of the same claim. The व्याख्या follows the टीका in parts 3 and 6 and records the
+divergence. Worth confirming carefully in the audit, since it is the kind of statement a reader would quote.
+
+### Divergences, §20380–§20870 (selected)
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| **§20540** | मोक्ष's cause is the **रत्नत्रय-परिणत आत्मा** | attaches it to **पुण्य-पाप** |
+| **§20830** | **three** purposes for teaching others | gives one |
+| **§20850** | names the **गङ्गा** and denies it | drops गङ्गा — removing the thing denied |
+| §20470 | `णाणमउ` per छाया + टीका | makes it a second object, "ज्ञानमयी निर्वाणपद" |
+| §20790 | `सो पर` = `स एव भावः` — the भाव generates karma | the person is the agent |
+| §20750 | बलदेव / वासुदेव / कामदेव / इन्द्र | "वासुदेव चक्रवर्ती" |
+| §20760 | `विशिष्टमोक्षफलाभावात्` | drops विशिष्ट |
+| §20720 | `तथापि … पञ्चेन्द्रियभोग एव` | dropped |
+| §20480 | `भणइ` within the त्रिगुप्ति bound | "शिष्य होकर पढता है" / "न किसीसे सीखता है" |
+
+### The method has matured into something the agents now name
+
+Three things in W13's report are worth preserving as evidence the specs are working:
+
+- **"Readings rejected as impossible of their subject"** is now a heading agents write by themselves. One
+  case: §20480's four abstentions had to be bounded by T4's त्रिगुप्ति-अवस्था, **else the verse would forbid
+  this very ग्रन्थ** — an elegant use of the test.
+- **कथंभूत attachments are resolved explicitly** and reported: §20380 T4 → तपोधनम् not संवरनिर्जरास्वरूपम्;
+  §20500/§20510 → आत्मस्वभावः not the मुनि; §20530 T2 → हेतु.
+- **The टीका's silence is reported as silence**, not filled: §20440's second श्लेष (`गहिल्लु`) has no
+  परमार्थ gloss, and §20510 explains only the ममत्व side and not the द्वेष side. Both said so rather than
+  supplied.
