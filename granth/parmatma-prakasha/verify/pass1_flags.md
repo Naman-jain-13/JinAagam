@@ -617,3 +617,155 @@ Three things in W13's report are worth preserving as evidence the specs are work
 - **The टीका's silence is reported as silence**, not filled: §20440's second श्लेष (`गहिल्लु`) has no
   परमार्थ gloss, and §20510 explains only the ममत्व side and not the द्वेष side. Both said so rather than
   supplied.
+
+### §21900 T6 — RESOLVED by the § 's own parallel: `रहितान्` is `रहितात्`
+The व्याख्या pass flagged this as its hardest call, and neither candidate was right.
+
+Printed: `सुहासुहभावडा **शुभाशुभमनोवचनकायव्यापाररहितान्** शुद्धात्मद्रव्याद्विपरीतान् शुभाशुभभावान् परिणामान्`.
+
+- Read as accusative (the agent's choice), `रहितान्` qualifies `भावान्` — giving "शुभाशुभ भाव which are
+  devoid of शुभाशुभ activity", self-contradictory.
+- Read as nominative `रहिताः` (the printed हिन्दी's choice), it describes the तपोधन — coherent, but it
+  requires changing the ending anyway and abandons the printed accusative chain.
+
+**T8 of the same § settles it.** It runs the identical frame in the ablative:
+
+> `समस्तपरद्रव्याशा**रहितात्** स्वशुद्धात्मस्वभाव**ाद्** विपरीता या आशा …`
+
+— where the `रहित-` word plainly qualifies the **स्वशुद्धात्मस्वभाव**, not the आशा. By exact parallel T6 is
+
+> `शुभाशुभमनोवचनकायव्यापार**रहितात्** शुद्धात्मद्रव्य**ाद्** विपरीतान् शुभाशुभभावान्`
+
+— "the शुभाशुभ भाव contrary to that शुद्धात्मद्रव्य which is free of शुभाशुभ mind-speech-body activity."
+`रहितान्` for `रहितात्` is a न/त slip, one stroke apart. Corrected in `parts/`, and the rendering now
+matches T8, which the same agent had already translated correctly.
+
+**Method note:** this is the third time a passage that looked defective was settled by the ग्रन्थ's own
+parallel sentence rather than by emendation or by the printed हिन्दी — after §10870 (case contrast) and
+§20250 (where the parallel proved a `न` really was lost). **Look for the same construction elsewhere in the
+same § before deciding anything.**
+
+### `…आदिलक्षण` vs `…आद्विलक्षण` — decide each one by sense. **This is not a class rule.**
+
+Four emendations of this shape have been made (`परमात्मतत्त्वादिलक्षणो` → `…तत्त्वाद् विलक्षणः`,
+`शुद्धात्मद्रव्यादिसदृशे` → `…द्रव्याद् विसदृशे`, `शुद्धात्मद्रव्यादिलक्षणानि` → `…द्रव्याद् विलक्षणानि`,
+`पारमार्थिकसुखादिलक्षणं` → `…सुखाद् विलक्षणं`). Each is right. **But the pattern must not be generalised.**
+
+The corpus has `…आदिलक्षण` **18 times** and the great majority are perfectly good —
+`केवलज्ञानादिलक्षणेन`, `दानपूजादिलक्षणे`, `अव्याबाधसुखादिलक्षणो`, `इत्यादिलक्षणैर्युक्तो` — all meaning
+"characterised by X and the rest". It also has `…आद्विलक्षण` **9 times** in clean print, so both forms are
+genuinely in the book.
+
+**So there is no substitution to apply.** What decides each case is the same test as everywhere else:
+*could the sentence be true of its subject?* In §21220 the subject is दुःख, and `पारमार्थिकसुखादिलक्षणं`
+would make दुःख *characterised by* पारमार्थिक सुख — impossible; `विलक्षणं` ("different from") is required,
+and the printed हिन्दी's "सुखसे विमुख" agrees. In the other three the same test applies and gives the same
+answer.
+
+**Do not sweep for this one.** A blind replacement would corrupt eighteen sound readings to correct four,
+which is the exact mirror of the `कर्ममल` trap (genuine, 8×) beside `देहममल` (impossible). Where a glyph
+pair produces two real words, only the sentence can choose between them.
+
+### §21430 T2 `भवसागरोऽपि अनन्तः` — handled correctly, no change wanted
+The व्याख्या pass asked whether to render this bare or with its scope. Taken flatly the sentence says
+संसार is endless, which cannot be true of the जीव who obtains the two things the next line says he lacks.
+
+**What was done is right:** part 6 renders it bare — "वह भी अनादि और अनन्त है" — and part 7 explains that
+the qualification ("endless *for him who has not obtained* जिन-स्वामी and सम्यक्त्व") comes from the
+प्रकरण, not from the words, since the टीका leaves `अनन्तः` standing alone.
+
+That is the division of labour the whole format exists for. **Part 6 is the टीका and may not acquire a
+qualification the Sanskrit does not carry, however merciful.** Part 7 is where context is supplied, and
+saying *where the qualification comes from* is better scholarship than smuggling it into the translation.
+
+### Corrections to my own earlier notes in this file
+Two location errors, found by the व्याख्या pass rather than by me:
+
+- the editor's `(?)` marks are at **§21375** (`यः पाल्यति (?)`) and **§21450** (`मा मुह्य (?)`), **not**
+  §21370 / §21390 as recorded above;
+- the `मोत्तीर्य` / `समुत्तीर्य` verse is at **§20910** (दोहा 91), **not** §21390. §21390's only quotation is
+  `देवागमपरिक्षीणे…`, which the apparatus leaves unattributed.
+
+### One more प्र/म, and a split worth keeping
+- §21380 T4 `पारिपाटी **मस्तावः**` → **`प्रस्तावः`**.
+- §21390 T2 `किंपाकफलोपमानलब्धपूर्व…` splits as **किंपाकफलोपमान् + अलब्धपूर्व**-निश्चयधर्मचौरान्, so
+  `अलब्धपूर्व` qualifies the निश्चय-धर्म, not the विषय.
+- §21400 T2 `विशिष्टभेदभावनाकुशलेन` kept as **कौशल** (every letter accounted for); the printed हिन्दी reads
+  अंकुश — noted rather than followed.
+
+### Divergences, §21310–§21450 (selected)
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| §21440 | `कृतान्तनाम्ना कर्मणा` — the **कर्म** named कृतान्त | "यमराजने (कालने)" — a personified death-god |
+| §21400 | `पञ्चज्ञानप्रतिपक्षभूतानाम्` — opposed to the **five** ज्ञान | "पाँचवाँ ज्ञान जो केवलज्ञान" |
+| §21450 | `अवगण्णु` is the object of `मा कार्षीः` — "do not abandon शिव-संगम" | takes `अवगण्य` as a gerund under `मा मुह्य` |
+| §21375 | `…प्रतिपक्षभूतेभ्यः` — **opposed to** | "भावनासे रहित" — merely lacking |
+| §21420 | names no opponent | adds नैयायिक / वैशेषिक |
+| §21390 | `तद्भावनारतानाम्` is genitive — दान-पूजा **for** those in that भावना | generalises, adds "चार प्रकारके संघकी सेवा" |
+
+### §21140 T4 — RESOLVED: `अज्ञानिलोकपूज्या`, proved by the same fault earlier in the same line
+
+The व्याख्या pass left `अग्निर्ज्ञानिलोकपूज्या` standing and flagged it, reasoning that the printed sandhi
+`र्ज्ञा` supports `ज्ञानि` even though a Jain commentator calling fire "a deity worshipped by the **knowing**
+world" is doctrinally backwards. Right to flag; the full line decides it.
+
+Printed: `यथा लोहपिण्डसंसर्गा**द्ग्नि**र्ज्ञानिलोकपूज्या प्रसिद्धा देवता पिष्टनक्रियां लभते`
+
+**The initial `अ` of `अग्निः` is already lost** — `ग्निर्` is not a word, and the phrase must be
+`संसर्गाद् **अ**ग्निः`. So the very same word-initial `अ` has dropped **twice in one line**, and the first
+loss is not arguable. That settles the second: `अग्निः` + **`अ`**`ज्ञानिलोकपूज्या`.
+
+Corrected to `लोहपिण्डसंसर्गादग्निरज्ञानिलोकपूज्या`. The sense is now the one the simile needs: *fire,
+a renowned deity worshipped by the ignorant world, is nonetheless beaten on the anvil because it keeps
+company with iron* — just as the जीव, for all its purity, suffers hell through its association with the
+body. The irony is the point, and `ज्ञानि` destroys it.
+
+**Method:** this is the fourth passage settled by evidence inside its own sentence rather than by
+emendation-on-doctrine. Where a letter is demonstrably dropping in a line, a second drop in that line needs
+no separate argument. **Look for the fault's own fingerprints nearby before deciding on sense alone.**
+
+### Other readings from §21030–§21150
+- `अज्ञानि` / `अज्ञोद्भव` → **`अङ्गानि` / `अङ्गोद्भव`** (ङ्ग/ज्ञ — a new fount pair; छाया and printed हिन्दी
+  both agree)
+- `मस्तावे` → **`प्रस्तावे`**; `शुद्धात्मतत्त्वादिपरीतं` → **`…ाद्विपरीतम्`** (parallel at §21130)
+- §21050 T1 `योऽसौ सर्वजीवान् समानान् मन्यते` — no negative particle, contradicts the दोहा; rendered with the
+  negative and flagged, like §20250
+- §21070's printed हिन्दी **supplies the "नरक-निगोद कौन भोगे" argument that T11 expressly declines to make**
+- §21120's printed हिन्दी supplies five similes (दीपक, व्याध, गड्ढा, कमल, जाल) absent from the Sanskrit
+
+### §21620 T4 — `मोहकारणं` should be `मोक्षकारणं`; the rendering as made is right
+
+The टीका is denying that वायुधारणा (prāṇāyāma) produces liberation. Its argument is a chain:
+
+> `वायुधारणा तावदीहापूर्विका, ईहा च **मोहकार्य**रूपो विकल्पः । स च **मोहकारणं** न भवतीति …`
+
+— "वायुधारणा is preceded by ईहा; ईहा is a विकल्प which is an **effect of मोह**; and that is not a cause of
+**मोह**."
+
+As printed the chain collapses into a truism: of course a मोह-*effect* is not a मोह-*cause*, and nothing
+follows from it. The argument needs **`मोक्षकारणं`** — *a मोह-effect cannot be a cause of liberation* — and
+T5 says exactly that in plain words: `तस्य वायुधारणस्य च कार्यं देहारोगत्वलघुत्वादिकं **न च मुक्तिरिति**`,
+with T6 pressing it further ("if it did give मुक्ति, why are today's breath-practisers not liberated?").
+
+**The mechanism is compositor perseveration, not a fount pair.** `मोहकार्यरूपो` stands two words earlier;
+the compositor set `मोह` again where `मोक्ष` belonged. That is a well-known class of printing error and it
+explains why no glyph-confusion table covers it.
+
+**Handling:** the व्याख्या renders the sense and keeps the printed form visible in the line. That is right —
+a bare literal rendering would print an incoherent argument and leave the reader to wonder, while the note
+makes the whole situation legible. No change wanted.
+
+### A fount class now worth naming: word-initial `अ` lost in sandhi
+
+Three instances so far, all after a consonant-final word, all restoring an `अ` the sense requires:
+
+| printed | read as |
+|---|---|
+| `लोहपिण्डसंसर्गा**द्ग्नि**र्**ज्ञा**निलोकपूज्या` | `…संसर्गाद् **अ**ग्निर् **अ**ज्ञानिलोकपूज्या` (twice in one line) |
+| `कारणत्वा**द्वि**नश्वरत्वाद्` | `कारणत्वाद् **अ**विनश्वरत्वात्` — "विनाशी" cannot yield "अनन्त" |
+| `सुखा**घ**नन्तशक्तिपरिणततात्` | `सुखा**द्य**नन्तशक्तिपरिणतत्वात्` |
+
+**The test is the same as everywhere else:** the sense demands a negation or a privative that the printed
+letters do not carry, *and* the loss is demonstrable elsewhere in the same passage. Where only the sense
+demands it, flag rather than emend.
