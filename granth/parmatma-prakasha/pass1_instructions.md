@@ -310,6 +310,17 @@ book where "transcribe exactly as printed" is not a fallback but the entire poin
    legibly elsewhere in the volume — in this corpus `प्रतिपक्ष` appears cleanly nine times against six
    degraded `मतिपक्ष`, and `अभिप्राय` twelve times against one `अभिमायो`. A parallel occurrence settles it.
 
+   **And beware the opposite error — emending the edition's own vocabulary.** The lexical test asks whether
+   the word you produced is real, but "real" must mean *real in this text*, not merely in classical Sanskrit.
+   `पञ्चकलेन` was twice proposed for emendation before anyone checked: `कल` is **this edition's own term for
+   a group of verses sharing one पातनिका**, attested as `त्रिकलम्`, `त्रिकलेन`, `षट्कलेन`, `पञ्चकलेन`,
+   `कलम्` — and clinched by its अपभ्रंश form `तिघलं` (ति + घल = त्रि + कल), printed beside `त्रिकलम्` where
+   three दोहा are marked as one unit.
+
+   So before emending an unfamiliar form, **grep `parts/` for its relatives**. One occurrence is a suspect;
+   a declined family with a counterpart in the मूल's own language is the text's word, and leaving it alone
+   is the only correct move.
+
    Beware the reverse, though: `समभाव`, `परमभाव`, `आत्मभाव`, `माया`, `कर्मणाम्`, `निरुपम`, `समाप्तम्`,
    `परिणमति`, `कर्मबन्ध` are all genuine and must be left alone. The test is whether the word exists, not
    whether it contains a `म`.

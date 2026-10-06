@@ -199,12 +199,23 @@ Ambiguous सु/स्व glyph; resolved to `मात्रस्वरूप
 Parses cleanly as printed and no emendation was made, but the source could not be identified. If it is a
 known सुभाषित, name it in part 10.
 
-### §21610 — `पञ्चकलेन` in the पातनिका
-`पञ्चकल` is not a word. The agent proposed `पञ्चकेन`, which requires **deleting** the printed `ल` — not
-allowed (see guard 10). The ल/त्व class gives **`पञ्चकत्वेन`**, which uses every printed letter and parses
-("by way of being a pentad [of सूत्र]"). Settle it on the page; prefer `पञ्चकत्वेन` unless the page refutes it.
-Note `पञ्चकेन` does occur cleanly 3× elsewhere in the corpus, so the alternative is not absurd — but it
-cannot be reached without discarding ink.
+### §21610 — `पञ्चकलेन` is CORRECT as printed. (Earlier flag retracted.)
+This was flagged twice and both readings were wrong, mine included. The extraction pass proposed
+`पञ्चकेन` (which deletes the printed `ल`); I then proposed **`पञ्चकत्वेन`** by the ल/त्व rule. Neither is
+needed.
+
+**`कल` is the edition's own term for a group of verses sharing one पातनिका.** It is a family, attested
+across the book: `त्रिकलम्`, `त्रिकलेन`, `षट्कलेन`, `पञ्चकलेन` (×2), `कलम्`. The decisive witness is its
+**अपभ्रंश form `तिघलं`** — ति + घल, answering to त्रि + कल — which the edition prints beside `त्रिकलम्`
+where it marks three दोहा as a single unit. So `पञ्चकलेन` means "by a group of five [सूत्र]" and needs no
+emendation at all.
+
+**The lesson, and it cuts against my own guard.** The lexical test — *is the word you produced a real
+word?* — is sound, but "real" must mean *real in this text's own vocabulary*, not merely in classical
+Sanskrit. An edition may carry technical terms of its own, and `कल` is one. Before emending an unfamiliar
+form, **grep the corpus for its relatives**: one occurrence is a suspect, a declined family with an
+अपभ्रंश counterpart is the text's own word. The same corpus sweep that proves the प्र/म fault also
+disproves this one.
 
 ### §21610 — a degraded word read as `प्रश्नं` by context
 दोहा 161 is later self-named `प्रभाकरभट्टप्रश्नसूत्रम्`, which supports it, but the glyph did not cleanly
