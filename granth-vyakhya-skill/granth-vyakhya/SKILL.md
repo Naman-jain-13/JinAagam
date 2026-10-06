@@ -82,6 +82,31 @@ delete duplicates with targeted edits. Update the batch table in progress.md.
   pages — it will guess authors and miss texts (this happened).
 - For a collection, also write the ग्रन्थ-सार table (text · author · pages) yourself from progress.md.
 
+## 3b. Pass 3 — the audit pass, when the book rests on a translation
+
+Add this pass whenever the व्याख्या **renders a source language into Hindi** — a संस्कृत टीका, an अपभ्रंश
+or प्राकृत मूल, an English source. Skip it for a book that only explains a Hindi text.
+
+A reader of one finished book reported Hindi that said things its Sanskrit टीका did not. Nothing in the
+earlier design would have caught that: the writing agent is also the only agent that reads the source, so
+it marks its own work. The fix is a **separate agent that never saw the writing**, reading the source and
+the Hindi side by side and reporting divergences as **त्रुटि / लोप / वर्धन / सन्देह**, with a complete
+replacement line for each error. It reports; it does not edit. Findings are applied deliberately, so there
+is a record.
+
+Two structural choices make the audit cheap and sharp:
+
+- **Segment the source in pass 1 and tag the segments** `(T1)`, `(T2)` … The translating pass writes Hindi
+  against the same tags and the builder interleaves them. The auditor then has an exact unit to check, and
+  a missing tag is visible instead of silent.
+- **Never let the translating agent retype the source.** Re-typing hundreds of dense Sanskrit passages is
+  where mistranslation gets its foothold. Transcribe once, in pass 1; pair by tag at build time.
+
+Printing source and Hindi adjacently is itself a safeguard — any reader who knows the source language
+checks you line by line.
+
+See `references/translation-fidelity.md` for the failure modes worth naming in a translation spec.
+
 ## 4. Build → finalize → verify
 
 ```bash
@@ -132,3 +157,10 @@ reader hasn't approved (build a tiny docx from just that content; don't touch th
 - Real TOC page numbers and footer page numbers — only Word produces them; LibreOffice will not.
 - Nothing about the *process* (batches, sessions, files, "the user") appears in the book.
 - Faithfulness over fluency: [अस्पष्ट] where unreadable; "लगभग/सम्भवतः" where unsure; never invent a citation.
+- **Reproduce the edition's own inconsistencies, never harmonise them.** The same compound spelled two ways
+  two pages apart, a verse number misprinted, a translation that belongs to the next verse — all stay as
+  printed, each with a one-line पाठ-सूचना. A reader collating against the original must find the difference
+  where it actually is.
+- **Look at rendered pages before declaring a book done.** Three green gates once passed a 1,515-page book
+  with 700 literal asterisks in it, because the builder parsed `**bold**` but not `*italic*`. Render the
+  title, the TOC, two body pages and a back-matter page, and *look*.

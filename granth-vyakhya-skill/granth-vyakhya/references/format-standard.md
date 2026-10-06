@@ -24,6 +24,28 @@ what "done" means.
 For a *collection* of independent texts (like अभिषेक-पाठ-संग्रह with 16 ग्रन्थ), each ग्रन्थ is a Heading 1 that
 starts on a new page; अनुच्छेद are Heading 2 and flow continuously (no page break between them).
 
+## 1b. How many parts a § needs — six is the floor, not the rule
+
+Six parts suits a ग्रन्थ whose मूल is Sanskrit or Hindi and needs no linguistic bridge. Add parts when the
+मूल puts a language between the reader and the text, and say so in `meta.json → structure`:
+
+| the मूल is | parts | what is added |
+|---|---|---|
+| संस्कृत / हिन्दी | **6** | the standard set |
+| प्राकृत / अपभ्रंश गाथा | **9** | **संस्कृत छाया · अन्वय · अन्वयार्थ** after मूल पाठ, so a reader who knows Sanskrit but not Prakrit can work through the verse unaided |
+| …with a संस्कृत टीका as well | **10** | also **the टीका with its Hindi**, printed adjacently, segment by segment |
+
+Where the edition already prints a छाया, **transcribe it** — do not compose one; and name the part
+"संस्कृत छाया (मुद्रित)" so the reader knows whose it is.
+
+The three added parts have a precise shape. अन्वय is the मूल's own words in prose order, no substitutions.
+अन्वयार्थ is one पद per line as `**पद** (संस्कृत, विभक्ति) = अर्थ`, compounds split with `+`, grammatical
+form given wherever it decides the sense. Both are quoted matter: the honorific pass and every gate must
+leave them alone, along with मूल पाठ and the छाया.
+
+The builder's `kind()` classifies by keyword, so **heading-word order matters**: test `छाया` before `मूल`,
+`अन्वयार्थ` before `अन्वय`, and `टीका` before `अनुवाद` when a heading contains both.
+
 ## 2. The six parts of every §
 
 Every § carries all six headings, always in this order, even when a part has nothing to say — then write
