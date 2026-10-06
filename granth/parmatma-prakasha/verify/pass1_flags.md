@@ -402,3 +402,170 @@ working a different range from the one where the original error was found. Likew
 across the दोहा's two clauses ('पर' भेद्य, आत्मा अभेद्य). The alternative, "भेद्यम्, न अभेद्यम्", makes both
 describe `तत्परम्` alone and is grammatically lighter. Also §10270 T3 `स्वसंवेद्यभावोपार्जितानि` (an अभाव
 had to be supplied, visibly bracketed) and §10400 T4, where the text after `प्रच्छादित` is corrupt.
+
+### Divergences, §11190–§20130
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| **§20080 T4** | lists **four** व्यवहार-ध्येय | gives **three** — the प्रतिमा-बिम्ब is dropped |
+| §20060 T8 | names the `मण्डिकसंज्ञ` naiyāyikas | omits the name |
+| §20020 | `भेदाभेदरत्नत्रय` | "निश्चय व्यवहार" |
+| §20100 T3 | stops at `साधवः` | adds an etymology of साधु |
+| §11190 | T6 attaches रागादि-रहित to 'संतु' | folds it into 'सिउ' |
+| §11200 | T1 `रूपम्`; T6 only केवलज्ञान-किरणें | "मुख"; "केवलज्ञानादि अनन्त गुण" |
+| §11230 | T7's `समशब्दवाच्यः परमात्मा` | absent from the भावार्थ |
+| §11220 | T8 lacks "ज्ञान स्वाभाविकज्ञान" | has it |
+
+**§20080 is the most consequential of these.** A dropped member of an enumeration is invisible to a reader —
+nothing in the Hindi looks incomplete, and only counting against the Sanskrit reveals it. This is the second
+such case (§10580 named काल alone where the टीका has काल **and** पुद्गल-परमाणु).
+
+### Two compound splits corrected after the fact — §11210, §11233
+The व्याख्या pass split `सुखामृतमतिबन्धकैः` as अमृत + **अतिबन्धक** and `भावनामतिकूलेषु` as भावना +
+**अतिकूल**. Neither is a Sanskrit word; `प्रतिबन्धक` occurs 4× and `प्रतिकूल` 8× in this corpus, and the
+splits leave the printed `म` unexplained (भावना + अतिकूल would give *भावनातिकूल*). Corrected in `parts/` to
+`प्रतिबन्धकैः` / `प्रतिकूलेषु` — the same प्र/म fault, hidden inside a compound where the extraction pass
+could not see it.
+
+**The failure mode is worth naming: the sense survived the wrong split.** The Hindi still said "obstructing",
+but had acquired an **"अत्यन्त"** the Sanskrit does not license, because `अति-` had to mean something.
+A wrong split leaks small additions into the translation. Fixed in the rendering too, and a guard added to
+the व्याख्या spec: *is the member you produced actually a word, and does your split use every printed letter
+and no more?*
+
+### Open for the audit
+- §11190 T5 `कर्मतापघ्नः` — read as the printed corruption of `कर्मता-आपन्नः` (the कर्म-pad of passive
+  `दृश्यते`), on the strength of ~20 parallel occurrences in this टीका, rather than `कर्म-ताप-घ्नः`, which
+  parses but answers `कोऽसौ` oddly.
+- §20050 T2–T3 — `सोइ / तमेव मोक्षम्` makes the bound *animals* desire "that same मोक्ष"; rendered literally
+  with the two senses of मोक्ष explained in part 7 rather than softened to "release" in part 6.
+- §11210 T7's quoted verse, second quarter `भ्रूविभ्रमस्तूत्थ उच्यते` — yields no लक्षण for भाव and repeats
+  विभ्रम; rendered literally and marked सन्दिग्ध. Unattributed in the apparatus.
+
+### Divergences, §10590–§11010
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| **§10610 T11** | the जीव is the **विषय** of gross sense-knowledge | makes him its **knower** — subject and object reversed |
+| **§10950** | **no sect-adjective** for the व्यवहार-गुरु | supplies one |
+| §10880 | the vest-list is योगदण्डक-माला-कमण्डलु | जटाधारी / रुद्राक्ष / तिलक |
+| §10910 | `परस्मिन् कर्मणि नियोजयति` | "जुदा जानता है" |
+| §10900 | `क्वापि काले` (temporal) | "किसी प्रकार भी" (manner) |
+| §11010 | छाया `रविराजः`, टीका `रविरागो रविप्रकाशः` | टीका followed — the दृष्टान्त needs the light, not the orb |
+| §10950 | `तीर्थकरपुण्यहेतुभूतं` | untranslated |
+| §10600 | — | adds "अन्य सब हेय हैं" |
+| §10620 | — | drops "परमात्मा" |
+| §10650 | the निषेध is limited by `बन्धमोक्षस्वरूपम्` | unqualified |
+| §10670 | `भेदाभेदभावना`; 'पर' glossed कामक्रोधादि | "भेदाभेदरत्नत्रय"; देहादि |
+| §10940 | no मूल/उत्तर गुण numbers | supplies them |
+
+**§10610 is the most serious kind.** Reversing who knows and what is known is not a shade of emphasis — it
+inverts the sentence. **§10950 matters for a different reason:** the Sanskrit is neutral about the
+व्यवहार-गुरु and the printed हिन्दी adds a sect label. Following the Sanskrit is both the faithful reading
+and the one that keeps sect names out of this book, which is the standing rule anyway.
+
+**Internal inconsistencies left unharmonised, as the rule requires:** §10630 T1 says शुद्धनिश्चयनय and T4
+अशुद्धनिश्चयनय; §10640's छाया has `निश्चयः` against the टीका's `निश्चयेन`; §10610's छाया `संपादिताः`
+against the टीका's `संपिताः`.
+
+**Open for the audit:** §10670 T5 — `तदेकस्वस्वभावं त्यक्त्वा कामक्रोधादिरूपो न भवति` read as denying only
+*becoming काम-क्रोध by abandoning one's own स्वभाव*, not denying विभाव-परिणमन outright, since a flat denial
+would contradict this ग्रन्थ's own अशुद्ध-निश्चय statements. Also §10960 T2 `कथंभूतोऽपि । केवलोऽपि ।` taken
+as masculine, attaching 'केवल' to आत्मा rather than to neuter दर्शनम्.
+
+### §20360 — the printed हिन्दी omits seven whole टीका segments
+
+The most substantial omission found so far. दोहा 36's टीका carries a full exchange: श्री प्रभाकरभट्ट objects
+that ध्यान requires उत्तम संहनन, and श्री ब्रह्मदेव answers at length, quoting three verses
+(तत्त्वानुशासन twice, मोक्षप्राभृत once). **The edition's printed हिन्दी renders none of it** — it gives the
+दोहा's पद-अर्थ and stops. Segments T4–T10 have no counterpart in the translation at all.
+
+This is not a shade of emphasis or a dropped qualifier. **A reader of the printed हिन्दी would not know the
+question had been raised or answered.** The व्याख्या now carries the whole exchange, and part 10 records that
+the printed translation passes over it.
+
+### Divergences, §20270–§20370
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| **§20360** | a 7-segment संहनन question-and-answer with three quoted verses | **nothing — the whole passage is untranslated** |
+| §20350 | — | adds that the केवली's दर्शन and ज्ञान are simultaneous |
+| §20290 | — | adds a परम्पराय/साक्षात् मोक्ष-कारण claim the टीका never makes |
+| §20330 | `सर्वार्थसिद्धिटिप्पणिका`; has `नास्त्येकान्तः` | "सर्वार्थसिद्धि टीका"; omits it, adds a गौण/मुख्य gloss |
+| §20280 | T15's `घटपटादीनाम्` | dropped |
+| §20270 | `गम्यते`, impersonal | imperative |
+| §20300 / §20370 | — | add `अतीन्द्रिय`; add `सहजमें ही` and `विभावरूप नहीं परिणमता` |
+
+**Printed-text oddities read through, each supported by the printed हिन्दी:** `जीवपुद्गलत्वद्विभाव…` →
+`जीवपुद्गलवद् विभाव…`; `समदेशानि` → `सप्रदेशानि`; `सत्भङ्ग्यात्मकं` → `सप्तभङ्ग्यात्मकम्`; `ऐकाम्य` →
+`ऐकाग्र्य`. All four bracketed in part 6 rather than silently smoothed.
+
+**Open for the audit:** §20280 T19 `षड्द्रव्यध्येयभूतव्यवहारसम्यक्त्व` — split as "व्यवहारसम्यक्त्व whose
+ध्येय is the six द्रव्य", matching T4's `व्यवहारसम्यक्त्वविषयभूतानां द्रव्याणाम्`, rather than "the six
+द्रव्य, which are ध्येय". The printed हिन्दी is too loose to decide it.
+
+### §10870 T4 — RESOLVED, no निषेध needs supplying
+The व्याख्या pass flagged this as its most doubtful rendering: `तानेव … तद्विपरीतभावनारतोऽन्तरात्मा
+स्वशुद्धात्मस्वरूपेण योजयति` has no negative particle, yet the अन्तरात्मा plainly must *not* do what the
+बहिरात्मा does, and §10860 T5's parallel has an explicit `न योजयति`.
+
+**The text is sound as printed.** The contrast is carried by the **case**, not by a निषेध:
+
+- बहिरात्मा joins those भेद **स्वात्मनि** — locative, "to his own self";
+- अन्तरात्मा joins [himself] **स्वशुद्धात्मस्वरूपेण** — instrumental, "with his own pure-self-nature".
+
+He does not negate the act; he redirects it. The printed हिन्दी says exactly this and settles it:
+*"सम्यग्दृष्टि जीव **अपने नहीं समझता**। **आपको तो वह ज्ञानस्वभावरूप जानता है**।"* — the "नहीं" attaches to
+*treating them as his own*, and the positive half gives what he joins himself to instead.
+
+The rendering in the file was already right (it supplied only a bracketed `(अपनेको)` and read the
+instrumental correctly); only its note claimed doubt. The note now carries the resolution instead, so the
+spurious uncertainty does not reach the reader. **No emendation, no supplied particle.**
+
+### §20250 T4 — the निषेध IS genuinely missing from the print. Contrast with §10870.
+
+Two segments looked alike — both seemed to need a `न` that is not printed — and the answers are opposite.
+Worth stating together, because the temptation is to settle them by one rule.
+
+**§10870 needed nothing.** The contrast was carried by the case (locative `स्वात्मनि` vs instrumental
+`स्वशुद्धात्मस्वरूपेण`). The sentence was complete.
+
+**§20250 T4 really is defective.** Its own neighbours settle it:
+
+- **T1** — `…स्वकीयस्वकीयस्वरूपं **न** त्यजन्तीति दर्शयति`
+- **T8** — `…केवलज्ञानाद्यनन्तगुणस्वरूपं **न** त्यजन्ति … वर्णादिस्वरूपं **न** त्यजन्ति … स्वकीयस्वकीयस्वरूपं
+  **न** त्यजन्ति ॥ २५ ॥` — three times in one sentence
+- **T4** — `…संकरव्यतिकरपरिहारेण स्वकीयस्वकीयसामान्यविशेषशुद्धगुणान् त्यजन्तीति ।` — none
+
+The `यद्यपि … तथापि` frame demands the contrast, and `संकरव्यतिकरपरिहारेण` ("by avoiding intermixture") is
+itself about *not* losing one's own nature. Without the `न`, T4 asserts the exact opposite of T1, T8 and the
+दोहा. Rendered "नहीं छोड़ते", with a part-10 note.
+
+**The method, for the audit:** when a particle seems to be missing, ask first whether some other feature —
+case, voice, a correlative — is already doing that work (§10870), and only then whether the print has
+genuinely lost it (§20250). The ग्रन्थ's own parallel sentences are the evidence in both directions, and
+they were decisive both times.
+
+### Divergences, §11020–§20260
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| **§20250** | **four** दृष्टान्त | adds a fifth (ऊँटनीके दूधका घड़ा) |
+| **§20160** | निज शुद्धात्मा is the **विषय** of वीतराग-सम्यक्त्व | makes it the **कारण** |
+| §20140 | the whole परिहार is `भूतनैगमनयेन परंपरया भवति` | substitutes a long answer plus a द्रव्यसंग्रह quotation not in the टीका |
+| §20170 | `व्रतप्रतिज्ञाभङ्गो भवति`; `सरागसम्यग्दृष्टयो` | "महाव्रतका उदय"; drops सराग |
+| §20210 | `असंख्येयप्रमित`; §20240 calls काल **अप्रदेश** | "असंख्यात प्रदेशप्रमाण" |
+| §11080 | `आत्मनि स्थितं` qualifies `विकल्पजालम्` | makes it the object of knowing, drops the त्याग clause |
+| §11180 | `कथंभूतम्` asks about `सिउ`, so `संतु` is its adjective | makes them two objects |
+| §11070 | `बहू वि` = बहवोऽपि (many people) | "बहुत कष्ट करके भी" |
+| §20190 | — | adds "निमित्त कारण पर उपादान नहीं" |
+
+**Printed readings construed against the page and noted:** `धर्मला` → `धर्मत्वात्` (ल/त्व),
+`रागादिमवर्धकेन` → `रागादिवर्धकेन`, `कः` → `क्व` (the answer is locative), `सन्नाकुलत्वलक्षणम्` →
+`सन् अनाकुलत्वलक्षणम्` (the printed हिन्दी agrees: "आकुलता रहित").
+
+**Open for the audit:** §11070 T1 — `पर` glossed `नियमेन` though the छाया prints `परः`, making the दोहा
+exclusive ("ज्ञान का **ही** गम्य"), which carries its whole doctrinal force. §11080 glosses the same word
+`परम् उत्कृष्टम्`, §11090 gives both, §11110 uses both in one line — read as context-decided rather than
+inconsistent. Also §20230 T6, where कालद्रव्य is taken as the उपादान and the परमाणु as mere व्यंजक,
+inverting the usual potter-analogy expectation.

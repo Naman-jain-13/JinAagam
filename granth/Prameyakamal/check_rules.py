@@ -72,3 +72,37 @@ if hits:
     print("\n   (postprocess_docx.py निर्माण के समय इन्हें ठीक कर देती है, पर स्रोत में भी सुधारना बेहतर है)")
 else:
     print("   आचार्य-सम्बोधन: साफ़")
+
+# ---------------------------------------------------------------- पृष्ठ-आवरण
+# हर मुद्रित पृष्ठ का (पृष्ठ N) टैग होना चाहिए — वरना उस पन्ने का सन्दर्भ नहीं बनेगा।
+# batch14 में 11 में से केवल 4 टैग थे; पाठ मौजूद था पर पृष्ठ-सन्दर्भ नहीं बनता।
+import json as _json
+print()
+try:
+    _mp = _json.load(open("pagemap.json", encoding="utf-8"))
+    _RNG = _json.load(open("batch_ranges.json", encoding="utf-8"))
+except FileNotFoundError:
+    print("   पृष्ठ-आवरण: pagemap.json या batch_ranges.json नहीं मिली — छोड़ा")
+else:
+    _weak = []
+    for _f in files:
+        _key = pathlib.Path(_f).name.split("_")[0]
+        if _key not in _RNG:
+            continue
+        _a, _b = _RNG[_key]
+        _want = [int(_mp[str(s)]) for s in range(_a, _b + 1) if _mp.get(str(s), "").isdigit()]
+        _got = set()
+        for _m in re.finditer(r"\(\s*पृष्ठ\s*(\d+)\s*(?:[-–]\s*(\d+))?\s*\)",
+                              pathlib.Path(_f).read_text(encoding="utf-8")):
+            _lo = int(_m.group(1))
+            _hi = int(_m.group(2)) if _m.group(2) else _lo
+            _got.update(range(_lo, _hi + 1))
+        _miss = [p for p in _want if p not in _got]
+        if _miss:
+            _weak.append((_key, _miss))
+    if _weak:
+        print(f"** पृष्ठ-टैग छूटे हुए: {len(_weak)} बैच")
+        for _k, _m in _weak:
+            print(f"   {_k}: {_m}")
+    else:
+        print("   पृष्ठ-आवरण: हर मुद्रित पृष्ठ का टैग मौजूद")
