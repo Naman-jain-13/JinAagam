@@ -76,12 +76,20 @@ def value(text, table=None):
     numbers that are not counts at all, such as the षोडश of षोडशवर्णिकासुवर्ण ("sixteen-carat gold",
     a simile) in the colophon that actually closes a त्रयोदश-सूत्र स्थल.
     """
+    # Pick by where the match ENDS, and on a tie prefer the LONGER word. Sorting the table
+    # longest-first is not enough once matches are ranked by position: 'सप्तदशक' (17) contains
+    # 'दशक' (10), both end at the same place, and taking the rightmost START made the shorter one
+    # win — reporting a 17-दोहा स्थल as 10. Nesting has the same shape as substring overlap here,
+    # so both have to be handled explicitly.
     best = None
     for word, n in (table or NUMERALS):
         i = text.rfind(word)
-        if i >= 0 and (best is None or i > best[0]):
-            best = (i, n, word)
-    return (best[1], best[2]) if best else (None, None)
+        if i < 0:
+            continue
+        end, length = i + len(word), len(word)
+        if best is None or (end, length) > (best[0], best[1]):
+            best = (end, length, n, word)
+    return (best[2], best[3]) if best else (None, None)
 
 
 def decode(key):

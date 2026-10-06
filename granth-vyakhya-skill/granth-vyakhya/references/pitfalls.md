@@ -126,6 +126,27 @@ Each of these cost real time once. Read before starting; re-read before the fina
   and is idempotent; `check_quality.py docx` fails if it was skipped. Watch hyphenated compounds
   ("श्रीमदाचार्य-अनन्तकीर्ति") — an early version doubled the श्री there; the title page is the place to look.
 
+## Gates have bugs too, and they are nearly always the same bug
+
+Three times on one book, in three different gates, a check reported a false result because **a regex found
+*a* match where the *right* match lay elsewhere**:
+
+- a colophon's count read from the **first** number word, when these colophons nest and name the containing
+  division before their own — a स्थल of 8 reported as 41;
+- a § assigned from the **first** `दोहा N` in its title, when the authoritative reference is the
+  parenthetical at the end — a descriptive prefix ("प्रक्षेपक दोहा 1: …") silently moved three sections to
+  दोहा 1, 2 and 3;
+- a numeral read as the **shorter of two overlapping** words — `सप्तदशक` (17) contains `दशक` (10), both end
+  at the same character, and a "rightmost match" rule made the short one win.
+
+Each fix is different — scope (search inside the parenthetical), position (take the last), length (prefer
+the longer on a tie) — and **one does not substitute for another**: sorting a table longest-first stops
+helping the moment you start ranking matches by position.
+
+So whenever a field can occur more than once in a string, **say explicitly which occurrence is
+authoritative**, and write the reason in the code. A gate that is confidently wrong is worse than no gate,
+because its green light is believed.
+
 ## Gates, and what they cannot see
 
 Automated gates are necessary and not sufficient. Learned on a 1,514-page book:

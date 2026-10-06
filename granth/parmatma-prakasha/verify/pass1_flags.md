@@ -299,3 +299,106 @@ different दोहा, so **none of them appears in any header**. Every one was
   **आत्माराम** ऐसा हूँ" supplies a word the Sanskrit does not have (it ends at
   `…कृतकारितानुमतैश्च शुद्धनिश्चयनयेन`). The Sanskrit is authoritative; the Hindi's additions are the
   translator's expansion. Confirm both in the audit.
+
+---
+
+## Divergences between the संस्कृत टीका and the edition's printed हिन्दी
+
+These are what the project was commissioned to find. In every case the व्याख्या follows the **Sanskrit** in
+part 6, leaves part 5 exactly as the edition printed it, and records the difference in part 10. The audit
+pass should confirm each — both that the Sanskrit was read right, and that the note exists.
+
+**From §10010–§10580 (the first four व्याख्या ranges):**
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| §10500 | the सर्वगत-वादी are **सांख्य**, नैयायिक, मीमांसक | **वेदान्ती** in place of सांख्य |
+| §10470 | `बिम्बितम्` (neuter) qualifies `ज्ञानम्`; 'पद' = परमात्मस्वरूप | 'पद' = केवलज्ञान, and परमस्वभाव is what is reflected |
+| §10540 | चरमशरीरप्रमाण only | adds "चरम-शरीर से कुछ कम पुरुषाकार" |
+| §10580 | प्रदेशत्व is असाधारण against **काल and पुद्गल-परमाणु** | names only काल |
+| §10510 | — | adds an एकान्तवाद critique the टीका does not make |
+| §10570 | वर्णान्तर-परिणमन is a **स्वभाव-पर्याय** | calls it a विभाव-गुण |
+| §10070 | `प्रभाकरभट्टस्य` makes him the नमस्कार-कर्ता | makes it श्री योगीन्दुदेव's उपदेश |
+| §10090 | `भवान्तरप्राप्तम्` | dropped |
+| §10010 | `उपचरित`-असद्भूत व्यवहार; `सद्भूत`/`शुद्धनिश्चय` | `अनुपचरित`-; `असद्भूत`/`अशुद्ध निश्चय` |
+| §10040 | टीका `त्रिभुवनगुरुक` | छाया `त्रिभुवने गुरुका` |
+| §10060 | **स्व**-शुद्धात्मस्वरूप | drops 'अपना' |
+
+**§10500 is the sharpest of these.** सांख्य and वेदान्त are different schools with different positions, and a
+reader trusting the printed Hindi alone would attribute the सर्वगत view to the wrong one. It is a plain
+substitution, not an expansion, and it is precisely the failure the reader described having seen before.
+
+**Readings the व्याख्या pass flagged as grammatical, not doctrinal** — the कर्मतापन्न family at work:
+`कर्तृभूतम्` (§10490 T5, §10560 T2/T3) and `करणभूतेन` (§10520 T2).
+
+**Open for the audit (second opinions the व्याख्या agents asked for):**
+- §10050 (T7) — `यदि निश्चयेन तिष्ठन्ति`: read as "वस्तुतः" rather than "by निश्चयनय", because the stated
+  दूषण is impossible on the latter reading; but the same word means निश्चयनय in (T8) of the same §.
+- §10470 (T5) — the कथंभूतम् read against the printed हिन्दी.
+- §10460 (T4) — `मोक्षपदार्थादिलक्षणो बन्धः` taken as `मोक्षपदार्थाद्विलक्षणो` (बन्ध cannot have मोक्ष as its
+  लक्षण). Also §10570 T2 `द्रव्यं स्वम्`, §10580 T8 `गुणाश्चिविधा`, §10550 T3 `नशुद्धजीवत्वम्`.
+
+### §10250 T7 `सप्तदशक` (17) vs the printed हिन्दी's `दस` — RESOLVED, no error either side
+The व्याख्या pass rendered सत्रह as printed and noted the divergence, which was the right call, but the two
+numbers do not actually conflict — they count different things, and the स्थल nesting explains it:
+
+- §10150's segment carries **both** a closing and an opening. It closes `स्वरूपष्ठकं` (8 दोहा, 8–15) and then
+  announces `दोहकसूत्र**दशकं** प्रारभ्यते` — a decad beginning, i.e. **दोहा 16–25**.
+- §10250 closes `दोहक**सप्तदशकं** गतम्` — seventeen, i.e. **दोहा 9–25**, the containing block.
+
+So the printed हिन्दी's "दस" renders the *opening* announcement and the Sanskrit's सप्तदश the *closing* of
+the larger block. Keep both as printed; part 10 should say they count different divisions rather than
+implying the edition erred.
+
+### A gate bug this exposed, now fixed
+`check_colophons.py` reported this स्थल as 10. **`सप्तदशक` contains `दशक` as a substring**, both end at the
+same character, and the "take the rightmost match" rule introduced earlier made the shorter word win.
+Ordering the numeral table longest-first does not help once matches are ranked by position. It now picks by
+where a match **ends**, preferring the **longer** word on a tie.
+
+**This is the third time the same bug class has bitten this project**, each time in a different gate:
+
+1. `check_colophons.py` took the **first** number word in a nested colophon, reporting a स्थल of 8 as 41;
+2. `check_coverage.py` took the **first** `दोहा N` in a § title, so a descriptive prefix
+   ("प्रक्षेपक दोहा 1: …") silently reassigned three प्रक्षेपक to दोहा 1, 2 and 3;
+3. `check_colophons.py` again, taking the **shorter overlapping** numeral.
+
+All three are the same mistake: *a regex found **a** match where the **right** match lay elsewhere.* When a
+field can appear more than once in a string, say which occurrence is authoritative — by scope (the
+parenthetical), by position (the last), and by length (the longest) — and never let one of those stand in
+for another.
+
+### The quotation map caught a fabricated citation — §10300
+The व्याख्या pass had written **`समयसार 49`** for a quoted verse from its own knowledge, then replaced it
+with the edition's attribution from `verify/udharan_map.md`: **`(भाव-)प्राभृत 64; पञ्चास्तिकाय 127`**.
+Without the map a wrong citation would have gone into the book, looking entirely plausible.
+
+The same agent also **declined** the map's second §10300 entry (`परिणाम जीव…`), because that प्रतीक does not
+occur in this §'s टीका — the apparatus records it on printed page 145, not 33. That is the double-quotation
+warning doing its job: the entry carried a caution, the agent checked the words, and said nothing.
+
+Both behaviours are what the map is for. **Treat an unattributed quotation as unattributed**; the cost of a
+confident wrong citation in a ग्रन्थ-व्याख्या is much higher than the cost of silence.
+
+### More divergences, §10260–§10440 (Sanskrit followed, printed हिन्दी left intact, noted in part 10)
+
+| § | the टीका says | the printed हिन्दी says |
+|---|---|---|
+| §10290 | by अभेदनय the देह is **non**-different | "अपनेसे भिन्न जडरूप देहमें" |
+| §10280 | `परिं` = `परस्मिन् दूरे` ("दूर ही") | छाया and हिन्दी read `परम्` |
+| §10260 | `शक्तिरूपेण` is तृतीया, qualifying `नयेन` | makes शक्तिरूप a विशेषण of परमात्मा |
+| §10430 | `आराधनासमर्थेन` is तृतीया → qualifies `समाधिना` | attaches it to जिनवरदेव |
+| §10410 | — | adds "सबमें व्याप रहा है" / "सर्वव्यापक" |
+| §10400 | — | adds a कर्त्ता-हर्त्ता wordplay the टीका does not make |
+| §10420 | `अन्यत्रैव भवे` | "इसी भवमें" |
+| §10440 | `परं` = नियमेन | "केवल" |
+
+**The कर्मतापन्न lesson is propagating.** §10390 T2 `कर्मतापन्नः` and §10400 T2 `यो जीवः कर्ता` were both
+rendered as **grammatical** notes about the sentence, not as doctrinal claims — unprompted, by an agent
+working a different range from the one where the original error was found. Likewise `सकल`/`निष्कल` taken as
+स+कल / निः+कल (देहसहित / देहरहित), not "पूर्ण/अपूर्ण".
+
+**Open for the audit:** §10300 T5 `कथंभूतम् । भेद्यमभेद्यमित्यर्थः ।` — read as distributing the two words
+across the दोहा's two clauses ('पर' भेद्य, आत्मा अभेद्य). The alternative, "भेद्यम्, न अभेद्यम्", makes both
+describe `तत्परम्` alone and is grammatically lighter. Also §10270 T3 `स्वसंवेद्यभावोपार्जितानि` (an अभाव
+had to be supplied, visibly bracketed) and §10400 T4, where the text after `प्रच्छादित` is corrupt.

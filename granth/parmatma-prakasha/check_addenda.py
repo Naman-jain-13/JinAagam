@@ -15,7 +15,7 @@ Checks
   4. part 9 compact: 1-3 bullets, no blank line between them
   5. forbidden vocabulary — sect names, working-process language
   6. bare आचार्य names that postprocess_docx.py would have to rescue
-  7. thin parts — a व्याख्या (part 6) under 400 words, or fewer than 4 bullets
+  7. thin parts — the विस्तृत व्याख्या (part 7) under 400 words
   8. [अस्पष्ट] in part 1 of a § whose छाया does not also carry it
 """
 import io, re, sys, glob, os
@@ -23,15 +23,22 @@ import io, re, sys, glob, os
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 QUIET = '--quiet' in sys.argv
 
+# This ग्रन्थ uses the ten-part § (अपभ्रंश मूल + मुद्रित छाया + ब्रह्मदेव's टीका), not the six-part one.
+# Pass 2 owns seven of the ten: parts 1, 2 and 5 are the edition's own text and live in parts/.
+# Part 6 here is the टीका's Hindi, written against the SAME (Tn) tags the Sanskrit carries — the
+# builder interleaves them, so the व्याख्या agent never retypes a word of Sanskrit.
 PARTS = [
-    ('2', 'संस्कृत छाया'),
     ('3', 'अन्वय'),
     ('4', 'अन्वयार्थ'),
-    ('6', 'जैनागम के अनुसार विस्तृत व्याख्या'),
-    ('7', 'सरल उदाहरण'),
-    ('8', 'तुलनात्मक तालिका'),
-    ('9', 'सन्दर्भ एवं पाद-टिप्पणी'),
+    ('6', 'टीका का हिन्दी अनुवाद'),
+    ('7', 'जैनागम के अनुसार विस्तृत व्याख्या'),
+    ('8', 'सरल उदाहरण'),
+    ('9', 'तुलनात्मक तालिका'),
+    ('10', 'सन्दर्भ एवं पाद-टिप्पणी'),
 ]
+# योगसार has no टीका, so its § have no part 6 to translate — the edition's पाठान्तर occupies that
+# slot in parts/ and is reproduced verbatim. Its addenda carry the other six parts only.
+YOGASARA_PARTS = [p for p in PARTS if p[0] != '6']
 FORBIDDEN = ['बीसपंथ', 'तेरापंथ', 'बैच', 'उपयोगकर्ता', 'इस सत्र', 'अगले भाग में',
              'progress.md', 'स्कैन', 'एजेंट']
 # names that must never stand bare; postprocess_docx.py is the safety net but source should be right
@@ -76,16 +83,18 @@ for n in sorted(add):
     b = os.path.basename(f)
 
     # 2. headings present and ordered
+    key = int(re.sub(r'[^0-9]', '', b) or 0)
+    want = YOGASARA_PARTS if key // 10000 == 3 else PARTS
     pos = []
-    for num, name in PARTS:
+    for num, name in want:
         m = re.search(r'^##\s*%s\.\s*%s' % (num, re.escape(name.split()[0])), t, re.M)
         if not m:
             problems.append('%s — missing part %s (%s)' % (b, num, name))
         else:
             pos.append((num, m.start()))
-    if pos == sorted(pos, key=lambda x: x[1]) and len(pos) == len(PARTS):
+    if pos == sorted(pos, key=lambda x: x[1]) and len(pos) == len(want):
         pass
-    elif len(pos) == len(PARTS):
+    elif len(pos) == len(want):
         problems.append('%s — parts out of order' % b)
 
     # 3. must not redefine parts 1 or 5
@@ -93,15 +102,16 @@ for n in sorted(add):
         if re.search(r'^##\s*%s\.' % num, t, re.M):
             problems.append('%s — redefines part %s (it belongs to parts/)' % (b, num))
 
-    # 4. part 9 compact
-    m9 = re.search(r'^##\s*9\..*?$(.*)\Z', t, re.M | re.S)
-    if m9:
-        body = m9.group(1).strip('\n')
+    # 4. part 10 (सन्दर्भ एवं पाद-टिप्पणी) compact — 1-3 one-line bullets, no blank line between them.
+    # In this ग्रन्थ the references are part 10; part 9 is the comparative table and may be long.
+    m10 = re.search(r'^##\s*10\..*?$(.*)\Z', t, re.M | re.S)
+    if m10:
+        body = m10.group(1).strip('\n')
         bullets = [l for l in body.split('\n') if l.strip().startswith(('-', '*'))]
         if len(bullets) > 3:
-            problems.append('%s — part 9 has %d bullets (max 3)' % (b, len(bullets)))
+            problems.append('%s — part 10 has %d bullets (max 3)' % (b, len(bullets)))
         if re.search(r'\n[ \t]*\n[ \t]*[-*]', body):
-            problems.append('%s — part 9 has a blank line between bullets' % b)
+            problems.append('%s — part 10 has a blank line between bullets' % b)
 
     # 5. forbidden vocabulary
     for w in FORBIDDEN:
@@ -128,12 +138,15 @@ for n in sorted(add):
                 problems.append('%s — bare "%s" in prose (needs श्री … स्वामी)' % (b, name))
                 break
 
-    # 7. thin व्याख्या
-    m6 = re.search(r'^##\s*6\..*?$(.*?)(?=^##\s|\Z)', t, re.M | re.S)
-    if m6:
-        words = len(m6.group(1).split())
-        bl = len([l for l in m6.group(1).split('\n') if l.strip().startswith(('-', '*'))])
-        if words < 400 or bl < 4:
+    # 7. thin व्याख्या — measured on part 7, the विस्तृत व्याख्या.
+    # NOT part 6. In this ग्रन्थ part 6 is the टीका's Hindi, and its length is fixed by how much
+    # Sanskrit श्री ब्रह्मदेव wrote for that दोहा — a short टीका gives a short part 6 and that is
+    # correct, not thin. Measuring it would flag the faithful renderings and miss the lazy ones.
+    m7 = re.search(r'^##\s*7\..*?$(.*?)(?=^##\s|\Z)', t, re.M | re.S)
+    if m7:
+        words = len(m7.group(1).split())
+        bl = len([l for l in m7.group(1).split('\n') if l.strip().startswith(('-', '*'))])
+        if words < 400:
             thin.append((b, words, bl))
 
 if not QUIET:
@@ -156,4 +169,4 @@ if hard:
 if missing:
     print('\n%d § still to write — not yet complete.' % len(missing))
     sys.exit(1)
-print('\nOK — every § has all seven parts, part 9 compact, no forbidden words, no bare names.')
+print('\nOK — every § has its parts, part 10 compact, no forbidden words, no bare names.')
