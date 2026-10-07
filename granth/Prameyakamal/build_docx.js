@@ -245,11 +245,14 @@ const body = [];
 for (const num of [...parts.keys()].sort((a, b) => a - b)) {
   const g = GROUPS[String(num)];
   if (g) {
+    // एक ही § पर दो शीर्षक पड़ सकते हैं — परिच्छेद का पहला प्रकरण उसी § से शुरू
+    // होता है जिससे परिच्छेद। इसलिए मान सूची भी हो सकता है।
     // पुराना रूप — सीधी पंक्ति — परिच्छेद मान लिया जाता है, ताकि दूसरे ग्रन्थों की
     // groups.json बिना बदले चलती रहे।
-    const sub = typeof g === 'object' && Number(g.level) === 2;
-    const title = typeof g === 'string' ? g : (g.title || g.t);
-    if (title) {
+    for (const item of (Array.isArray(g) ? g : [g])) {
+      const sub = typeof item === 'object' && Number(item.level) === 2;
+      const title = typeof item === 'string' ? item : (item.title || item.t);
+      if (!title) continue;
       if (!sub) body.push(new Paragraph({ children: [new PageBreak()] }));
       body.push(gHead(title, sub));
     }
