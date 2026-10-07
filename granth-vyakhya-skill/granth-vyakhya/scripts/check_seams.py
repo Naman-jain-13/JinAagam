@@ -55,3 +55,49 @@ for a, b in zip(files, files[1:]):
     else:
         print(f"   {na} -> {nb}: ठीक")
 print(f"\n{'कोई दोहराव नहीं' if not bad else str(bad) + ' सन्धियों पर दोहराव'}")
+
+
+# ------------------------------------------- एक ही फ़ाइल के भीतर § -से-§ दोहराव
+# ऊपर की जाँच केवल बैच-सन्धियों पर देखती है, क्योंकि दोहराव वहीं अपेक्षित था —
+# दो अलग पाठक, एक ही कटा वाक्य। पर दोहराव एक ही फ़ाइल के भीतर भी हुआ: §1083 का
+# अन्तिम वाक्य "इति व्यासवचनसद्भावाच्च।" §1084 के आरम्भ में फिर से लिखा मिला।
+# वह सन्धि-जाँच की पकड़ से बाहर था और किसी और जाँच की पकड़ में आ ही नहीं सकता था।
+def mool_of(block):
+    m = re.search(r"##\s*1\..*?\n(.*?)(?=\n##\s*2\.|\Z)", block, re.S)
+    if not m:
+        return ""
+    t = re.sub(r"\(\s*पृष्ठ[^)]*\)", " ", m.group(1))
+    t = re.sub(r"(?m)^पाद-टिप्पणी.*$", " ", t)
+    return t
+
+
+print()
+_dup = []
+for _f in sorted(pathlib.Path(".").glob("parts/batch*.md")):
+    _blocks = re.split(r"(?m)^(?=§\d)", _f.read_text(encoding="utf-8"))
+    _prev_sec, _prev_tail = None, []
+    for _b in _blocks:
+        _m = re.match(r"§(\d+)", _b)
+        if not _m:
+            continue
+        _words = mool_of(_b).split()
+        if _prev_tail and _words:
+            # पिछले § के अन्तिम 25 शब्दों में से कोई लम्बी शृंखला इसके आरम्भ में?
+            _head = _words[:25]
+            _best = 0
+            for _i in range(len(_prev_tail)):
+                _n = 0
+                while (_n < len(_head) and _i + _n < len(_prev_tail)
+                       and _prev_tail[_i + _n] == _head[_n]):
+                    _n += 1
+                _best = max(_best, _n)
+            if _best >= 4:
+                _dup.append((_f.name, _prev_sec, _m.group(1), _best,
+                             " ".join(_head[:_best])))
+        _prev_sec, _prev_tail = _m.group(1), _words[-25:]
+if _dup:
+    print(f"** एक ही फ़ाइल के भीतर § -दोहराव: {len(_dup)}")
+    for _n, _a, _b2, _c, _s in _dup[:10]:
+        print(f"   {_n.split('_')[0]} §{_a} → §{_b2}: {_c} शब्द — {_s[:70]}")
+else:
+    print("   § -से-§ दोहराव (फ़ाइल के भीतर): कोई नहीं")
