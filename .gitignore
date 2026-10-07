@@ -64,3 +64,10 @@ granth/*/*_tmp.txt
 granth/*/range_dump.txt
 granth/*/idx_slice.json
 granth/*/addenda/out*.txt
+
+# addenda/ और parts/ में केवल .md रहती हैं — वहाँ कोई भी .txt एजेंट की
+# अस्थायी फ़ाइल ही है। पहले यहाँ "addenda/out*.txt" लिखा था, जो नाम-भर से
+# बँधा था और "wc_out.txt" उसमें से निकल गया। अब पूरी निर्देशिका पर।
+granth/*/addenda/*.txt
+granth/*/parts/*.txt
+granth/*/addenda/*.json
