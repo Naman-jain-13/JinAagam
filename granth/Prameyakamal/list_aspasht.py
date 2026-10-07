@@ -62,7 +62,7 @@ def main(write=False):
         out.append(f"| {b} | {sec} | {pg or '?'} | {img} | …{ctx}… |")
 
     if stray:
-        out += ["", "## ** भाग 2–3 में मिले — यह नियम-विरुद्ध है", ""]
+        out += ["", "## ** भाग 2 के चिह्न — ये मूल के गड्ढे को दिखाते हैं, दोष नहीं", ""]
         for b, sec, pg, part, line in stray:
             out.append(f"- {b} {sec} (मु. {pg}, भाग {part}) — "
                        f"{re.sub(r'\s+', ' ', line)[:110]}")
@@ -73,7 +73,7 @@ def main(write=False):
         d.mkdir(exist_ok=True)
         (d / "aspasht_list.md").write_text(text, encoding="utf-8")
         print(f"_recheck/aspasht_list.md — {len(rows)} स्थान"
-              + (f", {len(stray)} नियम-विरुद्ध" if stray else ""))
+              + (f", {len(stray)} भाग 2 में" if stray else ""))
     else:
         print(text)
 
