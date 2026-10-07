@@ -37,6 +37,11 @@ SOURCES = {
     "sa_gautama-nyAyasUtra.txt": "न्यायसूत्र",
     "sa_IzvarakRSNa-sAMkhyakArikA.txt": "सांख्यकारिका",
     "sa_bhartRhari-vAkyapadIya.txt": "वाक्यपदीय",
+    "sa_dharmakIrti-saMbandhaparIkSA-comm.txt": "सम्बन्धपरीक्षा",
+    "sa_dharmakIrti-nyAyabindu.txt": "न्यायबिन्दु",
+    "sa_kaNAda-vaizeSikasUtra.txt": "वैशेषिकसूत्र",
+    "sa_pataJjali-yogasUtra-with-bhASya.txt": "योगसूत्र-भाष्य",
+    "sa_jaimini-mImAMsAsUtra.txt": "मीमांसासूत्र",
 }
 
 LETTERS = set("abcdefghijklmnopqrstuvwxyz"
