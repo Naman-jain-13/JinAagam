@@ -20,10 +20,38 @@ def dev2en(s):
     return "".join(str(DEV.index(c)) if c in DEV else c for c in s)
 
 
+def strip_footnotes(s):
+    """"(पाद-टिप्पणी: ...)" को ही हटाइए — मिलते हुए ")" तक, भीतर के कोष्ठक गिनकर।
+
+    पहले यहाँ `.*` (ग्रीडी, पूरी पंक्ति-भर) था, जो पृष्ठ के शेष समूचे मूल पाठ को
+    ही मिटा देता था जब टिप्पणी बीच पृष्ठ में आती — इससे शब्द-गणना झूठमूठ घट जाती थी।
+    """
+    out, i, n = [], 0, len(s)
+    marker = "(पाद-टिप्पणी:"
+    while i < n:
+        j = s.find(marker, i)
+        if j == -1:
+            out.append(s[i:])
+            break
+        out.append(s[i:j])
+        depth, k = 0, j
+        while k < n:
+            if s[k] == "(":
+                depth += 1
+            elif s[k] == ")":
+                depth -= 1
+                if depth == 0:
+                    k += 1
+                    break
+            k += 1
+        i = k
+    return "".join(out)
+
+
 def norm(s):
     s = re.sub(r"\[अस्पष्ट\]", "□", s)
     s = re.sub(r"\*\*|\*|`", "", s)
-    s = re.sub(r"पाद-टिप्पणी:.*", "", s)
+    s = strip_footnotes(s)
     s = re.sub(r"टीका\s*—", " ", s)
     s = re.sub(r"[‘’“”'\"()\[\]]", " ", s)
     s = re.sub(r"[-–—]", " ", s)
@@ -69,7 +97,9 @@ def first_reading(path):
             keep = True; continue
         if s.startswith("## ") or s.startswith("§"):
             keep = False; continue
-        if keep and s:
+        # सादी "पाद-टिप्पणी:" पंक्ति मूल पाठ नहीं है — उसे गिनने से
+        # पहले वाले पाठ की शब्द-गणना झूठमूठ बढ़ जाती है।
+        if keep and s and not s.startswith("पाद-टिप्पणी"):
             buf.append(s)
     text = " ".join(buf)
     parts = re.split(r"\(\s*पृष्ठ\s*([0-9०-९]+)\s*\)", text)

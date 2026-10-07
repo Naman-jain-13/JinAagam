@@ -237,11 +237,18 @@ const doc = new Document({
   title: META.title,
   features: { updateFields: true },
   styles: {
-    default: { document: { run: { font: FONT, size: BODY } } },
+    // The heading styles go in `default`, NOT in `paragraphStyles`. Declaring them as paragraphStyles
+    // with the ids Heading1-3 does not REPLACE the library's own built-in definitions — it appends,
+    // leaving three styleIds defined twice in styles.xml. That is invalid OOXML, and what Word does
+    // with a style it has two conflicting definitions of is undefined. `default` overrides instead,
+    // and the emitted style element is otherwise identical, outlineLvl included.
+    default: {
+      document: { run: { font: FONT, size: BODY } },
+      heading1: { run: { font: FONT, size: 32, bold: true, color: '7A1F1F' }, paragraph: { spacing: { before: 240, after: 200 }, outlineLevel: 0, keepNext: true } },
+      heading2: { run: { font: FONT, size: 28, bold: true, color: '1F4E79' }, paragraph: { spacing: { before: 320, after: 140 }, outlineLevel: 1, keepNext: true } },
+      heading3: { run: { font: FONT, size: 25, bold: true, color: '833C0B' }, paragraph: { spacing: { before: 180, after: 80 }, outlineLevel: 2, keepNext: true } },
+    },
     paragraphStyles: [
-      { id: 'Heading1', name: 'Heading 1', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { font: FONT, size: 32, bold: true, color: '7A1F1F' }, paragraph: { spacing: { before: 240, after: 200 }, outlineLevel: 0, keepNext: true } },
-      { id: 'Heading2', name: 'Heading 2', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { font: FONT, size: 28, bold: true, color: '1F4E79' }, paragraph: { spacing: { before: 320, after: 140 }, outlineLevel: 1, keepNext: true } },
-      { id: 'Heading3', name: 'Heading 3', basedOn: 'Normal', next: 'Normal', quickFormat: true, run: { font: FONT, size: 25, bold: true, color: '833C0B' }, paragraph: { spacing: { before: 180, after: 80 }, outlineLevel: 2, keepNext: true } },
       { id: 'TOC1', name: 'toc 1', basedOn: 'Normal', next: 'Normal', run: { font: FONT, size: 22, bold: true }, paragraph: { spacing: { before: 100, after: 40 } } },
       { id: 'TOC2', name: 'toc 2', basedOn: 'Normal', next: 'Normal', run: { font: FONT, size: 20 }, paragraph: { indent: { left: 300 }, spacing: { after: 30 } } },
     ]

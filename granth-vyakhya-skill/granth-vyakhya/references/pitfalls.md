@@ -214,6 +214,38 @@ Automated gates are necessary and not sufficient. Learned on a 1,514-page book:
   Run it in the background; check that `WINWORD` CPU time keeps rising; do not kill it because it "looks
   stuck". Never write to the .docx while Word has it open (EBUSY). If a run is aborted, `Stop-Process WINWORD`
   before retrying.
+- **Word needs ~10 MB of RAM per page, so past ~1,200 pages it cannot paginate the book at all.** Measured:
+  975 pages → 9.4 GB peak, 946 → 7.8 GB. On a 15 GB machine Word dies about two-thirds of the way through,
+  after ~5½ minutes, with `0x800706BE` and an `mso20win32client.dll` failfast in the event log. This is not
+  a corrupt file — both halves open perfectly alone, and no structural variant (no TOC, no tables, no
+  duplicate styles, freshly built) survives whole. A book that finalized fine months ago now fails too.
+  Use `finalize_big.py` + `export_chunk.ps1`: cut the body at खण्ड/§ boundaries into ~4,200-paragraph chunks,
+  export each as a standalone .docx with `w:pgNumType w:start` at its offset, and take the TOC page numbers
+  from each chunk PDF's **heading bookmarks** — so the contents is computed from real layout without Word
+  ever paginating the whole book. The TOC becomes TOC1/TOC2 paragraphs, not a field.
+- **CPU rising is not proof of progress — watch memory too.** The old advice above ("check that CPU keeps
+  rising") passes a run that is marching straight into the memory wall. And read `.CPU` as **seconds**: 17
+  CPU-seconds over 14 hours is a frozen process, not a busy one. I called a dead Word "working steadily"
+  on exactly that misreading.
+- **Never run two Word jobs at once.** `finalize_word.ps1`'s `Clear-WordState` kills *every* WINWORD before
+  each attempt, so a second job shoots the first mid-COM-call — which looks identical to the memory crash
+  (`0x800706BE`) and sent one diagnosis down the wrong path for an hour.
+- **Do not slice `document.xml` through ElementTree.** It drops namespace declarations it thinks unused,
+  leaving `mc:Ignorable="w14 w15 …"` naming undeclared prefixes; Word then refuses the file outright and
+  any bisect built on such variants tests nothing. Slice the body's top-level children out of the raw
+  markup with a depth scan, and assert the pieces rebuild the original byte for byte before trusting them.
+- **Word renumbers PDF outline levels per document.** A chunk that begins at a § makes that § level 1 and
+  its ten part-headings level 2. Taking levels from the PDF put 1,890 entries in a contents that should
+  have 521. Take the level from the paragraph's `pStyle` and pair it with the bookmark by position
+  (the counts agree exactly), and assert that they do.
+- **Never link a generated TOC by searching the page for the entry's text.** Titles repeat — every § has a
+  "1. मूल पाठ" — so a search put 10,431 links on an 1,890-entry contents, most pointing at the wrong §.
+  Match entries to rendered lines in reading order and skip any line that does not match the next entry.
+- **The `docx` library appends heading styles, it does not replace them.** Declaring `paragraphStyles` with
+  the ids `Heading1`–`Heading3` leaves each defined *twice* in `styles.xml` — invalid OOXML, and what Word
+  does with two conflicting definitions is undefined. Put them in `styles.default.heading1…3` instead; the
+  emitted style is identical, `outlineLvl` included. (Word hides this: it rewrites `styles.xml` on save, so
+  every already-finalized book looks clean while the builder output is not.)
 - **Windows paths in Python.** The Windows Python does not understand `/tmp` or `/c/Users/...`. Use
   `C:/Users/...` paths inside scripts; `PYTHONIOENCODING=utf-8` when printing Devanagari.
 

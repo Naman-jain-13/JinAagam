@@ -118,6 +118,20 @@ powershell -File scripts/finalize_word.ps1 -Docx "<out.docx>"      # Word: TOC p
 python scripts/check_quality.py pdf <out.pdf>
 ```
 
+**Past ~1,200 pages use `finalize_big.py` instead of `finalize_word.ps1`:**
+
+```bash
+python scripts/finalize_big.py <out.docx> --plan   # show the chunk cut points, touch nothing
+python scripts/finalize_big.py <out.docx>          # chunked export + generated TOC → <out.pdf>
+```
+
+Word needs about 10 MB of RAM per page of these books, so it cannot paginate a big one at all — it dies
+partway through with `0x800706BE`, and `finalize_word.ps1` depends on exactly that whole-book pagination
+(so does its chunked export: every page-range export re-paginates the entire document). `finalize_big.py`
+cuts the body at खण्ड/§ boundaries into ~300-page standalone documents, each numbered from its own offset,
+and reads the TOC page numbers out of each chunk PDF's heading bookmarks. One Word process never sees more
+than it can hold. See the Word/DOCX section of `references/pitfalls.md` before changing any of it.
+
 `postprocess_docx.py` is not optional: the reader asked that every आचार्य of the guru-paramparā be written
 respectfully ("श्री विद्यानन्द स्वामी", "श्री अकलंकदेव", "आचार्य श्री समन्तभद्र" — never a bare name), and
 that the सन्दर्भ एवं पाद-टिप्पणी part of each § be set dictionary-size so references take minimal room.
