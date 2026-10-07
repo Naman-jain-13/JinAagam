@@ -23,12 +23,18 @@
 | `backmatter/` | ग्रन्थ-सार, परिशिष्ट, शब्दावली, सन्दर्भ-सूची |
 | `img/` | स्कैन के रेंडर किए पन्ने (300 dpi) · _git में नहीं, मूल PDF से दोबारा बनते हैं_ |
 | `progress.md` | कहाँ तक हुआ, आगे क्या — **काम यहीं से उठाइए** |
-| निर्माण-स्क्रिप्ट | `build_docx.js`, `postprocess_docx.py`, `finalize_word.ps1`, `check_quality.py` |
+| निर्माण-स्क्रिप्ट | `build_docx.js`, `postprocess_docx.py`, **`finalize_big.py`**, `check_quality.py` |
 
 सब रास्ते इसी फ़ोल्डर के सापेक्ष हैं — स्क्रिप्ट यहीं से चलाइए।
 
 ```bash
 node build_docx.js .                      # -> vyakhya/Prameyakamal_Martand_Vyakhya.docx
 python postprocess_docx.py vyakhya/*.docx  # आचार्य-सम्बोधन + भाग 6 का आकार
-powershell -File finalize_word.ps1        # विषय-सूची के पृष्ठ-अङ्क + PDF
+python finalize_big.py vyakhya/*.docx     # विषय-सूची के पृष्ठ-अङ्क + PDF
 ```
+
+**`finalize_word.ps1` इस ग्रन्थ पर मत चलाइए।** वह पूरी पुस्तक एक साथ Word को देती है, और
+Word को इन पुस्तकों के हर पृष्ठ पर लगभग 10 MB स्मृति चाहिए। यह पुस्तक ~1,900 पृष्ठ की होगी,
+यानी ~18 GB — इस मशीन के पास इतनी है ही नहीं, इसलिए Word पृष्ठ-गणना के बीच में ही मर जाता है।
+`finalize_big.py` पुस्तक को खण्डों में काटकर निर्यात करती है और विषय-सूची के अङ्क उसी से
+निकालती है जो Word ने वास्तव में बिठाया — यही इस आकार पर एकमात्र चलने वाला रास्ता है।
