@@ -209,6 +209,11 @@ function renderMarkdownDir(dir) {
   if (!fs.existsSync(dir)) return [];
   const out = [];
   for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.md')).sort()) {
+    // हर फ़ाइल नए पृष्ठ से। ये पुस्तक के स्वतन्त्र अंग हैं — भूमिका, ग्रन्थ-संरचना,
+    // ग्रन्थ-सार, परिशिष्ट, शब्दावली — और छपी हुई पुस्तक में इन्हें एक-दूसरे के
+    // बीच से आरम्भ नहीं होना चाहिए। पहली फ़ाइल को छोड़कर, क्योंकि उससे पहले
+    // पृष्ठ-विच्छेद पहले ही लग चुका होता है।
+    if (out.length) out.push(new Paragraph({ children: [new PageBreak()] }));
     let buf = [];
     const flush = () => { if (buf.length) out.push(...renderBlock(buf)); buf = []; };
     for (const raw of fs.readFileSync(path.join(dir, f), 'utf-8').split('\n')) {
@@ -259,6 +264,8 @@ for (const num of [...parts.keys()].sort((a, b) => a - b)) {
   }
   body.push(...renderSection(parts.get(num)));
 }
+// अन्तिम § के ठीक बाद परिशिष्ट आरम्भ नहीं होना चाहिए।
+body.push(new Paragraph({ children: [new PageBreak()] }));
 body.push(...renderMarkdownDir(BACK_DIR));
 
 const doc = new Document({
