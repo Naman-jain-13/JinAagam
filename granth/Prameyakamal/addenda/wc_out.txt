@@ -1,0 +1,30 @@
+2201 सामान्य 440   <-- OUT OF RANGE
+2202 छोटा 322 
+2203 छोटा 274   <-- OUT OF RANGE
+2204 छोटा 288   <-- OUT OF RANGE
+2205 सामान्य 329   <-- OUT OF RANGE
+2206 छोटा 253   <-- OUT OF RANGE
+2207 सामान्य 378   <-- OUT OF RANGE
+2208 छोटा 283   <-- OUT OF RANGE
+2209 छोटा 256   <-- OUT OF RANGE
+2210 सामान्य 336   <-- OUT OF RANGE
+2211 छोटा 255   <-- OUT OF RANGE
+2212 सामान्य 307   <-- OUT OF RANGE
+2213 छोटा 247   <-- OUT OF RANGE
+2214 छोटा 277   <-- OUT OF RANGE
+2215 छोटा 248   <-- OUT OF RANGE
+2216 सामान्य 285   <-- OUT OF RANGE
+2217 छोटा 247   <-- OUT OF RANGE
+2218 सामान्य 285   <-- OUT OF RANGE
+2219 छोटा 262   <-- OUT OF RANGE
+2220 सामान्य 350   <-- OUT OF RANGE
+2221 सामान्य 365   <-- OUT OF RANGE
+2222 सामान्य 308   <-- OUT OF RANGE
+2223 सामान्य 303   <-- OUT OF RANGE
+2224 छोटा 215   <-- OUT OF RANGE
+2225 सामान्य 318   <-- OUT OF RANGE
+2226 छोटा 233   <-- OUT OF RANGE
+2227 छोटा 253   <-- OUT OF RANGE
+2228 छोटा 236   <-- OUT OF RANGE
+2229 सामान्य 338   <-- OUT OF RANGE
+2230 छोटा 317 
