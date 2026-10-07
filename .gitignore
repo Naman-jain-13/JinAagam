@@ -56,3 +56,11 @@ encyclopedia/_check.js
 *.tar
 *.tar.gz
 granth/*/_citations/corpus/
+
+# एजेंट अपने काम के बीच अस्थायी फ़ाइलें छोड़ जाते हैं — वे ग्रन्थ का अंग नहीं
+granth/*/out*.txt
+granth/*/pyout.txt
+granth/*/*_tmp.txt
+granth/*/range_dump.txt
+granth/*/idx_slice.json
+granth/*/addenda/out*.txt

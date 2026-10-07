@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "<string>", line 7, in <module>
-    print(d['n'], d.get('band'), d.get('batch'), d.get('page'))
-    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
-    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
-           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-3: character maps to <undefined>
-1451 
