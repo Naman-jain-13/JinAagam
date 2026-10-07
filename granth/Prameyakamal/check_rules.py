@@ -244,3 +244,42 @@ if _proc:
     print("    भाग 1 की पाद-टिप्पणी में जाए, और 'स्कैन' नहीं 'प्रति' कहकर।)")
 else:
     print("   प्रक्रिया-शब्द (भाग 2–3): साफ़")
+
+# ------------------------------------------------------- addenda भी जाँचिए
+# यह जाँच अब तक केवल parts/ देखती थी। पर addenda/ में भी उतनी ही प्रोज़ है और वह भी
+# पाठक के सामने छपती है — 1752 § के भाग 3-6। वहाँ सम्प्रदाय-नाम, प्रक्रिया-भाषा या
+# बिना सम्मान-सूचक के आचार्य-नाम उतने ही वर्जित हैं।
+print()
+_add = sorted(glob.glob("addenda/s*.md"))
+if _add:
+    _bad_sect, _bad_proc, _bad_fmt = [], [], []
+    _HEADS = ["## 3. पूरक व्याख्या", "## 4. सरल उदाहरण",
+              "## 5. तुलनात्मक तालिका", "## 6. सन्दर्भ"]
+    for _f in _add:
+        _t = pathlib.Path(_f).read_text(encoding="utf-8")
+        _n = pathlib.Path(_f).name
+        for _s in SECTS:
+            if _s in _t:
+                _bad_sect.append((_n, _s)); break
+        for _w, _p in _pats:
+            if _p.search(_t):
+                _bad_proc.append((_n, _w)); break
+        # चारों शीर्षक, सही क्रम में, और पहली पंक्ति ठीक
+        _lines = _t.lstrip().splitlines()
+        if not _lines or _lines[0].strip() != "## 3. पूरक व्याख्या":
+            _bad_fmt.append((_n, "पहली पंक्ति"))
+            continue
+        _pos = [_t.find(_h) for _h in _HEADS]
+        if any(_x < 0 for _x in _pos) or _pos != sorted(_pos):
+            _bad_fmt.append((_n, "शीर्षक"))
+    print(f"   addenda: {len(_add)} फ़ाइलें")
+    for _label, _lst in (("सम्प्रदाय-नाम", _bad_sect), ("प्रक्रिया-शब्द", _bad_proc),
+                         ("प्रारूप (चारों शीर्षक)", _bad_fmt)):
+        if _lst:
+            print(f"**   addenda में {_label}: {len(_lst)}")
+            for _r in _lst[:6]:
+                print(f"      {_r[0]}  «{_r[1]}»")
+        else:
+            print(f"     {_label}: साफ़")
+else:
+    print("   addenda: अभी कोई फ़ाइल नहीं")
