@@ -3,7 +3,7 @@
 
 चलाइए:  python check_rules.py
 """
-import re, glob, pathlib
+import re, glob, pathlib, difflib
 
 # नियम का अर्थ "इन दो नामों से बचिए" नहीं, "किसी सम्प्रदाय का नाम न लिखिए" है।
 # पहले इस सूची में केवल बीसपंथ/तेरापंथ थे — जो दूसरे ग्रन्थ के प्रसंग के नाम थे।
@@ -315,3 +315,41 @@ if _part_bad:
     print("   (हर § में तीनों भाग ठीक एक-एक बार होने चाहिए)")
 else:
     print("   § में भागों की गिनती: सब ठीक (तीनों भाग एक-एक बार)")
+
+# ------------------------------- एक ही § के भीतर दुहराया हुआ अनुच्छेद
+# §2024 के भाग 3 का अन्तिम अनुच्छेद शब्दशः दो बार लिखा मिला। मूल-पाठ की दोहराव-जाँच
+# इसे नहीं देखती (वह केवल भाग 1 पर चलती है), और भागों की गिनती भी ठीक थी — क्योंकि
+# "## 3." एक ही बार था, बस उसके भीतर एक अनुच्छेद दो बार।
+print()
+_rep = []
+for _f in files:
+    for _blk in re.split(r"(?m)^(?=§\d)", pathlib.Path(_f).read_text(encoding="utf-8")):
+        _m = re.match(r"§(\d+)", _blk)
+        if not _m:
+            continue
+        _seen = {}
+        for _ln in _blk.splitlines():
+            _s = _ln.strip()
+            if len(_s) < 80 or _s.startswith("##"):
+                continue
+            _seen[_s] = _seen.get(_s, 0) + 1
+        # अक्षरशः एक जैसे
+        for _s, _c in _seen.items():
+            if _c > 1:
+                _rep.append((pathlib.Path(_f).name, _m.group(1), _c, _s[:60]))
+        # मिलते-जुलते भी — वही बुलेट दुबारा, दूसरी बार भरा हुआ
+        # (§2024 ऐसा ही था)। पूरे अनुच्छेद तोलना बहुत महँगा पड़ता है,
+        # इसलिए केवल आरम्भिक साठ अक्षर मिलाए जाते हैं — बुलेट का शीर्षक वहीं होता है।
+        _pre = {}
+        for _s in _seen:
+            _k = _s[:60]
+            _pre[_k] = _pre.get(_k, 0) + 1
+        for _k, _c in _pre.items():
+            if _c > 1:
+                _rep.append((pathlib.Path(_f).name, _m.group(1), _c, _k))
+if _rep:
+    print(f"** § के भीतर दुहराया अनुच्छेद: {len(_rep)}")
+    for _n, _sec, _c, _s in _rep[:8]:
+        print(f"   {_n.split('_')[0]} §{_sec} × {_c} — {_s}…")
+else:
+    print("   § के भीतर दुहराया अनुच्छेद: कोई नहीं")
