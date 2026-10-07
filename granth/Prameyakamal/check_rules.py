@@ -34,7 +34,9 @@ def scan(label, terms, skip_mool=True):
             if skip_mool and in_mool:
                 continue
             for t in terms:
-                if t in s:
+                # शब्द-सीमा के साथ — वरना "यापनीय" सत्यापनीय में, "विभाग" संयोग-विभाग में
+                # और "सत्र" सत्रह में मिल जाता है। तीनों बार झूठी चेतावनी आ चुकी है।
+                if re.search(f"(?<![ऀ-ॿ]){re.escape(t)}(?![ऀ-ॿ])", s):
                     hits.append((pathlib.Path(f).name, i, t, s[:80]))
     if hits:
         bad += 1
@@ -265,7 +267,7 @@ if _add:
         _t = pathlib.Path(_f).read_text(encoding="utf-8")
         _n = pathlib.Path(_f).name
         for _s in SECTS:
-            if _s in _t:
+            if re.search(f"(?<![ऀ-ॿ]){re.escape(_s)}(?![ऀ-ॿ])", _t):
                 _bad_sect.append((_n, _s)); break
         for _w, _p in _pats:
             if _p.search(_t):
