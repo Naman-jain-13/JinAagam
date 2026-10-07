@@ -5,7 +5,8 @@
 //   <work_dir>/meta.json      : title, author line, basis, subject, numerals ("en"|"dev"), out, credits ...
 //   <work_dir>/parts/*.md     : § files  — "§N — title" line, then "## १. मूल ..." sub-sections, bullets, tables
 //   <work_dir>/addenda/sNN.md : per-§ supplements (## 3. पूरक व्याख्या | ## 4. सरल उदाहरण | ## 5. तुलनात्मक तालिका | ## 6. सन्दर्भ)
-//   <work_dir>/groups.json    : { "1": "[ खण्ड-शीर्षक ]", ... }  Heading 1 inserted before §N
+//   <work_dir>/groups.json    : { "1": "परिच्छेद-शीर्षक",                     -> नया पृष्ठ + बड़ा शीर्षक
+//                                 "55": { "title": "प्रकरण", "level": 2 } }  -> उसी पृष्ठ पर छोटा शीर्षक
 //   <work_dir>/frontmatter/*.md (optional) : भूमिका etc. — "# " Heading 1, placed after TOC
 //   <work_dir>/backmatter/*.md  : ग्रन्थ-सार, परिशिष्ट, सन्दर्भ-सूची, शब्दावली — "# " / "## " / "### "
 // Then run finalize_word.ps1 to update TOC page numbers and export the PDF (Word COM; LibreOffice cannot).
@@ -69,6 +70,21 @@ const pEmpty = () => new Paragraph({ text: '', spacing: { after: 60 } });
 const h1 = text => new Paragraph({ heading: HeadingLevel.HEADING_1, spacing: { before: 240, after: 200 }, keepNext: true, children: [new TextRun({ text: toEn(text), bold: true, size: 32, font: FONT, color: '7A1F1F' })] });
 const h2 = text => new Paragraph({ heading: HeadingLevel.HEADING_2, spacing: { before: 320, after: 140 }, keepNext: true, children: [new TextRun({ text: toEn(text), bold: true, size: 28, font: FONT, color: '1F4E79' })] });
 const h3 = text => new Paragraph({ heading: HeadingLevel.HEADING_3, spacing: { before: 180, after: 80 }, keepNext: true, children: [new TextRun({ text: toEn(text), bold: true, size: 25, font: FONT, color: '833C0B' })] });
+
+// खण्ड-शीर्षक दो स्तर के हैं। बड़े ग्रन्थ में एक ही स्तर काफ़ी नहीं पड़ता:
+// प्रमेयकमल में 1752 § हैं और परिच्छेद केवल छह — अकेला प्रथम परिच्छेद 706 § लम्बा है,
+// जिसमें पाठक कहीं भी खो जाए। इसलिए बीच में "प्रकरण" का स्तर।
+//
+// दोनों HEADING_1 ही हैं, ताकि § (जो HEADING_2 हैं) विषय-सूची में अपनी जगह बनाए रखें;
+// भेद दिखने में है — परिच्छेद नए पृष्ठ पर, बीच में, बड़े अक्षरों में; प्रकरण उसी पृष्ठ पर,
+// बाएँ से, छोटे अक्षरों में।
+const gHead = (text, sub) => new Paragraph({
+  heading: HeadingLevel.HEADING_1,
+  spacing: { before: sub ? 400 : 240, after: sub ? 160 : 220 },
+  keepNext: true,
+  alignment: sub ? AlignmentType.LEFT : AlignmentType.CENTER,
+  children: [new TextRun({ text: toEn(text), bold: true, size: sub ? 28 : 34, font: FONT, color: '7A1F1F' })]
+});
 
 function buildTable(rows) {
   const n = Math.max(...rows.map(r => r.length)); const w = Math.floor(9200 / n);
@@ -227,7 +243,17 @@ front.push(...renderMarkdownDir(FRONT_DIR));
 // ---------- assemble ----------
 const body = [];
 for (const num of [...parts.keys()].sort((a, b) => a - b)) {
-  if (GROUPS[String(num)]) body.push(h1(GROUPS[String(num)]));
+  const g = GROUPS[String(num)];
+  if (g) {
+    // पुराना रूप — सीधी पंक्ति — परिच्छेद मान लिया जाता है, ताकि दूसरे ग्रन्थों की
+    // groups.json बिना बदले चलती रहे।
+    const sub = typeof g === 'object' && Number(g.level) === 2;
+    const title = typeof g === 'string' ? g : (g.title || g.t);
+    if (title) {
+      if (!sub) body.push(new Paragraph({ children: [new PageBreak()] }));
+      body.push(gHead(title, sub));
+    }
+  }
   body.push(...renderSection(parts.get(num)));
 }
 body.push(...renderMarkdownDir(BACK_DIR));
