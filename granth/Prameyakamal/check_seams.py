@@ -91,7 +91,7 @@ for _f in sorted(pathlib.Path(".").glob("parts/batch*.md")):
                        and _prev_tail[_i + _n] == _head[_n]):
                     _n += 1
                 _best = max(_best, _n)
-            if _best >= 4:
+            if _best >= 3:
                 _dup.append((_f.name, _prev_sec, _m.group(1), _best,
                              " ".join(_head[:_best])))
         _prev_sec, _prev_tail = _m.group(1), _words[-25:]
@@ -101,3 +101,38 @@ if _dup:
         print(f"   {_n.split('_')[0]} §{_a} → §{_b2}: {_c} शब्द — {_s[:70]}")
 else:
     print("   § -से-§ दोहराव (फ़ाइल के भीतर): कोई नहीं")
+
+
+# --------------------------------- अक्षर-स्तर पर भी, क्योंकि टुकड़े शब्द नहीं होते
+# §1180 "…विपाकादिना विभक्तरूपेण सन्ति," पर समाप्त होता है और §1181 "दिना विभक्तरूपेण
+# सन्ति, तर्हि…" से आरम्भ — दोहराव केवल दो शब्द और एक अधूरा टुकड़ा ("दिना") था,
+# इसलिए शब्द गिनने वाली जाँच से निकल गया। अक्षर गिनने से वह भी पकड़ में आता है।
+print()
+_c_dup = []
+for _f in sorted(pathlib.Path(".").glob("parts/batch*.md")):
+    _blocks = re.split(r"(?m)^(?=§\d)", _f.read_text(encoding="utf-8"))
+    _prev_sec, _prev_tail = None, ""
+    for _b in _blocks:
+        _m = re.match(r"§(\d+)", _b)
+        if not _m:
+            continue
+        _txt = re.sub(r"\s+", "", mool_of(_b))
+        _head = _txt[:140]
+        if _prev_tail and _head:
+            _best, _at = 0, ""
+            for _i in range(len(_prev_tail)):
+                for _j in range(_i + _best + 1, len(_prev_tail) + 1):
+                    _sub = _prev_tail[_i:_j]
+                    if _sub in _head and len(_sub) > _best:
+                        _best, _at = len(_sub), _sub
+                    elif len(_sub) > _best:
+                        break
+            if _best >= 18:
+                _c_dup.append((_f.name, _prev_sec, _m.group(1), _best, _at))
+        _prev_sec, _prev_tail = _m.group(1), _txt[-140:]
+if _c_dup:
+    print(f"** § -दोहराव (अक्षर-स्तर): {len(_c_dup)}")
+    for _n, _a, _b2, _c, _s in _c_dup[:10]:
+        print(f"   {_n.split('_')[0]} §{_a} → §{_b2}: {_c} अक्षर — {_s[:46]}")
+else:
+    print("   § -दोहराव (अक्षर-स्तर): कोई नहीं")
