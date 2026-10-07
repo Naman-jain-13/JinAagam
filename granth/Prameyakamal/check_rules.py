@@ -150,3 +150,54 @@ if _sizes:
         print("   (विषय-सूची की दृष्टि से इन्हें फिर से बाँटना बेहतर है)")
     else:
         print(f"   अनुच्छेद-आकार: सब बैच एक जैसे (माध्य {_med} अक्षर/§)")
+
+# ------------------------------------------------- [अस्पष्ट] कहाँ चल सकता है
+# यह चिह्न प्रति की सीमा बताता है, पाठक से बात करने का साधन नहीं।
+#   भाग 1 — ठीक, वहीं उसकी जगह है।
+#   भाग 2 — तभी ठीक जब उसी § के भाग 1 में भी गड्ढा हो; अनुवाद उस गड्ढे को छिपा नहीं
+#           सकता, पर बिना गड्ढे के वहाँ चिह्न लगाना अनुवादक का हार मानना है।
+#   भाग 3 — कभी नहीं। व्याख्या में "यह अंश पढ़ा नहीं गया" लिखना प्रक्रिया-भाषा है;
+#           वह बात भाग 1 की पाद-टिप्पणी में जाती है।
+print()
+_MARK = "[अस्पष्ट]"
+
+
+def _sections(path):
+    cur, parts, part = None, None, 0
+    for ln in pathlib.Path(path).read_text(encoding="utf-8").splitlines():
+        s = ln.strip()
+        m = re.match(r"(§\s*\d+)", s)
+        if m:
+            if cur:
+                yield cur, parts
+            cur, parts, part = m.group(1).replace(" ", ""), {1: [], 2: [], 3: []}, 0
+            continue
+        m = re.match(r"##\s*([123])\.", s)
+        if m:
+            part = int(m.group(1))
+            continue
+        if cur and part:
+            parts[part].append(s)
+    if cur:
+        yield cur, parts
+
+
+_bad3, _orphan = [], []
+for _f in files:
+    for _sec, _p in _sections(_f):
+        _n1 = sum(l.count(_MARK) for l in _p[1])
+        _n2 = sum(l.count(_MARK) for l in _p[2])
+        _n3 = sum(l.count(_MARK) for l in _p[3])
+        _name = pathlib.Path(_f).name
+        if _n3:
+            _bad3.append((_name, _sec, _n3))
+        if _n2 and not _n1:
+            _orphan.append((_name, _sec, _n2))
+if _bad3 or _orphan:
+    print(f"** [अस्पष्ट] ग़लत जगह: भाग 3 में {sum(n for _,_,n in _bad3)}, "
+          f"भाग 2 में बिना मूल-गड्ढे के {sum(n for _,_,n in _orphan)}")
+    for _name, _sec, _n in (_bad3 + _orphan)[:12]:
+        print(f"   {_name} {_sec} × {_n}")
+    print("   (भाग 3 की बात भाग 1 की पाद-टिप्पणी में जाए; भाग 2 केवल मूल का गड्ढा दिखाए)")
+else:
+    print("   [अस्पष्ट] की जगह: ठीक — भाग 3 में कोई नहीं, भाग 2 में सब मूल के गड्ढे पर")
