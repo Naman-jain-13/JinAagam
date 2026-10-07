@@ -109,12 +109,24 @@ class Corpus:
         return lo, hi
 
     def match(self, q):
+        """मेल का अनुपात — खिड़की को ठीक उद्धरण के बराबर काटकर।
+
+        पहले मोटे तौर पर जगह ढूँढ़ी जाती है, पर उस खिड़की में दोनों ओर कुछ
+        अतिरिक्त अक्षर रहते हैं; उन्हें गिनने से सही मेल भी 90% से नीचे दिखता था।
+        इसलिए दूसरी बार संरेखण करके खिड़की को उद्धरण की लम्बाई तक छाँटा जाता है।
+        """
         span = self.locate(q)
         if not span:
             return None
         lo, hi = span
-        window = self.sk[lo:hi]
-        r = difflib.SequenceMatcher(None, q, window, autojunk=False).ratio()
+        sm = difflib.SequenceMatcher(None, q, self.sk[lo:hi], autojunk=False)
+        blocks = [b for b in sm.get_matching_blocks() if b.size > 3]
+        if blocks:
+            b = max(blocks, key=lambda x: x.size)
+            start = lo + b.b - b.a
+            lo = max(0, start)
+            hi = min(len(self.sk), lo + len(q))
+        r = difflib.SequenceMatcher(None, q, self.sk[lo:hi], autojunk=False).ratio()
         return r, lo, hi
 
     def passage(self, lo, hi):
