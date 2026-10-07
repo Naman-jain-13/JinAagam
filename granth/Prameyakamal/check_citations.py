@@ -27,7 +27,11 @@ import collections
 import translit as T
 
 HERE = pathlib.Path(__file__).resolve().parent
-CORPUS_DIR = HERE.parent.parent / "_scratch" / "gretil"
+# संस्करण ग्रन्थ-फ़ोल्डर के भीतर ही रखे जाते हैं। पहले ये _scratch में थे,
+# जो बाहर से मिट गया और जाँच चुपचाप खाली चलने लगी।
+CORPUS_DIR = HERE / "_citations" / "corpus"
+if not CORPUS_DIR.exists():
+    CORPUS_DIR = HERE.parent.parent / "_scratch" / "gretil"
 
 SOURCES = {
     "sa_kumArila-mImAMsazlokavArttika-comm.txt": "श्लोकवार्त्तिक (का० ५,४–५,९)",
@@ -193,6 +197,11 @@ def main(only=None, aspasht_only=False):
         p = CORPUS_DIR / fn
         if p.exists() and p.stat().st_size > 10000:
             corpora.append(Corpus(p, label))
+    if not corpora:
+        raise SystemExit(
+            "कोई संस्करण नहीं मिला: " + str(CORPUS_DIR) + "\n"
+            "बिना संस्करणों के यह जाँच चुपचाप खाली चलती है, और 'कोई भेद नहीं' कह "
+            "देना सबसे बुरी तरह का धोखा है। GRETIL से फ़ाइलें फिर उतारिए।")
     print(f"संस्करण: {len(corpora)}  "
           f"({sum(len(c.sk) for c in corpora):,} अक्षर)\n")
 

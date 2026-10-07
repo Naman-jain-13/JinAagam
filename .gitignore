@@ -55,3 +55,4 @@ encyclopedia/_check.js
 *.rar
 *.tar
 *.tar.gz
+granth/*/_citations/corpus/

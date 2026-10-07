@@ -12,6 +12,13 @@ import json
 import pathlib
 import sys
 
+# Windows का console cp1252 में होता है, इसलिए देवनागरी छापते ही UnicodeEncodeError
+# आता था। हर एजेंट को PYTHONIOENCODING लिखना याद रहे, यह मानना ठीक नहीं।
+try:
+    sys.stdout.reconfigure(encoding="utf-8")
+except (AttributeError, OSError):
+    pass
+
 HERE = pathlib.Path(__file__).resolve().parent
 _MAP = json.loads((HERE / "pagemap.json").read_text(encoding="utf-8"))
 
