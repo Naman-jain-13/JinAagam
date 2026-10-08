@@ -206,29 +206,61 @@ def headings_in(children):
 
 
 def link_toc(out, p0, entries):
-    """Make the generated TOC lines clickable, as the Word field's \\h switch did.
+    r"""Make the generated TOC lines clickable, as the Word field's \h switch did.
 
-    The entries are matched to the rendered lines IN READING ORDER, never by searching the page for an
-    entry's text. Titles repeat — every § has a '1. मूल पाठ' — and a text search inserted 10,431 links
-    on an 1,890-entry contents, most pointing at the wrong §. Sequential matching cannot do that: a
-    line that does not match the next expected entry is skipped rather than linked.
+    Two things make this harder than it looks.
+
+    **The rendered text is not readable.** Word's PDF export stores Devanagari glyphs in visual order
+    with a ToUnicode map that does not undo the reordering, so extracting a TOC line gives
+    "अथाटपहर्त् से ज्ञातृव्यापार-हसन्दद्ध" where the heading says "अर्थापत्ति से ज्ञातृव्यापार-सिद्धि".
+    The page LOOKS correct and prints correctly; only the text layer is scrambled. So an entry can
+    never be found by its Devanagari.
+
+    **What survives is the § number.** "§ 72 —" extracts intact, because digits and the section sign
+    are not reordered. Every one of the book's § entries is therefore addressable, and they are the
+    overwhelming majority (1752 of 1819 here). They are matched by number through a dict, not by
+    sequence, so one unmatched line cannot derail the rest.
+
+    The remaining entries are the खण्ड headings (परिच्छेद and प्रकरण), which carry no number. Those
+    are matched positionally: a non-§ line sitting between two § entries is linked to the heading
+    that belongs there in reading order.
+
+    An earlier version matched every entry by `title[:12] in line` and advanced a shared index only on
+    a hit. With the text garbled, the very first entry — a परिच्छेद heading — never matched, the index
+    never moved, and the result was 0 links out of 1881. Never let one unmatchable entry block the
+    others.
     """
-    import fitz
-    idx = linked = 0
+    import fitz, re
+    SEC = re.compile(r"^§\s*(\d+)")
+    by_sec, groups = {}, []
+    for lvl, title, pg in entries:
+        m = SEC.match(title)
+        if m:
+            by_sec[m.group(1)] = int(pg) - 1
+        else:
+            groups.append((title, int(pg) - 1))
+
+    gi = linked = 0
     for pno in range(p0):
         page = out[pno]
         for block in page.get_text('dict')['blocks']:
             for line in block.get('lines', []):
-                if idx >= len(entries):
-                    break
-                txt = ''.join(s['text'] for s in line['spans'])
-                _, title, pg = entries[idx]
-                key = title[:12].strip()
-                if key and key in txt:
-                    page.insert_link({'kind': fitz.LINK_GOTO,
-                                      'from': fitz.Rect(line['bbox']), 'page': int(pg) - 1})
-                    idx += 1
-                    linked += 1
+                txt = ''.join(s['text'] for s in line['spans']).strip()
+                if not txt:
+                    continue
+                m = SEC.match(txt)
+                if m:
+                    tgt = by_sec.get(m.group(1))
+                elif gi < len(groups) and not txt.isdigit():
+                    tgt = groups[gi][1]
+                    gi += 1
+                else:
+                    continue
+                if tgt is None:
+                    continue
+                page.insert_link({'kind': fitz.LINK_GOTO,
+                                  'from': fitz.Rect(line['bbox']), 'page': tgt})
+                linked += 1
     return linked
 
 
