@@ -193,17 +193,23 @@ const kind = h => {
 
 // Sub-sections that are working notes for the next batch, not book content. They are dropped (with a
 // warning) so process language never reaches the reader.
-// Part 6 pairs श्री ब्रह्मदेव's Sanskrit टीका with its Hindi, segment by segment.
+// Part 6 carries श्री ब्रह्मदेव's Sanskrit टीका and its Hindi.
 //
 // The Sanskrit is transcribed once, in parts/, under a heading containing "मूल", with each segment
-// tagged (T1), (T2) … The Hindi is written separately, in addenda/, against the SAME tags. This
-// builder pairs them, so the व्याख्या agent never re-types a word of Sanskrit — re-typing 450 dense
-// Sanskrit commentaries is precisely where mistranslation gets a foothold, and the reader's standing
-// complaint on this ग्रन्थ is Hindi that says what the Sanskrit does not.
+// tagged (T1), (T2) … The Hindi is written separately, in addenda/, against the SAME tags, so the
+// व्याख्या agent never re-types a word of Sanskrit — re-typing 450 dense Sanskrit commentaries is
+// precisely where mistranslation gets a foothold.
 //
-// Printing them adjacently is itself the safeguard: anyone who reads Sanskrit can check each line
-// against the Hindi directly beneath it. A segment whose Hindi is missing says so in the book rather
-// than passing silently.
+// These were once printed segment by segment — a Sanskrit line, then its Hindi directly beneath —
+// on the reasoning that adjacency lets a Sanskrit reader check each line against its translation.
+// The reader this edition is made for asked for the opposite: "टीका में संस्कृत एक साथ और हिंदी एक
+// साथ करदो; संस्कृत की एक लाइन और फिर उसका हिंदी ऐसे नहीं करना." He reads the टीका as continuous
+// prose, and the alternation chopped it into fragments. So the whole Sanskrit now runs first, then
+// the whole translation.
+//
+// The (T…) labels STAY, and that is not cosmetic: 315 lines in parts 7 and 10 cite segments by tag
+// ("(T11) में संस्कृत …"). Drop the labels and every one of those references points at something the
+// reader cannot find. They also keep the two blocks walkable in parallel.
 const TAG = /^\s*\((T\d+)\)\s*/;
 function splitTagged(secs) {
   const map = new Map(); let cur = null;
@@ -222,22 +228,46 @@ function renderTika(secs) {
   const out = [];
   const keys = [...new Set([...sans.keys(), ...hind.keys()])]
     .sort((a, b) => parseInt(a.slice(1), 10) - parseInt(b.slice(1), 10));
-  for (const k of keys) {
-    const sa = sans.get(k), hi = hind.get(k);
-    // The segment label is PRINTED, not merely used for pairing. Parts 7 and 10 cite segments by it
-    // ("(T11) में संस्कृत …") — 215 such references across the book — and without a visible label
-    // every one of those points at something the reader cannot see.
-    if (sa) out.push(...renderBlock([`**(${k}) संस्कृत:** ${sa.join(' ')}`], true));
-    if (hi) out.push(...renderBlock([`**(${k}) हिन्दी:** ${hi.join(' ')}`]));
-    else if (sa) out.push(pNormal('**हिन्दी:** [इस खण्ड का अनुवाद उपलब्ध नहीं]'));
+  if (sans.size) {
+    out.push(pNormal('**संस्कृत टीका —**'));
+    for (const k of keys) {
+      const sa = sans.get(k);
+      if (sa) out.push(...renderBlock([`**(${k})** ${sa.join(' ')}`], true));
+    }
+  }
+  if (hind.size) {
+    out.push(pNormal('**हिन्दी अनुवाद —**'));
+    for (const k of keys) {
+      const hi = hind.get(k);
+      // A missing translation says so in the book rather than passing silently.
+      if (hi) out.push(...renderBlock([`**(${k})** ${hi.join(' ')}`]));
+      else if (sans.get(k)) out.push(pNormal(`**(${k})** [इस खण्ड का अनुवाद उपलब्ध नहीं]`));
+    }
   }
   return out;
 }
 
 const WORKNOTE = /आगे की दिशा|अगले बैच|अगली बैठक|बैच|progress|TODO/;
 const missing = [], dropped = [];
+// § का शीर्षक: वर्णनात्मक नाम और मुद्रित-पृष्ठ दोनों हटाकर केवल पहचान-सूत्र।
+//
+// पहले यह था — "§10020 — भविष्य में महाविदेह आदि क्षेत्रों में सिद्ध होने वाले अनंत जीवों को
+// नमस्कार, जो … (अधिकार 1, दोहा 2, मुद्रित पृष्ठ 8-9)"। पाठक ने कहा कि भाग 1 पर दिया टाइटल और
+// पेज नंबर हटा दिया जाए। दोहा अपनी बात स्वयं कहता है; उससे पहले उसका सारांश पढ़ाना बाधा थी।
+//
+// जो बचता है वही है जिससे दोहा उद्धृत किया जाता है — "अधिकार 1, दोहा 2" (योगसार में
+// "योगसार, दोहा 5")। विषय-सूची भी इसी से बनती है, और वही परम्परागत उद्धरण-रीति है।
+const titleOf = t => {
+  const m = /\(((?:अधिकार|योगसार)[^)]*?)(?:,\s*मुद्रित पृष्ठ[^)]*)?\)\s*$/.exec(t);
+  if (m) return m[1].trim();
+  const n = /^§\s*(\d+)/.exec(t);
+  return n ? `§${n[1]}` : t;
+};
+// मूल पाठ के भीतर भी "(पृष्ठ 8)" जैसी पंक्ति पड़ी रहती है — वह भी पृष्ठ-संकेत ही है, वही हटाना है।
+const PAGELINE = /^\s*\(\s*पृष्ठ[^)]*\)\s*$/;
+
 function renderSection(s) {
-  const out = [h2(s.title)];
+  const out = [h2(titleOf(s.title))];
   const add = parseAddendum(s.num) || [];
   if (!add.length) missing.push(s.num);
   const all = [...s.secs, ...add].filter(x => { if (WORKNOTE.test(x.head)) { dropped.push(`§${s.num}: ${x.head}`); return false; } return true; });
@@ -245,19 +275,27 @@ function renderSection(s) {
   const misc = all.filter(x => kind(x.head) === 0 && s.secs.includes(x));
   const pg = x => { const m = /\((पृष्ठ[^)]*)\)/.exec(x.head); return m ? [pNormal(`**(${m[1]})**`)] : []; };
 
-  out.push(h3('1. मूल पाठ (अपभ्रंश दोहा)'));
-  byKind(1).forEach(x => out.push(...pg(x), ...renderBlock(x.lines, true)));
-  out.push(h3('2. संस्कृत छाया (मुद्रित)'));
+  // दोहा, छाया और हिन्दी अनुवाद एक ही प्रवाह में — बीच में कोई शीर्षक नहीं।
+  //
+  // पाठक का कहना था: "१ नम्बर पे जो टाइटल और पेज नंबर दिया है वो हटा दीजिए" और "२ नंबर, ३ नंबर,
+  // ५ नंबर, इनकी हैडिंग भी हटा दो।" ये तीनों एक ही दोहा के तीन रूप हैं — मूल, छाया, अनुवाद — और
+  // इन्हें शीर्षक से तोड़ना पढ़ने में बाधा ही था। अब ये लगातार पढ़े जाते हैं।
+  //
+  // अन्वय (भाग 3) और अन्वयार्थ (भाग 4) अब छपते नहीं — "अन्वयार्थ पदच्छेद सहित वाला पार्ट नहीं
+  // चाइए" और "३ नंबर में जो दोहा का अन्वय किया है वो भी हटा दीजिए"। स्रोत में सामग्री यथावत् है,
+  // केवल छपती नहीं; लौटानी हो तो यहीं से लौट आएगी।
+  byKind(1).forEach(x => out.push(...renderBlock(x.lines.filter(l => !PAGELINE.test(l)), true)));
   const ch = byKind(2);
   if (ch.length) ch.forEach(x => out.push(...renderBlock(x.lines, true))); else out.push(pNormal('मुद्रित प्रति में इस दोहा हेतु पृथक् छाया नहीं दी गई।'));
-  out.push(h3('3. अन्वय'));
-  const an = byKind(3);
-  if (an.length) an.forEach(x => out.push(...renderBlock(x.lines, true))); else out.push(pNormal('[अन्वय अनुपलब्ध]'));          // every § here is a दोहा — अन्वय is never optional
-  out.push(h3('4. अन्वयार्थ (पदच्छेद-सहित शब्दार्थ)'));
-  const aa = byKind(4);
-  if (aa.length) aa.forEach(x => out.push(...renderBlock(x.lines))); else out.push(pNormal('[अन्वयार्थ अनुपलब्ध]'));      // likewise — a gap must look like a gap, not a choice
-  out.push(h3('5. हिन्दी अनुवाद'));
-  byKind(5).forEach(x => out.push(...pg(x), ...renderBlock(x.lines)));
+  // भावार्थ भाग 5 के भीतर एक अलग अनुच्छेद है (मुद्रित अनुवाद का ही अंग)। पाठक ने उसे विस्तृत
+  // व्याख्या के साथ मिलाने को कहा, इसलिए वह यहाँ से निकालकर भाग 7 में जोड़ा जाता है।
+  const bhav = [];
+  byKind(5).forEach(x => {
+    const i = x.lines.findIndex(l => /\*\*भावार्थ\s*:?\s*\*\*/.test(l));
+    const body = i < 0 ? x.lines : x.lines.slice(0, i);
+    if (i >= 0) bhav.push(...x.lines.slice(i));
+    out.push(...renderBlock(body));
+  });
   // योगसार carries no commentary at all. What the edition gives it instead, for every दोहा, is a
   // पाठान्तर line of manuscript variants with their sigla — its own scholarly apparatus, and the exact
   // counterpart of श्री ब्रह्मदेव's टीका in परमात्मप्रकाश. So slot 6 holds that for योगसार.
@@ -271,6 +309,7 @@ function renderSection(s) {
     out.push(...renderTika(byKind(6)));
   }
   out.push(h3('7. जैनागम के अनुसार विस्तृत व्याख्या'));
+  if (bhav.length) out.push(...renderBlock(bhav));
   byKind(7).forEach(x => out.push(...renderBlock(x.lines)));
   byKind(7.5).forEach(x => out.push(...renderBlock(x.lines)));
   out.push(h3('8. सरल उदाहरण'));
