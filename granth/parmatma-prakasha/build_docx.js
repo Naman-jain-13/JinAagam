@@ -211,10 +211,15 @@ const kind = h => {
 // ("(T11) में संस्कृत …"). Drop the labels and every one of those references points at something the
 // reader cannot find. They also keep the two blocks walkable in parallel.
 const TAG = /^\s*\((T\d+)\)\s*/;
+// स्रोत में टीका के बाद "---" की पंक्ति पड़ी रहती है — markdown का विभाजक, पुस्तक का अंग नहीं।
+// बिना टैग वाली हर पंक्ति चालू खण्ड में जुड़ जाती है, इसलिए वह अन्तिम खण्ड की पूँछ बनकर छप रही
+// थी: "॥ २ ॥ ---"। पूरी पुस्तक में 304 जगह।
+const RULE = /^\s*(-{3,}|_{3,}|\*{3,})\s*$/;
 function splitTagged(secs) {
   const map = new Map(); let cur = null;
   for (const sec of secs) for (const raw of sec.lines) {
     const t = raw.replace(/\r$/, '');
+    if (RULE.test(t)) continue;
     const m = TAG.exec(t);
     if (m) { cur = m[1]; map.set(cur, [t.replace(TAG, '')]); }
     else if (cur && t.trim()) map.get(cur).push(t);
