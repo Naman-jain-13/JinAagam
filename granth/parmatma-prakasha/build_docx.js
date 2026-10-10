@@ -77,6 +77,11 @@ const pQuote = line => new Paragraph({
   shading: { type: ShadingType.CLEAR, fill: 'EDF2F7' }, spacing: { after: 120, before: 80, line: 320 }, children: runs(line, { italics: true })
 });
 const pMool = line => new Paragraph({ alignment: AlignmentType.LEFT, indent: { left: 360 }, spacing: { after: 80, line: 340 }, children: runs(line, { color: MOOL_COLOR }) });
+// मूल पाठ — दोहा और उसकी संस्कृत छाया — शेष पाठ से एक आकार बड़ा और गहरा।
+// पाठक ने कहा: "मूल संस्कृत पाठ bold करना है" तथा "मूल पाठ की बाकी पाठ से font size
+// 1 size बड़ी रखनी है"। अब इनके ऊपर कोई शीर्षक नहीं रहा, इसलिए यही भार उन्हें
+// पृष्ठ पर अलग पहचान देता है।
+const pMoolBig = line => new Paragraph({ alignment: AlignmentType.LEFT, indent: { left: 360 }, spacing: { after: 80, line: 360 }, children: runs(line, { color: MOOL_COLOR, bold: true, size: BODY + 2 }) });
 const pEmpty = () => new Paragraph({ text: '', spacing: { after: 60 } });
 
 // keepNext on every heading: a heading must never sit alone at the bottom of a page.
@@ -115,7 +120,7 @@ function renderBlock(lines, mool) {
     if (t.startsWith('> ')) { out.push(pQuote(t.slice(2))); continue; }
     if (t.startsWith('- ') || t.startsWith('• ') || t.startsWith('* ')) { out.push(pBullet(t.slice(2))); continue; }
     if (t.startsWith('#### ')) { out.push(pNormal(t.slice(5), { bold: true })); continue; }
-    out.push(mool ? pMool(t) : pNormal(t));
+    out.push(mool === 'big' ? pMoolBig(t) : mool ? pMool(t) : pNormal(t));
   }
   flush(); return out;
 }
@@ -200,16 +205,21 @@ const kind = h => {
 // व्याख्या agent never re-types a word of Sanskrit — re-typing 450 dense Sanskrit commentaries is
 // precisely where mistranslation gets a foothold.
 //
-// These were once printed segment by segment — a Sanskrit line, then its Hindi directly beneath —
-// on the reasoning that adjacency lets a Sanskrit reader check each line against its translation.
-// The reader this edition is made for asked for the opposite: "टीका में संस्कृत एक साथ और हिंदी एक
-// साथ करदो; संस्कृत की एक लाइन और फिर उसका हिंदी ऐसे नहीं करना." He reads the टीका as continuous
-// prose, and the alternation chopped it into fragments. So the whole Sanskrit now runs first, then
-// the whole translation.
+// The printed form has changed twice, both times at the reader's word.
 //
-// The (T…) labels STAY, and that is not cosmetic: 315 lines in parts 7 and 10 cite segments by tag
-// ("(T11) में संस्कृत …"). Drop the labels and every one of those references points at something the
-// reader cannot find. They also keep the two blocks walkable in parallel.
+// First it was segment by segment — a Sanskrit line, then its Hindi directly beneath — so that a
+// Sanskrit reader could check each line against its translation. He asked for the Sanskrit whole and
+// the Hindi whole instead. Then, seeing that, he asked for the segments themselves to go:
+// "T11, T12, … ऐसे टीका जो है उनको merge करदो, और उनके हिंदी अर्थ को भी merge करदो."
+//
+// So the टीका is now what श्री ब्रह्मदेव wrote: continuous prose. The (T…) division was never his —
+// it is a transcription convenience, used to pair each Sanskrit segment with its Hindi without
+// re-typing a word of Sanskrit. That pairing still happens here; it simply no longer shows.
+//
+// The tags therefore survive in the SOURCE and are still what addenda are written against. What they
+// no longer do is anchor a citation: parts 7–10 used to say "(T11) में संस्कृत …", and those
+// references were rewritten to quote the words instead, which a reader can actually find in flowing
+// prose.
 const TAG = /^\s*\((T\d+)\)\s*/;
 // स्रोत में टीका के बाद "---" की पंक्ति पड़ी रहती है — markdown का विभाजक, पुस्तक का अंग नहीं।
 // बिना टैग वाली हर पंक्ति चालू खण्ड में जुड़ जाती है, इसलिए वह अन्तिम खण्ड की पूँछ बनकर छप रही
@@ -233,21 +243,17 @@ function renderTika(secs) {
   const out = [];
   const keys = [...new Set([...sans.keys(), ...hind.keys()])]
     .sort((a, b) => parseInt(a.slice(1), 10) - parseInt(b.slice(1), 10));
+  const join = m => keys.map(k => (m.get(k) || []).join(' ').trim()).filter(Boolean).join(' ');
   if (sans.size) {
     out.push(pNormal('**संस्कृत टीका —**'));
-    for (const k of keys) {
-      const sa = sans.get(k);
-      if (sa) out.push(...renderBlock([`**(${k})** ${sa.join(' ')}`], true));
-    }
+    out.push(...renderBlock([join(sans)], true));
   }
   if (hind.size) {
     out.push(pNormal('**हिन्दी अनुवाद —**'));
-    for (const k of keys) {
-      const hi = hind.get(k);
-      // A missing translation says so in the book rather than passing silently.
-      if (hi) out.push(...renderBlock([`**(${k})** ${hi.join(' ')}`]));
-      else if (sans.get(k)) out.push(pNormal(`**(${k})** [इस खण्ड का अनुवाद उपलब्ध नहीं]`));
-    }
+    out.push(...renderBlock([join(hind)]));
+    // एक भी खण्ड का अनुवाद छूटा हो तो वह चुपचाप न निकले — पुस्तक में ही कह दिया जाए।
+    const gaps = keys.filter(k => sans.get(k) && !hind.get(k));
+    if (gaps.length) out.push(pNormal(`[टीका के ${gaps.length} खण्डों का हिन्दी अनुवाद उपलब्ध नहीं]`));
   }
   return out;
 }
@@ -289,9 +295,9 @@ function renderSection(s) {
   // अन्वय (भाग 3) और अन्वयार्थ (भाग 4) अब छपते नहीं — "अन्वयार्थ पदच्छेद सहित वाला पार्ट नहीं
   // चाइए" और "३ नंबर में जो दोहा का अन्वय किया है वो भी हटा दीजिए"। स्रोत में सामग्री यथावत् है,
   // केवल छपती नहीं; लौटानी हो तो यहीं से लौट आएगी।
-  byKind(1).forEach(x => out.push(...renderBlock(x.lines.filter(l => !PAGELINE.test(l)), true)));
+  byKind(1).forEach(x => out.push(...renderBlock(x.lines.filter(l => !PAGELINE.test(l)), 'big')));
   const ch = byKind(2);
-  if (ch.length) ch.forEach(x => out.push(...renderBlock(x.lines, true))); else out.push(pNormal('मुद्रित प्रति में इस दोहा हेतु पृथक् छाया नहीं दी गई।'));
+  if (ch.length) ch.forEach(x => out.push(...renderBlock(x.lines, 'big'))); else out.push(pNormal('मुद्रित प्रति में इस दोहा हेतु पृथक् छाया नहीं दी गई।'));
   // भावार्थ भाग 5 के भीतर एक अलग अनुच्छेद है (मुद्रित अनुवाद का ही अंग)। पाठक ने उसे विस्तृत
   // व्याख्या के साथ मिलाने को कहा, इसलिए वह यहाँ से निकालकर भाग 7 में जोड़ा जाता है।
   const bhav = [];
@@ -305,25 +311,25 @@ function renderSection(s) {
   // पाठान्तर line of manuscript variants with their sigla — its own scholarly apparatus, and the exact
   // counterpart of श्री ब्रह्मदेव's टीका in परमात्मप्रकाश. So slot 6 holds that for योगसार.
   if (Math.floor(s.num / 10000) === 3) {
-    out.push(h3('6. पाठान्तर (मुद्रित प्रति के हस्तलिखित पाठभेद)'));
+    out.push(h3('पाठान्तर (मुद्रित प्रति के हस्तलिखित पाठभेद)'));
     const pb = byKind(6);
     if (pb.length) pb.forEach(x => out.push(...renderBlock(x.lines, true)));
     else out.push(pNormal('मुद्रित प्रति में इस दोहा पर कोई पाठान्तर नहीं दिया गया।'));
   } else {
-    out.push(h3('6. श्री ब्रह्मदेव-कृत संस्कृत टीका एवं उसका हिन्दी अनुवाद'));
+    out.push(h3('श्री ब्रह्मदेव-कृत संस्कृत टीका एवं उसका हिन्दी अनुवाद'));
     out.push(...renderTika(byKind(6)));
   }
-  out.push(h3('7. जैनागम के अनुसार विस्तृत व्याख्या'));
+  out.push(h3('जैनागम के अनुसार विस्तृत व्याख्या'));
   if (bhav.length) out.push(...renderBlock(bhav));
   byKind(7).forEach(x => out.push(...renderBlock(x.lines)));
   byKind(7.5).forEach(x => out.push(...renderBlock(x.lines)));
-  out.push(h3('8. सरल उदाहरण'));
+  out.push(h3('सरल उदाहरण'));
   const ex = byKind(8);
   if (ex.length) ex.forEach(x => out.push(...renderBlock(x.lines))); else out.push(pNormal('इस अनुच्छेद हेतु पृथक् उदाहरण आवश्यक नहीं।'));
-  out.push(h3('9. तुलनात्मक तालिका / चार्ट'));
+  out.push(h3('तुलनात्मक तालिका / चार्ट'));
   const tb = byKind(9);
   if (tb.length) tb.forEach(x => out.push(...renderBlock(x.lines))); else out.push(pNormal('इस अनुच्छेद हेतु तालिका आवश्यक नहीं।'));
-  out.push(h3('10. सन्दर्भ एवं पाद-टिप्पणी'));
+  out.push(h3('सन्दर्भ एवं पाद-टिप्पणी'));
   const rf = byKind(10);
   rf.forEach(x => out.push(...renderBlock(x.lines)));
   misc.forEach(x => { out.push(pNormal(`**${x.head.replace(/^[०-९0-9]+\.\s*/, '')}:**`)); out.push(...renderBlock(x.lines)); });
