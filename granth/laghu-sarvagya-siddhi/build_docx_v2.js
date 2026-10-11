@@ -88,7 +88,11 @@ function renderBlock(lines, mool) {
     if (t === '' || t === '---') { flush(); continue; }
     if (t.startsWith('|')) {
       const cells = t.split('|').map(c => c.trim()); cells.shift(); if (cells[cells.length - 1] === '') cells.pop();
-      if (/^:?-+:?$/.test(cells.join(''))) continue;
+      // पंक्ति-विभाजक को हर कोष्ठ पर अलग जाँचिए, जोड़कर नहीं। जोड़ने पर
+      // |---|---:|---| का जुड़ा रूप "------:---" बनता है, जिसमें बिन्दु बीच में
+      // पड़ जाता है और जाँच विफल हो जाती है — तब विभाजक ही एक पंक्ति बनकर छप
+      // जाता है। संरेखण-चिह्न वाली हर तालिका इसी से टूटती थी।
+      if (cells.length && cells.every(c => /^:?-{2,}:?$/.test(c.trim()))) continue;
       (tbl = tbl || []).push(cells); continue;
     }
     flush();
