@@ -30,6 +30,8 @@ except (AttributeError, OSError):
 
 HERE = pathlib.Path(__file__).resolve().parent
 NOTE = re.compile(r"\(पृष्ठ (\d+), (\d+)\)")
+# छपाई में वही अङ्क दो बार हो तो लिखने वाला यह चिह्न लगाता है; तब दुहराव दोष नहीं।
+PRINTDUP = "छपे में यह अङ्क दो बार है"
 PAGE = re.compile(r"^\(पृष्ठ (\d+)\)", re.M)
 NAME = re.compile(r"batch(\d+)_p(\d+)-(\d+)")
 OFFSET = 311   # मुद्रित = स्कैन − 311
@@ -75,9 +77,12 @@ def main():
         want = list(range(s_from - OFFSET, s_to - OFFSET + 1))
         t = f.read_text(encoding="utf-8")
 
-        notes = {}
-        for p, n in NOTE.findall(t):
-            notes.setdefault(int(p), []).append(int(n))
+        notes, note_txt = {}, {}
+        for m in NOTE.finditer(t):
+            p, n = int(m.group(1)), int(m.group(2))
+            notes.setdefault(p, []).append(n)
+            tail = t[m.end(): t.find(chr(10), m.end())]
+            note_txt.setdefault((p, n), []).append(tail)
         seen = sorted(set(int(x) for x in PAGE.findall(t)))
 
         probs = []
@@ -90,8 +95,14 @@ def main():
         for p in sorted(notes):
             got = sorted(notes[p])
             dup = sorted({n for n in got if got.count(n) > 1})
+            # छपाई की अपनी भूल, जिसे लिखने वाले ने चिह्नित कर दिया हो, दोष नहीं।
+            # गेट लिप्यन्तरण की भूल पकड़ने के लिए है, छपाई को सुधारने के लिए नहीं।
+            dup = [n for n in dup
+                   if not any(PRINTDUP in x for x in note_txt.get((p, n), []))]
             if dup:
-                probs.append(f"पृष्ठ {p}: टिप्पण-अङ्क दुहराया — {dup}")
+                probs.append(f"पृष्ठ {p}: टिप्पण-अङ्क दुहराया — {dup} "
+                             f"(यदि छपे में ही दो बार है तो उस टिप्पणी के अन्त में "
+                             f"[{PRINTDUP}] लिख दीजिए)")
             hole = [n for n in range(1, max(got) + 1) if n not in got]
             if hole:
                 probs.append(f"पृष्ठ {p}: टिप्पण-अङ्क बीच से गायब — {hole} "
