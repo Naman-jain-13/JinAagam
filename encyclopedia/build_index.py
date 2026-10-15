@@ -48,6 +48,7 @@ CORPORA = [
     ("laghu",  "granth/laghu-sarvagya-siddhi", "लघु सर्वज्ञसिद्धि",           "Laghu Sarvagya Siddhi",     "hi"),
     ("nyaya",  "granth/nyayakumudachandra-1",      "न्यायकुमुदचन्द्र",            "Nyayakumudachandra",        "hi"),
     ("aapta",  "granth/aapta-pariksha",           "आप्त-परीक्षा",                "Aapta Pariksha",            "hi"),
+    ("siddhi1", "granth/siddhi-vinishchaya-1", "सिद्धिविनिश्चयटीका (भाग 1)", "Siddhi-vinishchaya-tika (Part 1)", "hi"),
     ("pkm",    "granth/Prameyakamal",  "प्रमेयकमलमार्त्तण्ड",        "Prameyakamalamartanda",     "hi"),
     ("abhi",   "granth/abhishek-path-sangrah",        "अभिषेक पाठ संग्रह",           "Abhishek Path Sangrah",     "hi"),
 ]
@@ -390,13 +391,27 @@ def main():
             for f in sorted((fp / "parts").glob("*.md")):
                 parse_section_file(f, sections, order, gstate)
             parse_addenda(fp, sections)
-            # attach group headings by section number
+            # attach group headings by section number — a value may be a plain
+            # string (परिच्छेद, level 1) or {"title"/"t", "level"} (प्रकरण,
+            # level 2), or a list of these when a परिच्छेद's first प्रकरण
+            # coincides with the same §. Both levels persist until overridden.
             if groups:
-                cur = ""
+                cur_ch, cur_sub = "", ""
                 for num in sorted(order, key=lambda x: int(x) if x.isdigit() else 0):
                     if num in groups:
-                        cur = groups[num]
-                    sections[num]["grp"] = cur
+                        g = groups[num]
+                        for item in (g if isinstance(g, list) else [g]):
+                            if isinstance(item, str):
+                                cur_ch, cur_sub = item, ""
+                            elif isinstance(item, dict):
+                                title = item.get("title") or item.get("t") or ""
+                                if not title:
+                                    continue
+                                if int(item.get("level", 1)) == 2:
+                                    cur_sub = title
+                                else:
+                                    cur_ch, cur_sub = title, ""
+                    sections[num]["grp"] = f"{cur_ch} — {cur_sub}" if (cur_ch and cur_sub) else (cur_sub or cur_ch)
         bsec, border = parse_backmatter(fp)
         sections.update(bsec)
         order = order + border
