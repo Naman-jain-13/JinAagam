@@ -49,6 +49,7 @@ CORPORA = [
     ("nyaya",  "granth/nyayakumudachandra-1",      "न्यायकुमुदचन्द्र",            "Nyayakumudachandra",        "hi"),
     ("aapta",  "granth/aapta-pariksha",           "आप्त-परीक्षा",                "Aapta Pariksha",            "hi"),
     ("siddhi1", "granth/siddhi-vinishchaya-1", "सिद्धिविनिश्चयटीका (भाग 1)", "Siddhi-vinishchaya-tika (Part 1)", "hi"),
+    ("siddhi2", "granth/siddhi-vinishchaya-2", "सिद्धिविनिश्चयटीका (भाग 2)", "Siddhi-vinishchaya-tika (Part 2)", "hi"),
     ("pkm",    "granth/Prameyakamal",  "प्रमेयकमलमार्त्तण्ड",        "Prameyakamalamartanda",     "hi"),
     ("abhi",   "granth/abhishek-path-sangrah",        "अभिषेक पाठ संग्रह",           "Abhishek Path Sangrah",     "hi"),
 ]
