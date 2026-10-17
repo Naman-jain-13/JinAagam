@@ -2,6 +2,7 @@
 """छन्द से पाठ जाँचिए — अनुष्टुप् की पंक्ति 16 अक्षर की होती है।
 
 चलाइए:  python check_metre.py <ग्रन्थ-फोल्डर>
+        python check_metre.py . --only batch53     # केवल अपनी फ़ाइल की पंक्तियाँ, पूरी सूची
         python check_metre.py . --all     # 8/16 के अलावा सब दिखाइए
 
 ## यह क्यों
@@ -108,6 +109,10 @@ root = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 SHOW_OK = "--all" in sys.argv
 
 files = sorted(glob.glob(str(root / "parts" / "*.md")))
+ONLY = None
+if "--only" in sys.argv:
+    ONLY = sys.argv[sys.argv.index("--only") + 1]
+    files = [f for f in files if ONLY in pathlib.Path(f).name]
 if not files:
     sys.exit("parts/*.md नहीं मिली — ग्रन्थ-फोल्डर दीजिए")
 
@@ -175,10 +180,11 @@ print("  खटकने वाली (6-15, 17-18)      : %d" % suspect)
 print("  18 से ऊपर / 6 से कम            : %d" % long_)
 print("  [अस्पष्ट] के कारण छोड़ीं         : %d" % unclear)
 print()
-for name, page, n, seg in rows[:70]:
+LIMIT = 10**6 if ONLY else 70
+for name, page, n, seg in rows[:LIMIT]:
     print("%-24s पृ.%-4s %2d  %s" % (name[:24], page or "?", n, seg[:70]))
-if len(rows) > 70:
-    print("... और %d" % (len(rows) - 70))
+if len(rows) > LIMIT:
+    print("... और %d (अपनी फ़ाइल की सब पंक्तियों के लिए: --only batchNN)" % (len(rows) - LIMIT))
 print()
 print("यह चेतावनी देता है, निर्णय नहीं। 15 प्रायः पाद-सन्धि है और 17 प्रायः")
 print("सम्पादक का कोष्ठक। **14 या कम प्रायः सचमुच छूटा अक्षर है - वही देखिए।**")
