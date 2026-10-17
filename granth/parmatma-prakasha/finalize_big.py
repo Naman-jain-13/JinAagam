@@ -140,19 +140,60 @@ def esc(s):
 FONT = 'Nirmala UI'
 TAB_POS = 9850        # text width is 11908 - 1000 - 1000 twips; leave a little room for the number
 
+# A दोहा heading carries its visible "अधिकार 1, दोहा 47" text plus a hidden (w:vanish) run holding
+# TOC_MARKER + the descriptive sentence that titleOf() in build_docx.js strips out of the body heading
+# (the reader found that sentence a distraction sitting right above the दोहा itself, but wanted it back
+# in the index). text_of() below reads every <w:t> regardless of run formatting, so the hidden run's
+# text arrives here concatenated onto the visible text, split apart again by TOC_MARKER.
+TOC_MARKER = '␟'
+NUM_TAB = 750          # right-aligned column: bare दोहा number ("47", "19-21", "111*2" — no "अधिकार N,")
+TOPIC_TAB = 950        # left-aligned: the descriptive sentence starts here
+
 
 def toc_paragraph(level, title, page):
-    """One TOC line: title, dot leader, page number — in the TOC1/TOC2 styles the builder defines."""
+    """One TOC line: title, dot leader, page number — in the TOC1/TOC2 styles the builder defines.
+
+    A दोहा entry (level 2, title carrying TOC_MARKER) instead gets three columns — number, topic,
+    page — so the reference itself ("अधिकार 1,") need not be repeated on every line; the अधिकार/
+    प्रकरण banner immediately above already gives that context.
+    """
     style = 'TOC1' if level == 1 else 'TOC2'
     rpr = ('<w:rPr><w:rFonts w:ascii="%s" w:cs="%s" w:eastAsia="%s" w:hAnsi="%s"/></w:rPr>'
            % (FONT, FONT, FONT, FONT))
+    # a युग्म (paired-दोहा) reference like "166–167" (en dash, U+2013 — NOT the plain hyphen of
+    # "19-21", which is fine) breaks Word's layout in this 3-column form: the topic and dot-leader
+    # runs vanish from the render and the page number is orphaned alone on the next line with no
+    # leader dots, so nothing can link to it. Swapping the dash for a hyphen did not fix it either —
+    # the cause is some Word layout quirk specific to that character in this tab position, not
+    # something this script can predict further, so these rare entries (2 of 520) fall back to the
+    # plain single-run TOC line instead of chasing it. The visible in-body heading is unaffected.
+    if level == 2 and TOC_MARKER in title and '–' not in title.split(TOC_MARKER, 1)[0]:
+        ref, topic = title.split(TOC_MARKER, 1)
+        m = re.search(r'दोहा\s+([^\s,]+)\s*$', ref)
+        num = m.group(1) if m else ref
+        tabs = ('<w:tabs>'
+                '<w:tab w:val="right" w:pos="%d"/>'
+                '<w:tab w:val="left" w:pos="%d"/>'
+                '<w:tab w:val="right" w:leader="dot" w:pos="%d"/>'
+                '</w:tabs>') % (NUM_TAB, TOPIC_TAB, TAB_POS)
+        return (
+            '<w:p><w:pPr><w:pStyle w:val="%s"/>%s</w:pPr>'
+            '<w:r>%s<w:tab/><w:t xml:space="preserve">%s</w:t></w:r>'
+            '<w:r>%s<w:tab/><w:t xml:space="preserve">%s</w:t></w:r>'
+            '<w:r>%s<w:tab/><w:t>%s</w:t></w:r></w:p>'
+            % (style, tabs, rpr, esc(num), rpr, esc(topic), rpr, page)
+        )
+    # fallback (level 1, or a level-2 title with no TOC_MARKER, or the en-dash edge case above):
+    # plain single-run line. A level-2 title still carrying TOC_MARKER here (the en-dash case) must
+    # have its hidden topic text dropped — only the visible "अधिकार N, दोहा M" reference is shown.
+    plain = title.split(TOC_MARKER, 1)[0] if TOC_MARKER in title else title
     return (
         '<w:p><w:pPr><w:pStyle w:val="%s"/>'
         '<w:tabs><w:tab w:val="right" w:leader="dot" w:pos="%d"/></w:tabs>'
         '</w:pPr>'
         '<w:r>%s<w:t xml:space="preserve">%s</w:t></w:r>'
         '<w:r>%s<w:tab/><w:t>%s</w:t></w:r></w:p>'
-        % (style, TAB_POS, rpr, esc(title), rpr, page)
+        % (style, TAB_POS, rpr, esc(plain), rpr, page)
     )
 
 
@@ -251,13 +292,27 @@ def link_toc(out, p0, entries):
                 if txt and not txt.isdigit() and LEADER.search(txt):
                     lines.append((fitz.Rect(line['bbox']), txt))
         lines.sort(key=lambda L: (round(L[0].y0, 1), L[0].x0))
-        leaders.extend((pno, rect) for rect, _ in lines)
+        leaders.extend((pno, rect, txt) for rect, txt in lines)
 
     if len(leaders) != len(entries):
         print('   NOT linking the TOC: found %d leader lines for %d entries, so the mapping would be '
               'a guess (bookmarks still navigate the whole book)' % (len(leaders), len(entries)))
+        if os.environ.get('TOC_DEBUG'):
+            i = j = 0
+            while i < len(leaders) and j < len(entries):
+                lp = LEADER.search(leaders[i][2]).group()
+                ep = entries[j][2]
+                if lp == ep:
+                    i += 1; j += 1
+                else:
+                    print('   DEBUG divergence at leader#%d text=%r (pg %s) vs entry#%d %r (expected pg %s)'
+                          % (i, leaders[i][2][-40:], lp, j, entries[j][1][:60], ep))
+                    break
+            print('   DEBUG tail: %d leaders left, %d entries left' % (len(leaders) - i, len(entries) - j))
+            for k in range(max(0, j - 2), min(len(entries), j + 6)):
+                print('      entry#%d: %r -> pg %s' % (k, entries[k][1][:70], entries[k][2]))
         return 0
-    for (pno, rect), (_, _, pg) in zip(leaders, entries):
+    for (pno, rect, _), (_, _, pg) in zip(leaders, entries):
         out[pno].insert_link({'kind': fitz.LINK_GOTO, 'from': rect, 'page': int(pg) - 1})
     return len(leaders)
 
@@ -327,11 +382,12 @@ while round_no < MAX_ROUNDS:
     round_no += 1
     print('\nround %d' % round_no)
 
-    # front matter + TOC, always page 1
+    # front matter + TOC, always page 1. --resume exists to skip re-exporting the expensive body
+    # chunks (minutes each); this one is ~10s and its content (the TOC's real page numbers) changes
+    # every round by design, so it is always re-exported, resume or not.
     fdocx, fpdf = chunk_path(0, 'docx'), chunk_path(0, 'pdf')
     book.write(fdocx, front_markup(entries), 1)
-    if not (RESUME and os.path.exists(fpdf)):
-        export(fdocx, fpdf)
+    export(fdocx, fpdf)
     new_p0, _ = pdf_info(fpdf)          # only the page count matters here; the TOC lists the body
     print('   front matter + TOC: %d pages' % new_p0)
 
@@ -372,9 +428,13 @@ print('\nmerged: %d pages' % out.page_count)
 # One bookmark tree for the whole book, from the same data the TOC was built from. insert_pdf does
 # not carry outlines across, so without this the merged PDF would have no navigation at all.
 # Levels must not jump (1 -> 3 is rejected), so each level is clamped to one more than the previous.
+# A दोहा heading's title still carries TOC_MARKER + topic at this point (same raw text_of() output
+# toc_paragraph split on) — the PDF outline panel is a single-line label, not a table, so join the two
+# with a dash rather than showing the marker character raw.
 tree, prev = [], 0
 for lvl, title, pg in all_headings:
     lvl = min(lvl, prev + 1)
+    title = title.replace(TOC_MARKER, ' — ')
     tree.append([lvl, title, pg])
     prev = lvl
 out.set_toc(tree)

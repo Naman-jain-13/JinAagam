@@ -87,6 +87,13 @@ const pEmpty = () => new Paragraph({ text: '', spacing: { after: 60 } });
 // keepNext on every heading: a heading must never sit alone at the bottom of a page.
 const h1 = text => new Paragraph({ heading: HeadingLevel.HEADING_1, spacing: { before: 240, after: 200 }, keepNext: true, children: [new TextRun({ text: toEn(text), bold: true, size: 32, font: FONT, color: '7A1F1F' })] });
 const h2 = text => new Paragraph({ heading: HeadingLevel.HEADING_2, spacing: { before: 320, after: 140 }, keepNext: true, children: [new TextRun({ text: toEn(text), bold: true, size: 28, font: FONT, color: '1F4E79' })] });
+// दोहा-हेडिंग — दिखता वही "अधिकार 1, दोहा 47" रहता है, पर उसके बाद एक छुपी run में TOC_MARKER +
+// विषय जोड़ दिया जाता है (देखें topicOf ऊपर) ताकि विषय-सूची में दोहा-क्रमांक के साथ विषय भी दिखे।
+const h2Doha = (text, topic) => {
+  const children = [new TextRun({ text: toEn(text), bold: true, size: 28, font: FONT, color: '1F4E79' })];
+  if (topic) children.push(new TextRun({ text: TOC_MARKER + toEn(topic), vanish: true, size: 2, font: FONT }));
+  return new Paragraph({ heading: HeadingLevel.HEADING_2, spacing: { before: 320, after: 140 }, keepNext: true, children });
+};
 const h3 = text => new Paragraph({ heading: HeadingLevel.HEADING_3, spacing: { before: 180, after: 80 }, keepNext: true, children: [new TextRun({ text: toEn(text), bold: true, size: 25, font: FONT, color: '833C0B' })] });
 
 function buildTable(rows) {
@@ -278,11 +285,33 @@ const titleOf = t => {
   const n = /^§\s*(\d+)/.exec(t);
   return n ? `§${n[1]}` : t;
 };
+// वही वर्णनात्मक वाक्य जो titleOf() ऊपर हटाता है — पाठक ने index/विषय-सूची में इसे दोहा-सन्दर्भ के
+// साथ वापस चाहा (पाठ के ऊपर वाली हेडिंग में नहीं, सिर्फ़ TOC में)। इसे एक छुपी (vanish) run में
+// हेडिंग पैराग्राफ़ के भीतर ही रख देते हैं — दिखती कहीं नहीं, पर finalize_big.py की TOC-हार्वेस्टिंग
+// (जो पैराग्राफ़ के सारे <w:t> पढ़ती है, run-formatting से बेख़बर) इसे उठा लेती है।
+const TOC_MARKER = '␟';
+// एक लम्बा विषय-वाक्य पूरी पंक्ति भर देता है और डॉट-लीडर+पृष्ठ-संख्या के लिए जगह ही नहीं बचती —
+// तब Word पृष्ठ-संख्या को बिना डॉट्स के अगली पंक्ति पर अकेला छोड़ देता है (देखा गया: 108-अक्षर
+// वाला विषय ऐसा करता है)। साथ ही पाठक ने "topic ka naam" माँगा था, पूरा वाक्य नहीं — इसलिए छोटा
+// रखना दोनों दृष्टि से सही है।
+const TOPIC_MAX = 70;
+const topicOf = t => {
+  const body = t.replace(/^[^—]*—\s*/, '');
+  const m = /^(.*?)\s*\((?:अधिकार|योगसार)[^)]*\)\s*$/.exec(body);
+  let topic = m ? m[1].trim() : '';
+  if (topic.length > TOPIC_MAX) {
+    let cut = topic.slice(0, TOPIC_MAX);
+    const lastSpace = cut.lastIndexOf(' ');
+    if (lastSpace > TOPIC_MAX * 0.5) cut = cut.slice(0, lastSpace);
+    topic = cut.trim() + '…';
+  }
+  return topic;
+};
 // मूल पाठ के भीतर भी "(पृष्ठ 8)" जैसी पंक्ति पड़ी रहती है — वह भी पृष्ठ-संकेत ही है, वही हटाना है।
 const PAGELINE = /^\s*\(\s*पृष्ठ[^)]*\)\s*$/;
 
 function renderSection(s) {
-  const out = [h2(titleOf(s.title))];
+  const out = [h2Doha(titleOf(s.title), topicOf(s.title))];
   const add = parseAddendum(s.num) || [];
   if (!add.length) missing.push(s.num);
   const all = [...s.secs, ...add].filter(x => { if (WORKNOTE.test(x.head)) { dropped.push(`§${s.num}: ${x.head}`); return false; } return true; });
