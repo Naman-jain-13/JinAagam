@@ -40,6 +40,9 @@ print("पृष्ठ       : %d / %d ढके  (%.0f%%)"
 if done:
     holes = [p for p in left if p < max(done)]
     print("बीच के छेद : %s" % (holes if holes else "कोई नहीं"))
+    if holes:
+        print("              (चलते हुए बैच की परास भी यहाँ दिखती है — "
+              "वह छेद नहीं। पहले देख लीजिए कि कोई बैच उस परास पर चल रहा है या नहीं।)")
     print("आगे बाक़ी   : मुद्रित %d से %d  (%d पृष्ठ, ~%d बैच)"
           % (max(done) + 1, LAST, len([p for p in left if p > max(done)]),
              round(len([p for p in left if p > max(done)]) / 6.0)))
