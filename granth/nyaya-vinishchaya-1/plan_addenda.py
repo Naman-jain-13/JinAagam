@@ -12,13 +12,16 @@ TITLE = re.compile(r"^§\s*(\d+)\s*—", re.M)
 NAME = re.compile(r"batch(\d+)_p(\d+)-(\d+)")
 files = sorted(glob.glob(str(HERE/"parts"/"batch*.md")),
                key=lambda f: int(NAME.search(pathlib.Path(f).name).group(2)))
-CHUNK = 12
-tasks = []
+CHUNK = 10
+allsec = []   # (§, file)
 for f in files:
-    nums = [int(m.group(1)) for m in TITLE.finditer(io.open(f, encoding="utf-8").read())]
-    for i in range(0, len(nums), CHUNK):
-        part = nums[i:i+CHUNK]
-        tasks.append((pathlib.Path(f).name, part[0], part[-1], part))
+    for m in TITLE.finditer(io.open(f, encoding="utf-8").read()):
+        allsec.append((int(m.group(1)), pathlib.Path(f).name))
+tasks = []
+for i in range(0, len(allsec), CHUNK):
+    part = allsec[i:i+CHUNK]
+    fl = sorted({x[1] for x in part}, key=lambda s: int(NAME.search(s).group(2)))
+    tasks.append((", ".join(fl), part[0][0], part[-1][0], [x[0] for x in part]))
 done = {int(p.stem[1:]) for p in (HERE/"addenda").glob("s*.md")}
 show_all = "--all" in sys.argv
 left = 0
