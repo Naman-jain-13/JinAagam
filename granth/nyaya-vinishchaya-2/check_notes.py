@@ -48,7 +48,7 @@ CONT = re.compile(r"\(पृष्ठ (\d+),\s*([^)\d\s][^)]*)\)")
 # दुहराया जाता है), टिप्पण-पूँछ नहीं — उसे यहीं छोड़ दीजिए।
 CONT_SKIP = {"जारी"}
 PAGE = re.compile(r"^\(पृष्ठ (\d+)\)", re.M)
-NAME = re.compile(r"batch(\d+)_p(\d+)-(\d+)")
+NAME = re.compile(r"batch(\d+)[a-z]?_p(\d+)(?:-(\d+))?")
 # इस ग्रन्थ में बैच-फ़ाइल का नाम **मुद्रित** पृष्ठ बताता है (batch01_p003-008 =
 # मुद्रित 3–8), स्कैन नहीं। सहोदर ग्रन्थ में नाम स्कैन-संख्या का था और यहाँ से
 # `मुद्रित = स्कैन − 311` घटाया जाता था; वह पंक्ति ज्यों की त्यों चली आई थी और
@@ -94,7 +94,7 @@ def main():
         if not m:
             print(f"  {f.name}: नाम से परास नहीं निकली — छोड़ा")
             continue
-        s_from, s_to = int(m.group(2)), int(m.group(3))
+        s_from = int(m.group(2)); s_to = int(m.group(3) or m.group(2))
         want = list(range(s_from, s_to + 1))
         t = f.read_text(encoding="utf-8")
 
