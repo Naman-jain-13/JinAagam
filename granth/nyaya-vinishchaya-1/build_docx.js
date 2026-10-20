@@ -132,6 +132,7 @@ function parseParts() {
   const files = fs.readdirSync(PARTS_DIR).filter(f => f.endsWith('.md')).sort();
   const map = new Map(); let cur = null, sec = null;
   for (const f of files) {
+    cur = null; sec = null; // text before a file's first § (file header, carry-over notes) is working material, not book text
     for (const raw of fs.readFileSync(path.join(PARTS_DIR, f), 'utf-8').split('\n')) {
       const t = raw.replace(/\r$/, '');
       const m = /^§\s*([०-९0-9]+)\s*[—–-]\s*(.*)$/.exec(t.trim());
