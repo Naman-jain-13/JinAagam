@@ -1,0 +1,27 @@
+Nyaya_Vinishchaya_Vivarana_Part2_Vyakhya.docx
+body children : 34411  (front 9, body 34400)
+chunks        : 9
+   1  children      0-4223   ( 4223)  भूमिका
+   2  children   4223-8445   ( 4222)  § 120 — अपोह-पक्ष में 'समान' प्रतीति का निरास, खण्ड-आद
+   3  children   8445-12662  ( 4217)  § 237 — विवरण-श्लोक ॥1424॥–॥1425॥; अक्ष-अन्तर, मन का म
+   4  children  12662-16873  ( 4211)  § 360 — कारिका ॥128॥: बाहर या भीतर, प्रमाण से जानने वा
+   5  children  16873-21092  ( 4219)  § 486 — पाणि और पाद का एकार्थसमवायी उदाहरण: अव्यभिचार 
+   6  children  21092-25319  ( 4227)  § 618 — सुगत में अनृत का दोष: सब विनेयों में प्रतीति क
+   7  children  25319-29519  ( 4200)  § 747 — श्लोक ॥1718॥–॥1721॥: समवाय का अन्य प्रयोजन नही
+   8  children  29519-33758  ( 4239)  § 884 — श्रोत्र का बाह्येन्द्रियत्व असिद्ध; 'अदृष्ट-भे
+   9  children  33758-34400  (  642)  § 1018 — निर्विकल्प प्रत्यक्ष श्रुतविज्ञान का केवल हेत
+TOC entries   : 1107
+
+round 1
+   00.docx                       35s  peak=  936MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 39 pages
+   01.docx                       85s  peak= 3226MB  error=The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+   (attempt 1 failed — retrying)
+   01.docx                       15s  peak=  397MB  error=The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+   (attempt 2 failed — retrying)
+   01.docx                        5s  peak=    0MB  error=The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+   (attempt 3 failed — retrying)
+   01.docx                       15s  peak=  358MB  error=The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+   (attempt 4 failed — retrying)
+export failed: E:\Projects\JinAagam\granth\nyaya-vinishchaya-2\vyakhya\Nyaya_Vinishchaya_Vivarana_Part2_Vyakhya_chunks\01.docx

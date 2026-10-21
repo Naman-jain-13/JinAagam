@@ -159,15 +159,21 @@ def toc_paragraph(level, title, page):
 # ----------------------------------------------------------------- Word, one chunk at a time
 
 def export(docx, pdf):
-    r = subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass',
-                        '-File', os.path.join(HERE, 'export_chunk.ps1'),
-                        '-Docx', docx, '-Pdf', pdf],
-                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    line = r.stdout.decode('utf-8', 'replace').strip()
-    print('   ' + line.replace('\n', '\n   '))
-    if r.returncode != 0 or not os.path.exists(pdf):
-        raise SystemExit('export failed: %s' % docx)
-    return pdf
+    # Word's automation server fails every other launch on some machines (RPC 0x800706BE / 0x80080005
+    # right after a successful run); a second attempt after a pause succeeds — so retry a few times.
+    import time
+    for attempt in range(1, 5):
+        r = subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass',
+                            '-File', os.path.join(HERE, 'export_chunk.ps1'),
+                            '-Docx', docx, '-Pdf', pdf],
+                           stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        line = r.stdout.decode('utf-8', 'replace').strip()
+        print('   ' + line.replace(chr(10), chr(10) + '   '))
+        if r.returncode == 0 and os.path.exists(pdf):
+            return pdf
+        print('   (attempt %d failed — retrying)' % attempt)
+        time.sleep(40)
+    raise SystemExit('export failed: %s' % docx)
 
 
 HEADING_LEVEL = {'Heading1': 1, 'Heading2': 2, 'Heading3': 3}

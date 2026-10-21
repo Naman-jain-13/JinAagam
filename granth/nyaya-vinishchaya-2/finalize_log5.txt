@@ -1,0 +1,34 @@
+Nyaya_Vinishchaya_Vivarana_Part2_Vyakhya.docx
+body children : 34411  (front 9, body 34400)
+chunks        : 19
+   1  children      0-1824   ( 1824)  भूमिका
+   2  children   1824-3643   ( 1819)  § 53 — कारिका ॥9॥ के पूर्वार्ध 'तद्भावेऽपि तद्वादस्यान
+   3  children   3643-5463   ( 1820)  § 104 — शब्द से अनित्यत्व-ग्रहण और निश्चित-अनिश्चित का
+   4  children   5463-7267   ( 1804)  § 151 — 'स्वप्न की तरह भ्रम से व्यवहार' का निरास — शब्
+   5  children   7267-9071   ( 1804)  § 201 — चेतन का शरीर से भेद; गुण-गुणी की समस्या; कारिक
+   6  children   9071-10905  ( 1834)  § 253 — अतुच्छ पक्ष का खण्डन; 'न तस्य किञ्चिद्भवति' वच
+   7  children  10905-12723  ( 1818)  § 308 — 'सन्निवेश-विशेष' का अर्थ, स्थूल-प्रतिभास पर बौ
+   8  children  12723-14549  ( 1826)  § 362 — 'भीतर भी कैसी वस्तु?': निराकार संवेदन, नीलादि-
+   9  children  14549-16367  ( 1818)  § 418 — 'कार्यकारणभावाद्वा स्वभावाद्वा…' [प्र0 वा0 3।[
+  10  children  16367-18194  ( 1827)  § 470 — अन्वयी के अविनाभाव पर विकल्प: यदि अविनाभाव नही
+  11  children  18194-19996  ( 1802)  § 529 — विवरण-श्लोक ॥1550॥–॥1554॥: सर्वज्ञ और वेद के अ
+  12  children  19996-21812  ( 1816)  § 584 — कारिका 2।215 का पूर्वार्ध: 'तदाभासो वितण्डादिः
+  13  children  21812-23619  ( 1807)  § 641 — योगि-प्रत्यक्ष का भिन्नकाल-कारणत्व और 'तदाकार'
+  14  children  23619-25440  ( 1821)  § 691 — 'किस बाधक-अभाव से विश्वास?': तात्कालिक और सार्
+  15  children  25440-27243  ( 1803)  § 751 — श्लोक ॥1722॥–॥1724॥: 'शक्ति-ध्वंस' का पक्ष — ए
+  16  children  27243-29071  ( 1828)  § 811 — शब्द का वाचकत्व ह्रस्वादि-रूप में ही; 'अतात्त्
+  17  children  29071-30887  ( 1816)  § 868 — बिजली के रङ्गों का उदाहरण; पर-अपर शब्द का भी व
+  18  children  30887-32720  ( 1833)  § 927 — जीव-तत्त्वज्ञान से संवर कैसे? स्नेह और रागद्वे
+  19  children  32720-34400  ( 1680)  § 985 — आप्त का वक्ता होना ज्ञान और वैराग्य के प्रकर्ष
+TOC entries   : 1107
+
+round 1
+   00.docx                        5s  peak=    0MB  error=The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+   (attempt 1 failed — retrying)
+   00.docx                       35s  peak=  797MB  error=The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+   (attempt 2 failed — retrying)
+   00.docx                        5s  peak=  144MB  error=The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+   (attempt 3 failed — retrying)
+   00.docx                       35s  peak=  337MB  error=Retrieving the COM class factory for component with CLSID {000209FF-0000-0000-C000-000000000046} failed due to the following error: 80080005 Server execution failed (Exception from HRESULT: 0x80080005 (CO_E_SERVER_EXEC_FAILURE)).
+   (attempt 4 failed — retrying)
+export failed: E:\Projects\JinAagam\granth\nyaya-vinishchaya-2\vyakhya\Nyaya_Vinishchaya_Vivarana_Part2_Vyakhya_chunks\00.docx
