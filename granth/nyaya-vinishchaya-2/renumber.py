@@ -39,12 +39,12 @@ except (AttributeError, OSError):
 
 HERE = pathlib.Path(__file__).resolve().parent
 WRITE = "--write" in sys.argv
-NAME = re.compile(r"batch(\d+)_p(\d+)-(\d+)")
+NAME = re.compile(r"batch(\d+)([a-z]?)_p(\d+)(?:-(\d+))?")
 TITLE = re.compile(r"^§\s*(\d+)\s*—", re.M)
 REF = re.compile(r"§\s*(\d+)")
 
 files = sorted(glob.glob(str(HERE / "parts" / "batch*.md")),
-               key=lambda f: int(NAME.search(pathlib.Path(f).name).group(2)))
+               key=lambda f: (int(NAME.search(pathlib.Path(f).name).group(3)), 0 if NAME.search(pathlib.Path(f).name).group(2) else 1))
 
 # पहले पूरा नक़्शा बनाइए — पुराना क्रमांक → नया — तभी सन्दर्भ भी ठीक बदलेंगे
 old_order = []
