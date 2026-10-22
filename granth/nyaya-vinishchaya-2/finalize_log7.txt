@@ -1,0 +1,46 @@
+Nyaya_Vinishchaya_Vivarana_Part2_Vyakhya.docx
+body children : 34453  (front 9, body 34442)
+chunks        : 9
+   1  children      0-4203   ( 4203)  भूमिका
+   2  children   4203-8427   ( 4224)  § 119 — कारिका 2।25: अपोह को सामान्य मानने पर बुद्धि स
+   3  children   8427-12644  ( 4217)  § 236 — कारिका ॥80॥: प्रत्येक इन्द्रिय अकेली कारण नहीं
+   4  children  12644-16867  ( 4223)  [ अनेकात्मक अर्थ और क्षणभङ्ग के निश्चय की परीक्षा ]
+   5  children  16867-21087  ( 4220)  § 485 — एकार्थसमवायी लिङ्ग का उदाहरण (रूप से स्पर्श; प
+   6  children  21087-25290  ( 4203)  § 617 — कारिका 3।4: 'सिद्ध' का अर्थ और सुगत में हिंसा 
+   7  children  25290-29507  ( 4217)  § 745 — कारिका 3।23 (पूर्वार्ध): जीव भिन्न-जातीय कर्मो
+   8  children  29507-33729  ( 4222)  § 882 — श्रोत्र का बाह्येन्द्रियत्व और आकाश-श्रोत्र; आ
+   9  children  33729-34442  (  713)  § 1016 — तत्त्व-निर्णय के सहभावी होने पर भी फल; क्षयोप
+TOC entries   : 1107
+
+round 1
+   00.docx                       30s  peak=  887MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 39 pages
+   01.docx                      120s  peak= 3819MB  ok
+   chunk  1:  301 pages, pages 40-340, 836 bookmarks
+   02.docx                      130s  peak= 4442MB  ok
+   chunk  2:  315 pages, pages 341-655, 824 bookmarks
+   03.docx                      145s  peak= 4622MB  ok
+   chunk  3:  331 pages, pages 656-986, 865 bookmarks
+   04.docx                      156s  peak= 4871MB  ok
+   chunk  4:  344 pages, pages 987-1330, 888 bookmarks
+   05.docx                      130s  peak= 4257MB  ok
+   chunk  5:  316 pages, pages 1331-1646, 931 bookmarks
+   06.docx                      115s  peak= 3744MB  ok
+   chunk  6:  289 pages, pages 1647-1935, 903 bookmarks
+   07.docx                      110s  peak= 3541MB  ok
+   chunk  7:  283 pages, pages 1936-2218, 964 bookmarks
+   08.docx                      115s  peak= 3997MB  ok
+   chunk  8:  305 pages, pages 2219-2523, 943 bookmarks
+   09.docx                       25s  peak=  805MB  ok
+   chunk  9:   53 pages, pages 2524-2576, 133 bookmarks
+   headings located: 7287 (levels 1-2: 1107)
+
+round 2
+   00.docx                       25s  peak= 1003MB  ok
+   front matter + TOC: 39 pages
+
+merged: 2576 pages
+TOC links inserted: 1107 of 1107 entries
+pdf: E:\Projects\JinAagam\granth\nyaya-vinishchaya-2\vyakhya\Nyaya_Vinishchaya_Vivarana_Part2_Vyakhya.pdf (27.1 MB)
+front matter + TOC: pages 1-39 | body: pages 40-2576
