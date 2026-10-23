@@ -1,0 +1,25 @@
+Pratikraman_Granthtrayi_Vyakhya.docx
+body children : 6975  (front 9, body 6964)
+chunks        : 2
+   1  children      0-4210   ( 4210)  भूमिका
+   2  children   4210-6964   ( 2754)  § 147 — निर्ग्रन्थ-लिंग (प्रव्रज्या) के विशेषण : अनुत्
+TOC entries   : 289
+
+round 1
+   00.docx                       10s  peak=  340MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 8 pages
+   01.docx                      146s  peak= 4654MB  ok
+   chunk  1:  345 pages, pages 9-353, 1316 bookmarks
+   02.docx                      100s  peak= 3089MB  ok
+   chunk  2:  232 pages, pages 354-585, 806 bookmarks
+   headings located: 2122 (levels 1-2: 289)
+
+round 2
+   00.docx                       10s  peak=  336MB  ok
+   front matter + TOC: 8 pages
+
+merged: 585 pages
+TOC links inserted: 289 of 289 entries
+pdf: E:\Projects\JinAagam\granth\pratikraman-granthtrayi\vyakhya\Pratikraman_Granthtrayi_Vyakhya.pdf (6.7 MB)
+front matter + TOC: pages 1-8 | body: pages 9-585
