@@ -1,0 +1,21 @@
+# Applied — audit findings §1440–§1630
+
+- §1440, §1450, §1460, §1470, §1520, §1550, §1560, §1580, §1630 — no findings → nothing changed.
+- §1480 title (keep the गाथा's अगृहीतार्थ-संश्रित) → applied (wording: "अगृहीतार्थ-संश्रित का (गृहीतार्थ के साथ अगृहीतार्थ का)").
+- §1490 title, two items missing (एकत्व, भाव) → applied, all seven named ("सूत्र" and "भाव" kept as the वृत्ति has them).
+- §1500 title, आदान and गदागदी missing → applied.
+- §1500 part 5 "उठाने-रखने" → applied ("उठाने").
+- §1500 part 10 "गाथा prints जंपरोचि" → adjusted: softened so it now reports only the वृत्ति's lemma जंपिरोचि (गाथा line on scan 185 falls below the detected rule and was not checked).
+- §1510 src/parts गाथा `प[अस्पष्ट]त्थदा` → applied after scan 186 check: `पासत्थदा`; T9 lemma `पासत्य` left as printed; part 10 note rewritten (broken सा, filled from the lemma + T11).
+- §1510 title, "सात" with four names → applied, all seven named.
+- §1510 part 5 carried वृत्ति matter → applied ("उत्सार-कल्प (त्याज्य आचरण) में").
+- §1530 src/parts T1 → applied after scan 187 check: `विहरंस्तावत्तिष्ठतु … पुनर्निर्धर्मो`; part-10 note that blamed the print deleted; part-7 quote fixed.
+- §1540 src/parts T3 `निर्वृत्ति` → applied after scan 188 check: `निवृत्तिं`; part-10 doubt removed.
+- §1540 src/parts T11 `पुनभज्यानीति` → applied after zoomed check of scan 189 (Sanskrit lines only): `पुनर्भाज्यानीति`; part 10 restated.
+- §1540 part 5 carried वृत्ति matter → applied.
+- §1570 src/parts T2 `यत्नेन` / T8 `यत्नेनान्तराले` → applied after scan 191 check: `यत्तेन` / `यत्तेनान्तराले` (footnote "क यत्नेन" kept). Reworked: part 2 छाया, part 3 (जं तेण), part 4 (two lines जं / तेण), part 5 (also dropped "ही"), T2, T8, part-7 bullet 4, part-10 note 1.
+- §1590 part 8 सागर, missing सीमा → applied.
+- §1600 src/parts T8 `ऊर्ध्वजवो` → applied after scan 193 check (ज्ञ compared with सर्वज्ञा° on the same page): `ऊर्ध्वज्ञवो`; part 7 सीमा and part 10 updated.
+- §1600 T2 doubt about `आयस्यायासं` → applied: construed as आयस्य आयासं कृत्वा; bracketed doubt removed; part 10 rewritten.
+- §1610 title / part 7 / part 8 "कुशल-पृच्छा", "स्नेहपूर्ण जिज्ञासा" → applied: title made neutral ("रत्नत्रय-विषयक पृच्छा"); parts 7, 8 and the 9-क चर्चा line now mark it as the व्याख्याकार's view and note that the वृत्ति says only 'संप्रश्न'.
+- §1620 T9 `शयनीयप्रदेशः । तौ आदिर्येषां` → applied (क्रिया and संस्तार both); bracketed emendation note removed; part 10 rewritten.

@@ -1,0 +1,27 @@
+# Pass-1 flags (working notes — not for the book)
+- §110 T2: `यस्मिन्न[अस्पष्ट]े` — overprinted word; settle from the Hindi / magnify.
+- §130: गाथा and T2 read `छावालदोससुद्धं` (expected `छादाल…`); व/द ambiguous — settle from Hindi count (छयालीस).
+- §140 T4: `शौचस्य पुरीषादिमलापहरण…` — मूत्र absent while Hindi says मल-मूत्र; kept as printed.
+- §140 T6: `प्राकृतलक्षणबलादत्र` worn.
+- §150 T4, T12: `ग्रामादिकाद्विप्रकृष्टे`, `कायमलादेर्यस्त्यागः` worn (second is best reading).
+- §100 T3: `सत्यमृषा-सत्यमृषाऽसत्यमृषाप्रवृत्तिकारणम्` as printed; Hindi lists four types.
+- §90: printed Hindi गाथार्थ closes `है। ९॥` (opening ॥ missing) — as printed.
+- §150 part 11: starred फलटन-edition note kept verbatim.
+- §250 T4: `राच्यधिकानां` worn (probably रात्र्यधिक); Hindi prints `राच्यधिक`.
+- §260 T4: `पूर्वाह्लापराह्ल` ल-like forms.
+- §270 T9: `त्रिकरणैर्यदेतत्` (य/प), `यदेतद्दोष` (ष/प), possibly corrupt `[१]यदेतद्…`.
+- §290 T10: `द्वयोर्मासयोर्यल्` printed with ल; page-break join `…श्मश्रूणां चेति चेन्नैष`.
+- §320 T4: `स्त्रीपशुपंडक` प/ष ambiguous; footnote variant `शूपंडक`.
+- §300: मूल marker `वक्केण[१]य`; two footnotes numbered १.
+- §20 footnote 1 `[अस्पष्ट]`: `क "°…ज्ञोः"` marker before स्थाण्डिल्य.
+- §10/§20: गाथा 2 reads `जिणवरदिट्ठा` — glyph looks like `…रद्द…`; settle.
+- §10: odd forms kept as printed: `महार्थंगभीरं`, `प्रत्यूहनिराकारणक्षमं`, `लब्ध्युपयोगो`, `कार्योत्सर्गादिषु`, `कर्तृन्`, `चेलशब्देनोच्यते` (worn).
+- §170: `क्रियासंस्थानसवर्णभेदास्तेषु` (extra स), `चक्षुषोर्निरोधश्चक्षुनिरोधः`, `संगाश्चासक्तयः` (व/च).
+- §190: `जीविष्यति` (ष/ध), `स्वस्वभावान्य…`. §200: `येयमगृद्धिरतज्जिह्वाजयव्रतं` looks corrupt; `लड्डुकंकोलादि` doubtful.
+- §210: `अनभिलाषः` may be `अनभिलापः`. §240: `लोकस्योद्योतकरा`, `कृत्वान्यस्याश्रुतत्वात्` read to fit Hindi.
+- §180 मूल: `सड्जादि`. Footnote numbers restart per printed page (§200 lists both pages).
+- §340 Hindi `[अस्पष्ट]`: "और [अस्पष्ट] पर काक आदि…" (looks like वहाँ). §340 T3 `ऊर्ध्वधिः[५]` doubtful (footnote 'र्ध्वजंघस्व'); T11 `समपादौ न विशिष्यते` singular verb.
+- §350 T20 `रसगोचरगार्द्ध्यत्यजनं`; T10–11 joined `सम्बन्ध इति`; T11 `न वर्जिते`. §330 T12 `किमर्थ वीतरागख्यापनार्थ` no anusvara. §360 T1 `…प्रतिपादनार्थोंपसंहार…`.
+- Footnote markers `[१]` also appear inside the गाथा lines of §300/§330/§340.
+- (pass-2 result) §110 T2: reads `यस्मिन्नसौ प्रासुकः` at high zoom — apply to parts/ after pass-3 confirms.
+- (pass-2) §80 part 7 has a marked extension about आर्यिका (father/son/brother); §90 T11 split `असङ्गमति+मूर्छारहितत्व` against printed Hindi — audit both.

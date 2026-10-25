@@ -1,0 +1,67 @@
+Mulachar_Adhikar1_Mulagun_Vyakhya.docx
+body children : 1470  (front 8, body 1460)
+chunks        : 16
+   1  children      0-1      (    1)  
+   2  children      1-14     (   13)  भूमिका
+   3  children     14-110    (   96)  ग्रन्थारम्भ — मंगल, प्रतिज्ञा और अट्ठाईस मूलगुणों की ग
+   4  children    110-310    (  200)  पाँच महाव्रत
+   5  children    310-348    (   38)  अधिकार 1, गाथा 9␟अपरिग्रह (असंग) महाव्रत: जीवाश्रित,…
+   6  children    348-547    (  199)  पाँच समितियाँ
+   7  children    547-588    (   41)  अधिकार 1, गाथा 15␟प्रतिष्ठापना समिति: एकान्त, अचित्त,…
+   8  children    588-785    (  197)  पाँच इन्द्रिय-निरोध
+   9  children    785-824    (   39)  अधिकार 1, गाथा 21␟जीव और अजीव से उत्पन्न, कठोर-कोमल आद
+  10  children    824-1034   (  210)  छह आवश्यक
+  11  children   1034-1119   (   85)  अधिकार 1, गाथा 27␟प्रत्याख्यान: नाम आदि छह अयोग्य का,…
+  12  children   1119-1318   (  199)  शेष सात गुण
+  13  children   1318-1404   (   86)  अधिकार 1, गाथा 34␟दीवार आदि का सहारा न लेकर, जीव-रहित…
+  14  children   1404-1443   (   39)  उपसंहार-गाथा — मूलगुणों का फल
+  15  children   1443-1457   (   14)  उपसंहार — प्रथम अधिकार का सार
+  16  children   1457-1460   (    3)  शब्दावली
+TOC entries   : 50
+
+round 1
+   00.docx                       15s  peak=  195MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 2 pages
+   01.docx                        5s  peak=  176MB  ok
+   chunk  1:    1 pages, pages 3-3, 0 bookmarks
+   02.docx                       11s  peak=  201MB  ok
+   chunk  2:    2 pages, pages 4-5, 3 bookmarks
+   03.docx                       20s  peak=  325MB  ok
+   chunk  3:   13 pages, pages 6-18, 17 bookmarks
+   04.docx                       25s  peak=  473MB  ok
+   chunk  4:   22 pages, pages 19-40, 41 bookmarks
+   05.docx                       10s  peak=  277MB  ok
+   chunk  5:    4 pages, pages 41-44, 8 bookmarks
+   06.docx                       15s  peak=  492MB  ok
+   chunk  6:   20 pages, pages 45-64, 41 bookmarks
+   07.docx                       16s  peak=  248MB  ok
+   chunk  7:    4 pages, pages 65-68, 8 bookmarks
+   08.docx                       36s  peak=  515MB  ok
+   chunk  8:   21 pages, pages 69-89, 41 bookmarks
+   09.docx                       10s  peak=  264MB  ok
+   chunk  9:    4 pages, pages 90-93, 8 bookmarks
+   10.docx                       15s  peak=  517MB  ok
+   chunk 10:   20 pages, pages 94-113, 41 bookmarks
+   11.docx                       10s  peak=  310MB  ok
+   chunk 11:    9 pages, pages 114-122, 16 bookmarks
+   12.docx                       15s  peak=  499MB  ok
+   chunk 12:   20 pages, pages 123-142, 41 bookmarks
+   13.docx                       15s  peak=  374MB  ok
+   chunk 13:   11 pages, pages 143-153, 16 bookmarks
+   14.docx                       10s  peak=  231MB  ok
+   chunk 14:    4 pages, pages 154-157, 9 bookmarks
+   15.docx                        5s  peak=  186MB  ok
+   chunk 15:    2 pages, pages 158-159, 4 bookmarks
+   16.docx                        5s  peak=  176MB  ok
+   chunk 16:    1 pages, pages 160-160, 1 bookmarks
+   headings located: 295 (levels 1-2: 50)
+
+round 2
+   00.docx                        5s  peak=  199MB  ok
+   front matter + TOC: 2 pages
+
+merged: 160 pages
+TOC links inserted: 50 of 50 entries
+pdf: E:\Projects\JinAagam\granth\mulachar\vyakhya\Mulachar_Adhikar1_Mulagun_Vyakhya.pdf (3.4 MB)
+front matter + TOC: pages 1-2 | body: pages 3-160

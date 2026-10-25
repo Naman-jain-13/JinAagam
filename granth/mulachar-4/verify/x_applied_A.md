@@ -1,0 +1,23 @@
+# Applied — audit findings §1220–§1430
+
+- §1220 T8 'कायाः' तस् (doubt honestly marked) → no change needed.
+- §1220 T9 व्यापनार्थम्→ज्ञापनार्थम् → declined: on scan 164 the glyph looks a bit like ज्ञ, but it can't be read with confidence and it wasn't on the list of confirmed fixes. src unchanged; part 10 already gives ज्ञापनार्थम् as a possibility.
+- §1230 text notes → no change needed.
+- §1240 part 5 'पदविभागिक ही' → applied: "दो ही प्रकार का है — औघिक और पदविभागिक".
+- §1250 T6 गुर्वादिभिप्राय→गुर्वाद्यभिप्राय → applied (scan 168 shows द्य): src + batch1. The Hindi was already correct.
+- §1260 T6 यान्→यानं → applied (scan 170): src + batch1. Part 10 now says the footnote गमनम् confirms the reading instead of correcting the print.
+- §1260 T8 footnote अविराधयित्वा → applied: T8 Hindi, part 7, 7-क (निषीधिका bullet) and table 9 changed from 'स्वीकृति लेकर' to 'अभ्युपगम/विराधना न करते हुए'. Part 10 now calls the footnote an explanation of the meaning, not a variant reading.
+- §1260 part 5 vs 4/7/9 (प्रतिदत्तं) → applied: "पहले सौंपी (लौटाई) हुई वस्तु के विषय में सधर्मा और गुरु से प्रतिपृच्छा".
+- §1260 7-क आपृच्छा/प्रतिपृच्छा named as the way to raise doubts → applied: replaced with पृच्छना, a स्वाध्याय (तत्त्वार्थसूत्र 9.25).
+- §1290 गाथा 129 पदविभागो→पदविभागी → applied (scan 171, clear): src + batch1; छाया पदविभागिनं; अन्वय and अन्वयार्थ updated.
+- §1300, §1310, §1320 → no faults found.
+- §1330 parts 3/4/10 अवितहमेदेत्ति → applied in the addendum. src keeps [अस्पष्ट] because the letter is worn on scan 174.
+- §1330 T4 वृत्तिवार्तिकभाष्यनिबन्धनं → adjusted: applied as a probable reading in T4 Hindi, part 7 (two places) and part 10. src keeps [अस्पष्ट] because the line is worn.
+- §1330 part 7 and 9-क आपृच्छा/प्रतिपृच्छा for doubts → applied: now पृच्छना (तत्त्वार्थसूत्र 9.25).
+- §1340 part 10 false तेर्हिंतो variant note → applied: bullet deleted.
+- §1380 9-क 'बिना अपवाद हर बार' tagged [आगम-सम्मत] → applied: the auditor's wording.
+- §1390 9-क चर्चा over-tagged → applied: the definition is tagged [आगम-सम्मत]; the conclusion drawn from it is tagged [सुझाव].
+- §1400 T3 भूमिर्मार्गोऽथवा→भूमिः मार्गोऽथवा → applied (scan 179): src + batch2. The T3 Hindi line is now clean, with no bracketed note, and part 10 is rewritten.
+- §1410 part 10 'no footnote' prose → applied: replaced with a real bullet on 'अतो नैषामैक्यम्'.
+- §1420 T4 तत्रभवान् → applied: "क्या आदरणीय आप सुखपूर्वक गए और आए?"
+- §1430 T2 → applied: "सुख और दुःख में (होने पर)".

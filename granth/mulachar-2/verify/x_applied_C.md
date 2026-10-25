@@ -1,0 +1,21 @@
+# x_applied_C — §880–§1070 audit findings applied
+
+- §880 भाग 7 (वेदना/संज्ञा-वृद्धि "गाथा स्पष्ट करती है") → applied: वाक्य अब `(व्याख्याकार का तर्क)` से आरम्भ।
+- §890, §900, §950, §990, §1000, §1010, §1050 → no findings; untouched.
+- §910 शीर्षक (कर्म-विभक्ति) → applied as suggested.
+- §920 'चिता' → no change needed (auditor confirmed).
+- §930 भाग 5 ('बढ़ता चलता', 'भी') → applied as suggested.
+- §930 9-क चर्चा (over-tagged) → applied: split into [सुझाव] + [आगम-सम्मत].
+- §940 9-क अभ्यास + परीक्षण (over-tagged) → applied: अभ्यास split; परीक्षण retagged [सुझाव] with "संकेत करता है".
+- §960 T15 पाठ-सुधार → applied after checking p0148 above the rule (`…चारित्रतपांसि मम` clearly printed): src\s960.md + parts\batch4 Sanskrit updated; T15 Hindi now "ज्ञान, दर्शन, चारित्र और तप"; भाग 7 last-bullet sentence replaced; भाग 10 note rewritten (no doubt). भाग 4/5 follow the गाथा (`तव संजमं`), needed no change.
+- §960 T12 (needless doubt on 'ज्ञानमुखवान्') → applied: bracket removed from T12; भाग 10 keeps 'ज्ञानसुखवान्' only as a possible reading.
+- §970 9-क परीक्षण (over-tagged) → applied: split [सुझाव] + [आगम-सम्मत].
+- §980 भाग 5 ('इसलिए', 'मेरे द्वारा' from वृत्ति) → applied as suggested.
+- §1020 T1 → no change (auditor confirmed); भाग 10 note narrowed to T1 alone.
+- §1020 T6 + भाग 7 (three-way reading) → applied after checking the Sanskrit (final `वा` supports separate options): T6, भाग 7, भाग 9 table updated; भाग 10 records the one-option reading as the alternative.
+- §1030 शीर्षक `आठ`→`सात` → applied; also भाग 7 "एक सीमा" `इन आठ गुणों`→`इन सात गुणों` (same miscount).
+- §1030 T12 पाठ-सुधार → applied after checking p0152 above the rule (reph tick over 'जि' visible): `निक्रोधादिर्जितेन्द्रियो` in src\s1030.md + parts\batch5; भाग 10 note rewritten (no "घिसा रूप" doubt). T12 Hindi already correct.
+- §1040 शीर्षक + भाग 5 (exclusive 'ही'/'उसी का') → applied as suggested.
+- §1060 भाग 7 `प्रथम-पुरुष`→`उत्तम-पुरुष` → applied as suggested.
+- §1070 भाग 7 order sentence → applied as suggested.
+- Open (outside my edit scope): the § headings in parts\batch4 (§910) and parts\batch5 (§1030, §1040) still carry the old titles; apply_titles.py will not re-apply them (its regex matches only `गाथा …` headings).

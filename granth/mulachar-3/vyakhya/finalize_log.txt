@@ -1,0 +1,40 @@
+Mulachar_Adhikar3_Sankshep_Pratyakhyan_Vyakhya.docx
+body children : 562  (front 8, body 552)
+chunks        : 7
+   1  children      0-1      (    1)  
+   2  children      1-15     (   14)  भूमिका
+   3  children     15-239    (  224)  संक्षेपप्रत्याख्यान : आकस्मिक काल का संक्षिप्त त्याग (
+   4  children    239-457    (  218)  अधिकार 3, गाथा 114␟उत्तमार्थ के लिए समस्त उपधि, चतुर्व
+   5  children    457-541    (   84)  अधिकार 3, गाथा 120␟संक्षिप्त काल में भी तीन प्रतिक्रमण
+   6  children    541-549    (    8)  उपसंहार — तृतीय अधिकार का सार
+   7  children    549-552    (    3)  शब्दावली
+TOC entries   : 22
+
+round 1
+   00.docx                        5s  peak=  204MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 2 pages
+   01.docx                        5s  peak=  174MB  ok
+   chunk  1:    1 pages, pages 3-3, 0 bookmarks
+   02.docx                       10s  peak=  236MB  ok
+   chunk  2:    2 pages, pages 4-5, 3 bookmarks
+   03.docx                       20s  peak=  461MB  ok
+   chunk  3:   20 pages, pages 6-25, 49 bookmarks
+   04.docx                       15s  peak=  453MB  ok
+   chunk  4:   17 pages, pages 26-42, 48 bookmarks
+   05.docx                       10s  peak=  280MB  ok
+   chunk  5:    8 pages, pages 43-50, 16 bookmarks
+   06.docx                        5s  peak=  176MB  ok
+   chunk  6:    1 pages, pages 51-51, 3 bookmarks
+   07.docx                        5s  peak=  179MB  ok
+   chunk  7:    1 pages, pages 52-52, 1 bookmarks
+   headings located: 120 (levels 1-2: 22)
+
+round 2
+   00.docx                        5s  peak=  180MB  ok
+   front matter + TOC: 2 pages
+
+merged: 52 pages
+TOC links inserted: 22 of 22 entries
+pdf: E:\Projects\JinAagam\granth\mulachar-3\vyakhya\Mulachar_Adhikar3_Sankshep_Pratyakhyan_Vyakhya.pdf (1.2 MB)
+front matter + TOC: pages 1-2 | body: pages 3-52

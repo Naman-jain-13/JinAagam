@@ -1,0 +1,7 @@
+The remote procedure call failed. (Exception from HRESULT: 0x800706BE)
+At E:\Projects\JinAagam\granth\mulachar\finalize_word.ps1:39 char:3
++   $d = $w.Documents.Open($Docx)
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (:) [], COMException
+    + FullyQualifiedErrorId : System.Runtime.InteropServices.COMException
+ 
