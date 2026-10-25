@@ -52,6 +52,7 @@ CORPORA = [
     ("siddhi2", "granth/siddhi-vinishchaya-2", "सिद्धिविनिश्चयटीका (भाग 2)", "Siddhi-vinishchaya-tika (Part 2)", "hi"),
     ("pkm",    "granth/Prameyakamal",  "प्रमेयकमलमार्त्तण्ड",        "Prameyakamalamartanda",     "hi"),
     ("abhi",   "granth/abhishek-path-sangrah",        "अभिषेक पाठ संग्रह",           "Abhishek Path Sangrah",     "hi"),
+    ("yukty",  "granth/yuktyanushasan",   "युक्त्यनुशासनालङ्कारः",       "Yuktyanushasanalankara",    "hi"),
 ]
 
 PART_ORDER = ["मूल पाठ", "मूल संस्कृत पाठ", "हिन्दी अनुवाद", "जैनागम", "पूरक", "सरल उदाहरण",
