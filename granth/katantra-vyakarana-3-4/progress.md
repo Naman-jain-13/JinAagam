@@ -1,0 +1,253 @@
+# कातन्त्र व्याकरण — अध्याय 3–4 (आख्यात, कृत्) — progress
+
+User (2026-10-26): "आगे की भी बना दो" — make adhyāya 3–4 now, as the scan stands (it lacks many printed pages; the book must say so honestly). Volume 1 (adhyāya 1–2) is DONE in `../katantra-vyakarana/` (1263 pp).
+Same pipeline, same lessons (see ../katantra-vyakarana/progress.md and memory katantra-project): pass 3 MUST re-read the scan for the Sanskrit; fount: क्ष≈च, श्च≈स्व, त्व≈ल्व, श्र≈अ, इ≈दृ; घुट्(घ)≠धुट्(ध); concurrency limit 20 subagents.
+
+## Layout
+- `mool/Katantra_Durgasimha.pdf` copy; `parts/` starts with the pass-1 batches 16–22 (scan p157–226, copied from ../katantra-vyakarana/parts_later; batch 22 was a pilot with the OLD spec; batch 16 p157 = tail of adhyāya 2 — skip).
+- To do pass 1: batches 23–40 (p227–406), 41 REDO (p407–416), 42 (p417–426), 43 (p427–431). Batch k = scan p(7+10(k−1)).. ; keys B×10000+ordinal×10, B=k−1.
+- Printed page ≠ scan − 6 here (many missing pages): `verify/pagemap_N.txt` (scan → printed, ref A.P.N, GAPS) built from running heads — use it for page numbers and gap detection.
+
+## Status
+- 2026-10-26: folder created; 6 page-map readers launched (p158–433).
+- 2026-10-26: pass-1 wave A launched: batches 23–32 (scan p227–326) in this folder (+ 6 pagemap readers running → verify/pagemap_1..6.txt). Next waves: 33–40, 41 (redo), 42, 43. Then seam audit for ALL joins (16→17 … 43), pagemap-based page-number check, make_src, pass 2 etc.
+- pagemap_5 DONE (scan 342–387): printed = scan + 32 throughout, NO gaps; refs at 347/348 inferred, scan 355 head reads `४.५.६३` (set 4.4.63).
+- pagemap_6 DONE (scan 388–433): printed = scan + 32 (420 at scan 388 … 463 at scan 431), NO gaps. **END OF TEXT = scan 431** (`इति दौर्गसिंह्यां वृत्तौ … पादः समाप्तः`, `इति कातन्त्रे समाप्तम्`, ref 4.6.116); scan 432 blank, scan 433 = English NOTES title. Uncertain refs: scan 405 (4.6.47?), 417 (4.6.81?), 419 (4.6.88?). So from scan 342 to the end the scan is COMPLETE (adhyāya 4 fully present); the missing pages are in adhyāya 3 only.
+- Pass-1 wave B launched: batches 33–38 (scan p327–386). Running: 23–32, 33–38; still to launch: 39, 40, 41 (redo), 42, 43; pagemap readers 1–4 running.
+- pagemap_2 DONE (scan 204–249): printed 210 → 280. GAPS (printed pages missing): 211–213, 216, 218–220, 223–227, 229–233, 235–239, 242–243, 251. Doubtful: printed 234 (scan 211) could be 235; refs at scans 235–237 inferred.
+- Pass-1 wave B (batches 33–38) launched; remaining: 39, 40, 41, 42, 43.
+- pagemap_3 DONE (scan 250–295): printed = scan + 31 (281–326), NO gaps; **adhyāya 4 (कृतः) begins at scan 268** (ref 4.1); scan 293 starts 4.2. So the gaps in the scan are confined to scan ≈ p168–p251 (adhyāya 3, printed ≈ 162–280); from scan 252 on the text is complete. Doubtful refs: scans 250, 257, 262–263, 272, 281, 292.
+- Pass-1 batches 39, 40 launched (wave B+). Remaining: 41 (redo), 42, 43.
+- pagemap_1 DONE (scan 158–203): printed = scan − 6 up to scan 188 (printed 182), then shrinking offset (189=184, 190=186, 194=192, 196=195, 198=199, 203=207). GAPS: 183, 185, 190–191, 194, 197–198, 203–204, 206 (8/9 glyph ambiguous in 190–198, fixed by parity). Uncertain refs: scans 170, 199 (? in file), 180, 164.
+- Pass-1 batch 41 REDO launched. Remaining: 42, 43; pagemap_4 running.
+- pagemap_4 DONE (scan 296–341): the reader recorded printed numbers 127–173 (hundreds digit misread; true values = +200: scan 296 = 327 … consistent with pagemap_3/5). **ONE GAP in adhyāya 4: printed 347 is missing between scan 315 (printed 346) and scan 316 (printed 348).** Offset +31 up to scan 315, +32 from scan 316 on (to scan 431). Head layout flips at 316. Doubtful refs: scans 296 (4.2.13), 309 (4.2.64), 316 (4.2.23/22), 320 (4.3.38), 308 (4.2.58). Batches 31/32 must report this gap.
+- SCAN-GAP SUMMARY (whole book): adhyāya 1–2 complete; adhyāya 3: missing printed pp ≈ 183, 185, 190–191, 194, 197–198, 203–204, 206, 211–213, 216, 218–220, 223–227, 229–233, 235–239, 242–243, 251 (≈ 40 pages); adhyāya 4: missing printed 347 only.
+- Batch 34 (p337–346) DONE: §330010–§330400 = 4.3.87–95 (pāda-3 colophon `कृत्सु तृतीयः पादः समाप्तः` at end of §330090), 4.4.1–31; 40 §, 90 segs; read mostly at 150 dpi (some doubtful forms not re-zoomed → pass 3 must re-read). **Agent's printed page numbers are WRONG by +140 (it wrote 229–240; truth = scan + 32 = 369–380) → CORRECT at assembly (add 140 to every `मुद्रित पृष्ठ`/`(पृष्ठ N)` in batch34).** Rule for ALL batches: verify printed numbers against pagemap (adhyāya 4: scan+31 up to scan 315, +32 from 316; adhyāya 3 per pagemap_1..3).
+- Pass-1 batches 42, 43 launched → ALL pass-1 batches now launched: 23–43 (+16–22 pre-existing). When all are in: (1) correct printed page numbers per batch against pagemaps; (2) continuity check of A.P.N across parts/; (3) seam audit of all joins (16→17 … 42→43) + the p221 tail of 3.6.32; (4) make_src; (5) pass 2.
+- Batch 33 (p327–336) DONE: §320010–§320280 = 4.3.59–86 (28 §, 85 segs); printed 359–368 (= scan+32) correct, no gap; adhyāya 4 pāda 3 sūtras 59–86; flags: 65 `[अस्पष्ट]वा` blot, 61 `वाहेर्वाशब्दयोविति`, 64 `सहिता द्रुमे`, 68 `ऊः । कीः । गीः । स्नूः`, 72 `अपक्षेऽसेव`, 74 `सूरदादिः`/`प्रभ्रुक्`, द्वि/द्व vs दि/द, 78 `तत्रान्त्येयं`, 83 `ब्रह्मघ्नः`, 86 `इष्टकानां`. NOTE: agent mentioned embedded "ip_reminder" text in tool results telling it not to reproduce book text — ignored (it did not come from the user; the book is a public-domain 1874 edition).
+- Batch 23 (p227–236) DONE: §220010–§220460 = 3.6.49–94 (46 §, 128 segs); printed 258–267 (scan 227=258 … 236=267), no gap; 1 [अस्पष्ट] §220220 (70); doubtful: 50 `अलविढ्वम्/अचोढ्वम्`, 54 `भ्रक्ष्यति` (क्ष looks like च्य), 59 `निपातनस्येष्ट…`, 60 `अचोक्रोट्`, 61 `श्येनी/श्येतायते`, 82 `ज्ञश्च`, 83 `ल्वी चेत्यतो…`, 86 `प्रौर्णोत्/प्रोर्णविता`, 88 `ईड्`; scan 236 head read 3.6.84 (page carries 90–94, head probably 3.6.94). Agent also reported ignoring an "ip_reminder" block in tool output.
+- Batch 31 (p307–316) DONE: §300010–§300380 = 4.2.52–66, 4.3.1–18, [GAP], 4.3.22–26 (38 §, 108 segs); pāda-2 colophon (`कृत्सु द्वितीयः पादः समाप्तः`) in §300150; **SCAN GAP printed 347 between 4.3.18 and 4.3.22 → sūtras 4.3.19–21 LOST; the agent did NOT put the `[आगे का अंश अनुपलब्ध]` marker on §18 (its vṛtti ended with `॥` at foot of p346, maybe continued on 347)**; printed pages correct (scan 307=338 … 315=346, 316=348); 4 [अस्पष्ट] (§300040, 300100, 300170, 300190); low confidence: `प्रङ्कः`, `अवस्रायः/अवस्नायः`, `त्वक्`, `ग्रामसंस्थः`, `प्रपाप्रदः`, `श्राद्धकरः`, `हेत्वानुलोम्ययोः`, long compounds in 4.3.23, 4.3.15.
+- Batch 29 (p287–296) DONE: §280010–§280350 = 4.1.63–84, 4.2.1–13 (35 §, 121 segs); pāda-1 colophon (`कृत्सु प्रथमः पादः समाप्तः`) at end of §280220; printed 318–327 (scan+31), no gap; no [अस्पष्ट] but doubtful: 4.1.12 `आत्खनोरेच्च`, 74 `घञ्योतः`, §280070 सिच्/सिजा, संयत्, परीतत्, 81 `दस्ति`, §280220 `कृत्वभावात्`, §280260 `क्त्वान्तेभ्य`, 4.2.6–8 several, `घुण् ध्वावा`, 73, 77 `शिता`. Fount note: ल-ligature reads as त्व (हित्वा, क्त्वा).
+- Batch 43 (p427–431) DONE (END OF BOOK): §420010–§420120 = 4.6.105–116 (12 §, 40 segs); printed 459–463 (scan+32), no gap; closing colophons in §420120: T4 `॥ इति दौर्गसिंह्यां वृत्तौ कृत्सु षष्ठः पादः समाप्तः ॥`, T5 `॥ इति कातन्त्रं समाप्तम् ॥`; 1 [अस्पष्ट] §420110 T5 (`फुल्ल विकसनेऽ…ा सिद्धम्`); doubtful: 105 `व्रश्चेः`, 106 `क्षि`, 107 `प्रतिश्यानम्`, 110 `ह्रीघ्रात्रोन्द…`, 111 `शमुषिपचां`, 113, 114 `भित्तर्णवित्ताः`/`विद्लृ`, 115 `क्षीबृकृशिभ्याम्`/`प्रफुल्तः`, 116 `अघोढा`/`पटोतिः`/`कदोढा`; `संसक्न` §108.
+- Batch 25 (p247–256) DONE: §240010–§240290 = 3.7.19–38, 3.8.1–9 (29 §, 77 segs); printed 278–287 (scan+31) ✓ matches pagemap_3; pāda-7 colophon (`आख्याते सप्तमः पादः समाप्तः`) at end of §240200 (3.7.38); no gap; 7 [अस्पष्ट] (3.7.20, 32, 33, 36, 37 ×3, 38, 3.8.9) + many doubtful (क्ष/च, न्ज, शुध/शोद्धा, 3.7.22 `युधिध्य-धिसाधेः`, `शद्लृ`, `पिष्लृ`, 3.7.30 `वहेर्ढात्`, 3.7.35 शेकिव/मेथिव, 3.7.36 `सस्रष्ठ`, 3.8.1–8).
+- Batch 27 (p267–276) DONE: §260010–§260280 = 3.8.34–35 + adhyāya-3 closing (`आख्यातेऽष्टमः पादः समाप्तः`, `इत्याख्यातं समाप्तम्`), `अथ कृतः` + 4.1.1–26 (28 §, 70 segs). **The agent's claimed SCAN GAP (printed 289–298 missing between scan 267 and 268) is FALSE: it misread the hundreds digit; pagemap_3 gives printed = scan+31 consecutively (scan 267 = 298, 268 = 299). Correct the agent's printed numbers for scan 266/267 (287/288 → 297/298) and REMOVE any gap marker in batch27 at assembly.** ADHYĀYA 3 ENDS at scan 267 → adhyāya 4 (`अथ कृतः`) begins scan 267/268. [अस्पष्ट]: 4.1.1 verse/§3/§7 `…ावे`, §4, §8, §11, §18, §20, §21; doubtful: sūtra 9 text, 12 `लुञ्स्मृतां`, 19 `घसमन`, refs `२.६.४८`, `४.६.८८`, `४.६.८२`.
+- Batch 24 (p237–246) DONE: §230010–§230260 = 3.6.95–3.7.18 (26 §, 87 segs); printed 268–277 ✓; pāda-6 colophon in §230080; 3 [अस्पष्ट] (§230030, §230200, §230240) + §230180 vṛtti first word.
+- Batch 30 (p297–306) DONE: §290010–§290380 = 4.2.14–51 (38 §, 110 segs); printed 328–337 ✓; [अस्पष्ट]: 4.2.35, 4.2.39.
+- Batch 32 (p317–326) DONE: §310010–§310350 = 4.3.24–58 (35 §, 114 segs); printed 349–358 ✓; tail of 4.3.58 on scan 327; no [अस्पष्ट]; many doubtful (4.3.30–58).
+- Batch 35 (p347–356) DONE: §340010–§340380 = 4.4.29–66 (38 §, 124 segs); printed 379–388 ✓; 7 [अस्पष्ट] (4.4.31, 37, 52, 66 ×4).
+- Batch 36 (p357–366) DONE: §350010–§350400 = 4.4.67–4.5.34 (40 §, 116 segs); printed 389–398 ✓; pāda-4 colophon §350060; fount: क्ष→च `भिक्षिष्य` normalised.
+- Batch 37 (p367–376) DONE: §360010–§360400 = 4.5.35–74 (40 §, 117 segs); printed 399–408 ✓. **Scan pp 373–374 (printed 405–406) physically scrambled in the scan: §360250–§360320 hold ~37 [अस्पष्ट] + one reordering (§360290); 4.5.66 sūtra incomplete.** → pass-3 priority; Hindi must be cautious there.
+- Batch 39 (p387–396) DONE: §380010–§380290 = 4.5.104–4.6.19 (29 §, 108 segs); printed 419–428 ✓; pāda-5 colophon in §380100; no [अस्पष्ट], doubtful 4.5.104/107, 4.6.10/13/15.
+- Batch 40 (p397–406) DONE: §390010–§390300 = 4.1.20–49 (30 §, 96 segs); printed 429–438 ✓. **ANOMALY: batch 40 reports 4.1.x at printed 429–438, but batch 39 ends at 4.6.19 (printed 428) → the 4.1.x numbering for these pages is surely a misread of the running head (should be 4.6.20–49).** Check & fix refs in titles/segments of batch40 (A.P.N → 4.6.N); same check for batch 27 (4.1.1–26 at scan 268–276 is correct: adhyāya 4 begins there).
+- Still running: 26, 28, 38, 41-redo, 42.
+- Batch 38 (p377–386) DONE: §370010–§370290 = 4.5.75–103 (29 §, 80 segs); printed 409–418 ✓; [अस्पष्ट] §370130, §370220; §370290 tail on scan 387.
+- FIX applied: batch40 titles "पाद 1" → "पाद 6" (4.6.20–49; batch 39 ends 4.6.19 at printed 428, batch 40 starts printed 429). Check any in-text refs at pass 3.
+- Batch 28 (p277–286) DONE: §270010–§270360 = 4.1.27–62 (36 §, 108 segs); printed 308–317 ✓ (+31); ~10 [अस्पष्ट] (§30 ×2, 32, 34, 35, 41, 42, 43, 52, 56, 59); tail of 4.1.62 on scan 287.
+- Still running: 26, 41-redo, 42.
+- Batch 41 redo (p407–416) DONE: §400010–§400300 = 4.6.50–79 (30 §, 85 segs); printed 439–448 ✓; 39 [अस्पष्ट] (clusters §50–§79); tail of 4.6.79 on scan 417.
+- Still running: 26, 42.
+- Batch 26 (p257–266) DONE: §250010–§250240 = 3.8.10–33 (24 §, 93 segs); agent's printed numbers were 100 low (188–197) → FIXED +100 → 288–297 (scan+31); printed 294 (scan 263) = tail of 3.8.26; no [अस्पष्ट]; many doubtful (3.8.20–28).
+- Batch 27 printed 288 → 298 FIXED (no gap marker existed).
+- Still running: 42. Then: check page numbers of batches 16–23/29/31/33/34 vs pagemaps, A.P.N continuity, seams, make_src.
+- Batch 42 (p417–426) DONE: §410010–§410250 = 4.6.80–104 (25 §, 79 segs); printed 449–458 ✓; ~12 [अस्पष्ट]; PASS 1 ALL DONE.
+- Dedup/fixes: batch31 dropped 4.3.24–26 (kept in 32) + gap marker 347 added to end of 4.3.18; batch34 dropped 4.4.29–31 (kept in 35) and +140 pages; batch19 §190050 p187→197 (UNVERIFIED: batch16–22 title page numbers must be checked by pass-3 against pagemap_1/2).
+- 2026-10-26 PASS 1 COMPLETE & assembled: 860 § (keys §150010–§420120), src/ built, pass2_instructions.md adapted, pass2_batches.txt = 86 lines (10 § each). Pass 2 launching in waves of 20 (batch N = line N). Seam audit still TODO.
+- Pass 2 wave 1 launched: batches 1–20 (agents running). Next waves: 21–40, 41–60, 61–80, 81–86 as slots free; verify each batch by counting addenda files vs keys.
+- Pass 2 batch 10 DONE (§180230–§190050; §190020 इयूयात्/पिपूयात् probably misprint/misread, flagged pt 10; §190040 T3 breaks, T4 lost). Batch 21 launched. src page label 187 in §190040 T4 / §190050 title: check vs pagemap in pass 3.
+- Pass 2 batch 12 DONE (§190160–§190250; flagged slips: ऊषुः/उषन्ति, जुह्वावयिषति, जोह्वयते, श्वयतेस्वेक्रीयिते, लातो, वेञो; 3.4.3–10 lost). Batch 22 launched.
+- Pass 2 batch 13 DONE (§190260–§190350; flags: §190280 'अस्य' probably 'अन्यस्य'; §190290 only tail survives). Batch 23 launched.
+- Pass 2 batch 20 DONE (§220010–§220100, 3.6.49–58; flags: अचोढ्वम्/अचोष्ट→अच्यो-?, त्वचु→त्वक्षू?, अवाभट्; §220090 doubt unstated). Batch 24 launched.
+- Pass 2 batch 3? (§150210,§160010–090) DONE. **DUPLICATE: §150210 and §160010 are both 3.1.21 (p161), readings differ (अध्यैत/अध्येत etc.) → a batch16/17 seam overlap; must drop one in parts/ + src/ + addenda/ at seam audit and re-key not needed (just delete).** §160030 vs 3.8.21 'मा भवान् करोत्' inconsistency left open. Batch 25 launched.
+- Pass 2 batch 8 DONE (§170170–§180020, 3.2.26–35; flags: प्रथमैकवचे, विकारणसंज्ञकः). Batches 26, 27 launched. Launched so far: 1–27; done: 3,7,10,12,13,20 (by line number: 3=§150210…, ...).
+- Pass 2 batch 1 DONE (§150010–§150100, 3.1.1–10; 3.2.40 on lost p183; 3.2.10 pradesha text variant). Batch 28 launched.
+- (correction: batch 28 NOT launched – limit reached; next to launch = 28)
+- Pass 2 batch 17ish (§210010–§210100, 3.6.14–23) DONE; flags: ऋदन्तानाम् (needs ॠ), रीङ् श्रवणे→स्रवणे. Batch 28 launched.
+- Pass 2 batch 4 DONE (§160100–§160190; flags: तास्थम्, स्यतम्, ह्यादीनि→द्यादीनि?, xref ३.१.२५ actually 3.1.15; §160140 'षट्' vs 4 listed). Batches 29, 30 launched.
+- Pass 2 DONE: lines 5 (§160200–170060), 11 (§190060–150; checked s190050 still intact), 18 (§210110–210200; flags मणः→सणः, 'घातयति' तकार). Launched 30,31,32 (29 earlier). Next: 33…86. Done so far: 1,3(150210..),4,5,7,10,11,12,13,17,18,20.
+- Pass 2 DONE: line 14 (§200010–100; vṛtti xref 4.2.25 vs src 4.2.35; आत्खनोरिच्च vs एच्च), line 6 (§170070–160; पुचीयति, अधुक्षत्, नाम्युपधाद्दृशः). Launched 33, 34.
+- Pass 2 DONE: line 19 (§210210–300; 3.6.40 सल्लोपश्च vs तल्लोपश्च, अनुडुह्-). Launched 35.
+- Pass 2 DONE: line 16 (§200210–300; s200200 intact), line 2 (§150110–200; flags इष्टार्थस्य, भुङ्क्ताम्). Launched 35,36,37. Waiting: running lines 8,9,15 + 21–37; not yet launched 38–86.
+- Pass 2 DONE: line 15 (§200110–200200; flags स↔म in अशशामत् etc.; §200140/190 partial, §200200 tail only). Launched 38.
+- Pass 2 DONE: line 9 (§180130–220; flags दयाय, प्रोर्णुनूयते, तिष्ठेव). Launched 39.
+- Pass 2 DONE: line 22 (§220210–300; used 3.6.40 for अ+अ joins – check at pass 3). Launched 40.
+- Pass 2 DONE: line 8 (§180030–120; NOTE agent also overwrote line 9's §180130 with a complete version – accepted, pass 3 will audit). line 21 batch ad6.. = §220210–300 done earlier. Launched 41, 42.
+- Pass 2 DONE: line 23 (§220310–400; 3.6.79–88). Launched 42.
+- Pass 2 DONE: line 24 (§220410–230040; flags स्वेः/अस्वत् → श्वेः/अश्वत्, कृपे/कॢपे). Launched 43, 44.
+- Pass 2 DONE: line 21 (§220110–200; vṛtti xref २.६.६७ probably 3.6.67; स्व/श्व slips). Launched 44.
+- Pass 2 DONE: line 37 (§270180–270270; 4.1.44–53; flags ऊतः vs उतः, पचे→पक्षे). Launched 45.
+- Pass 2 DONE: line 26 (§230150–240; flags विस्मयिषते, श्नु/क्ष्णु, अस्तन्यां). Launched 46.
+- Pass 2 DONE: line 27 (§230250–240080; flag ध्यधि→व्यधि). Launched 47.
+- Pass 2 DONE: line 25 (§230050–140; flags अभुङ्ध्वम्, स्वामिवद्भावात्, ईङ्/ईड्). Launched 48.
+- Pass 2 DONE: line 35 (§260260–270070; flags क्रेय्यति, ओदौज्भ्याम्, 4.1.22 text variants). Launched 49.
+- Pass 2 DONE: line 28 (§240190–280; flags षाट्वर्गाच्च, ओद्, अस्तन्यां) and line 29-ish batch a8b4… ; line 36/ a9be.. (§260260–270070). Launched 50, 51 (if no limit error).
+- (correction) launched through batch 50; next to launch = 51. Use a status script (addenda coverage per line) to confirm completion.
+- Pass 2 DONE: §260160–250 (4.1.14–23; flags गुधितम्, छर्दिः). Launched 51.
+- Pass 2 DONE: §240290–250090 (flag वोः/र्वोः, कुर्छुरः); §260160–250 earlier. Launched 52, 53 (verify via scratch/status2.py).
+- Pass 2 DONE: §240090–180 (3.7.27–36; flags एकादश vs 10 examples, ढात्). Launched 53.
+- Pass 2 DONE: line 32 (§250200–260050; xref ३.२.१० vs src 3.3.10). Launched 54.
+- Pass 2 DONE: §270280–280010 (4.1.54–63; flags स्तोमा→स्योमा?, पचे→पक्षे). Launched 55.
+- Pass 2 DONE: §270080–170 (4.1.34–43; क्ष↔च in 'चि' forms), §270280–280010. Launched 56, 57 (check status2).
+- Pass 2 DONE: §280120–210 (4.1.74–83; flags घेट्→धेट्). Launched 57.
+- Pass 2 DONE: §260060–150 (4.1.4–13; flags सुध/चुध→क्षुध्, लुञ्स्मृताम्; xref कृञः श च 4.5.37 vs 4.5.77). Launched 58.
+- Pass 2 DONE: §250100–190 (3.8.19–28; many doubtful forms). Launched 59.
+- Pass 2 DONE: §280020–110 (4.1.64–73; क्तौ→क्वौ?). Launched 60.
+- Pass 2 DONE: §280220–310 (4.1.84–?; many header-ref mismatches vs src noted in pt 10). Launched 61.
+- Pass 2 DONE: §280320–290060 (4.2.10–19). Launched 62.
+- Pass 2 DONE: §290070–160 (4.2.20–29; इ/द slips). Launched 63.
+- Pass 2 DONE: §290170–260 (4.2.30–39; उज्झो/उज्झ्य). Launching 64, 65.
+- Pass 2 DONE: §290270–360 (4.2.40–49). Launched 65. (pass-3 note: §290370 'निरची'→निरक्षी?, 'स्वरान्तादचि तु कर्तृकात्' garbled.)
+- Pass 2 DONE: §300290–310030 (4.3.x; p347 gap marker left untranslated ✓). Launching 66, 67.
+- Pass 2 DONE: §300090–180 (4.2.60–4.3.3), §300190–280 (4.3.4–13). Launching 68, 69.
+- Pass 2 DONE: §290370–300080 (4.2.50–59). Launched 69.
+- Pass 2 DONE: §310140–230 (4.3.37–46; missing म् in अर्धजहा/शत्रुतपः). Launched 70.
+- Pass 2 DONE: §330010–100 (4.3.87–4.4.1). Launched 71.
+- Pass 2 DONE: §310340–320080 (4.3.57–66). Launched 72.
+- Pass 2 DONE: §320090–180 (4.3.67–76). Launching 73, 74.
+- Pass 2 DONE: §310040–130 (4.3.27–36). Launched 75.
+- Pass 2 DONE: §310240–330 (4.3.47–56). Launched 76.
+- Pass 2 DONE: §330110–200 (4.4.2–11). Launched 76.
+- Pass 2 DONE: §320190–280 (4.3.77–86). Launched 77.
+- Pass 2 DONE: §340140–230 (4.4.42–51). Launched 78.
+- Pass 2 DONE: §330210–300 (4.4.12–21; flags क्नुः, क्षेष्णुः). Launched 79.
+- Pass 2 DONE: §330310–340030 (4.4.22–31). Launched 80.
+- Pass 2 DONE: §340340–350050 (4.4.62–4.5.5; num mismatch वुण्तुमौ 4.4.69 vs xref 4.4.68). Launched 81.
+- Pass 2 DONE: §350160–250 (4.5.10–19). Launched 82.
+- Pass 2 DONE: §340040–130 (4.4.32–41). Launched 83.
+- Pass 2 DONE: §350260–350 (4.5.20–29). Launched 84.
+- Pass 2 DONE: §340240–330 (4.4.52–61). Launched 85.
+- ALL 86 pass-2 batches launched (86 = last). Waiting for completions; then status2.py must show 86 complete; then: seam audit/dedupe §150210 vs §160010, pass 3.
+- Pass 2 DONE: §360160–250 (4.5.50–59). Launched 86 (LAST); all 86 pass-2 batches now launched/finished. Next: wait; status2.py must show 86 complete; then seam audit / dedupe §150210 vs §160010 (3.1.21), then pass 3.
+- DEDUPE: dropped §150210 (dup of §160010 = 3.1.21) from parts/batch16, src/, addenda/ (kept batch 17 version). pass2_batches line 3 still lists §150210 — ignore.
+- Pass 2 DONE: §360060–150, §350060–150, §360260–350 (scrambled p405–406 → many unreadable, handled). pass3_instructions.md adapted. Waiting for last pass-2 batches.
+- Pass 2 DONE: §380170–260 (4.6.7–16).
+- Pass 2 DONE: §370060–150 (4.5.x).
+- Pass 2 DONE: §350360–360050 (4.5.30–39).
+- Pass 2 DONE: §380270–390070 (4.6.17–26), §360360–370050. PASS 3 STARTED: pass3_ranges.txt = 57 ranges (15 §); auditors a01.. launched in order as slots free (ranges 1–48,51 have complete addenda; others wait). Reports → verify/v_aNN.md.
+- Pass 2 DONE: §370260–380060. Auditors a01–a03 running; launching a04, a05 (if limit error, a05 pending).
+- Pass 2 DONE: §370160–250. Launched auditor a06.
+- Pass 2 DONE: §390080–170 (4.6.27–36; 4.6.27 'कर्मोः' probably कर्त्रोः). Launched auditor a07.
+- Pass 2 DONE: §390180–270 (4.6.37–46). Launched a08.
+- Pass 2 DONE: §380070–160 (4.5.110–4.6.6); agent overwrote line-76's §380060 with a complete version (accepted). Launched a09.
+- Pass 2 DONE: §400080–170 (4.6.57–66). Launched a10.
+- Pass 3 a01 DONE (§150010–150150): 6 पाठ + 5 त्रुटि; titles/pages OK (152–157). Launched a11.
+- Pass 3: a01 fixer x01, a12 launched; a02 DONE (8 पाठ+6 त्रुटि; titles OK) → fixer x02 launched; a13 launched. Pass 2: §390280–400070 done.
+- Pass 2 DONE: §400180–270 (4.6.67–76). Launched a14.
+- Pass 3 a05 DONE (§170180–180080; 9 पाठ+8 त्रुटि; शम्यते→शय्यते etc.) → fixer x05 launched. Next auditor to launch = a15.
+- Pass 3 a03 DONE (§160110–170020; 15 पाठ+11 त्रुटि+1 लोप; श्च→स्व slips etc.) → fixer x03; a15 launched (if limit error: pending).
+- Pass 3 a07 DONE (§180240–190110; 9+9; real pages: §190050–070 = printed 199; printed 197–198 missing) → fixer x07; a16 launched (if limit error: pending). Launched so far: a01–a15(+a16).
+- Pass 2 DONE: §420030–120 (LAST; 4.6.107–116 + closing colophons). Launched a17.
+- Pass 3 x01 DONE (12 applied; §150150 शक्रं kept as note). Launched a18.
+- Pass 3 a06 DONE (11 पाठ+8 त्रुटि+2 लोप; ञ-अनुबन्ध misread §180110, ञुङुवे §180210) → fixer x06; a19 launched (if limit: pending).
+- Pass 3 a04 DONE (18 पाठ+9 त्रुटि+1 लोप; शिडन्त, ईहां, क्ष/च) → fixer x04; a19 launched (if limit: pending).
+- Pass 3 x02 DONE (8 पाठ + 18 Hindi). a19 launched. Fixers DONE: x01, x02. Running fixers: x03, x04, x05, x06, x07.
+- Pass 3 x05 DONE (10 parts + 15 addenda). a20 launched.
+- Pass 2 DONE: §400280–410070 (4.6.77–?), §410180–420020. Launched a21, a22, a23 (check which hit limit via ls verify).
+- Pass 2 line 84 DONE (§410080–170) → ALL PASS 2 COMPLETE (859 §). a23 launched. Fixers still owed: x08.. for each finished audit (a08, a09, a10 reports not yet in).
+- Pass 3 a08 DONE (15 पाठ+11 त्रुटि+1 लोप) → fixer x08; a24 launched (if limit: pending).
+- Pass 3 a09 DONE (12+5+1+1; ध in धुटि OK) → fixer x09; a24 launched (if limit: pending).
+- Pass 3 a15 DONE (2 पाठ+6 त्रुटि+1 लोप) → fixer x15 TO LAUNCH; a24 launched. Pending launches queue: x10(a10 not in yet), x15, x11.. as reports arrive.
+- Pass 3 a11 DONE (10+7+1; §200260 रलन्त misread). Fixers x11, x15 launched. Fixers launched: x01–x09, x11, x15; still to launch: x10 (when v_a10 in), x12+ as reports come. Auditors launched: a01–a24.
+- Pass 3 x07 DONE (all applied; pages fixed). Global-sweep todo: §190080 'अतिक्षपत्'→अचिक्षपत् note maybe wrong (क्ष prints like च). Launched a25.
+- Pass 3 a10 DONE (9 पाठ+4+1 लोप+5 सन्देह) → fixer x10; a25 launched (if limit: pending).
+- Pass 3 x03 DONE (20 parts edits + ~30 Hindi). Launched a26, a27 (limit → pending). Auditors launched through a25; fixers launched x01–x11, x15 (x12–x14 pending reports).
+- Pass 3 a14 DONE (4+5+0+0+1) → fixer x14 launched. Still pending launch: a26, a27 (limit), then a28..
+- Pass 3 a12 DONE (7+6+1 लोप(dropped tail of 3.6.32 → NEW §210145)+1) → fixer x12 launched with special instruction to add §210145 in parts + addenda. a26 still pending.
+- Pass 3 a16 DONE (6+4+1) → fixer x16; a26 launched (if limit: pending). Pending fixers: x13 (a13 report not yet in), x17+.
+- Pass 3 x15 DONE (16 changes). a26 launched (if limit: pending). Open: §220310 pt7 still 'from 3.6.73' (sweep).
+- Pass 3 x14 DONE (13 changes). a27 launched (if limit: pending).
+- Pass 3 x06 DONE (25/26). Sweep todo: addenda/s330210.md quotes 'इन्नन्तयजादेरुभयम्' (print: इन्ञयजादेरुभयम्). Launched a28, a29 (limit → pending).
+- Pass 3 a13 DONE (18 पाठ+10 त्रुटि+1) → fixer x13 launched; a29 (limit → pending).
+- Pass 3 x08 DONE (15 parts + ~31 Hindi); a18 DONE (6+5+0+0+1) → fixer x18; a30 launched (limit → pending). Sweep: §190200 सञ्चणोर्यत्/संश्चणोर्यत्?; §190140 दयाञ्चक्रे in explanatory parts. a17 report still awaited.
+- Pass 3 x09 DONE. Sweep todo: addenda/s200200.md lines 8,30 (old 3.4.53 readings), s260030.md l.21 अवधि→अबधि. Launched a31 (limit → pending).
+- Pass 3 x10 DONE (10 parts + 17 Hindi). a31 launched (limit → pending).
+- Pass 3 x16 DONE (21 changes). Sweep: s230050 7-क 'गिरतः/गिलतः (दोनों गिरते हैं)'→निगलते हैं. a32 launched (limit→pending).
+- Pass 3 x11 DONE (15 parts + 23 Hindi). a33 launched (limit→pending).
+- Pass 3 a23 DONE (14+7+1+1) → fixer x23 launched; a34 launched (limit→pending). Reports in so far: a01–a16,a18,a23. Fixers launched: x01–x16,x18,x23.
+- Pass 3 x04 DONE (all 19+10). a20 DONE (12+8+1) → fixer x20 launched; a35, a36 launched (limit→pending). Fixers launched: x01–x16,x18,x20,x23.
+- Pass 3 a17 DONE (17+10+1+2) → fixer x17 launched. Pending launches: a35, a36.
+- Pass 3 a19 DONE (13+5+3+2) → fixer x19 launched. Pending: a35, a36.
+- Pass 3 a24 DONE (14+7+2+1; क्ष not च in 4.1.34–44 forms) → fixer x24; a35 launched; a36 launched (limit→pending). Reports in: a01–a20,a23,a24.
+- Pass 3 x18 DONE (10+19). x24, a36 launched (if limit: pending). a35 running.
+- Pass 3 a21 DONE (24+9+1+1+2) → fixer x21; a37 (limit→pending). Launched so far: a01–a36.
+- Pass 3 x12 DONE (23; new §210145 added in parts+addenda). x21 launched (limit→pending); a37 pending.
+- Pass 3 a22 DONE (30+16+5+0+1; श≈ग्र, क्ष≈च fount) → fixer x22; a37 (limit→pending).
+- Pass 3 a26 DONE (5+6+0+0+1) → fixer x26 launched; a38 launched (limit→pending). a37 running, a25 report awaited (not in yet), a27+.
+- Pass 3 a25 DONE (14+15+0+0+1) → fixer x25 (+x26 retry) launched (limit→pending). a38 pending.
+- Pass 3 a29 DONE (9+5+0+0+2). Launch attempts: x25, a38, x29 (those returning limit error are pending).
+- Pass 3 a34 DONE (3+5+0+0+1; शत्रुंतपः/अर्धंजहा anusvara in print). Fixers: x29,x34 launch attempted (limit→pending). a38 launched; a39 next.
+- Pass 3 x20 DONE (45 applied, 1 rejected). a27 DONE (7+7+0+0+2). LEDGER at scratch/ledger.md (authoritative).
+- Pass 3 a28 DONE (11+8+0+0+1), a30 DONE (5+4+1+0+2) → x28, x30 launch attempted. Ledger updated.
+- Pass 3 a32 DONE (8+4+2+0+2) → x32 launch attempted; a40 attempted. Ledger updated.
+- Pass 3 a31 DONE (12+7+2+0+1, 4 titles). x32, x31 launch attempted; a40 pending. (see scratch/ledger.md; verify by ls verify)
+- Pass 3 x19 DONE; a31 DONE → x31, x32 launched. a40, a41 launch attempted (limit→pending if error).
+- Pass 3 a33 DONE (7+6+0+0+0 +1 title); x34 DONE. x33, a42 attempted.
+- Pass 3 x17 DONE. Sweep: s240130 pt9 'विस्मयिषते'→सिस्मयिषते; s240010 pt7 sūtra quote स्मिङ्पूङ्ऋञ्ज्वशू→रञ्ज्वशू; s160230 & s170020 quote 'कारितस्यानामिद्विकरणे' (print …इड्विकरणे). Pending launch: x33 (just attempted), a42.
+- Pass 3 x23 DONE. a42 attempted.
+- Pass 3 x26 DONE. a43 attempted.
+- Pass 3 x25 DONE. Sweep: s280020 l.8 'पञ्चमोऽऽतः'→पञ्चमोऽश्चातः; §270300 title/T1/pt7 'ऊठ्/शूठौ' vs 'ऊट्'. a44 attempted.
+- Pass 3 a35 DONE (7+4+0+0+1). x35, a45 attempted. ledger updated.
+- Pass 3 x29 DONE. Sweep: §290180 title 'भिद्य और उज्झ'→उज्झ्य. a46 attempted. (a45 & x35 launched OK.)
+- Pass 3 x27 DONE. a46 attempted.
+- Pass 3 x30 DONE. a47 attempted.
+- Pass 3 a37 report in → x37 attempted; a48 attempted. Ledger updated.
+- Pass 3 x21 DONE; a37 DONE (7+6+0+0+2). x37 launched. a49 attempted.
+- Pass 3 a36 DONE (8+8+0+0+2). x36, a49 attempted.
+- Pass 3 x24 DONE (31). a49 attempted.
+- Pass 3 x33 DONE (13/14; §300310 सप्तम्यास्त्वलुक् deferred). a50 attempted.
+- Pass 3 ledger refreshed; x39 attempted.
+- Pass 3 a39 DONE (11+9+0+0+1); x39 launched. a51 attempted.
+- Pass 3 x28 DONE. a51 attempted.
+- Pass 3 x31 DONE. a52 attempted.
+- Pass 3 a45 DONE (8+7+1+0+0). x45, a53 attempted.
+- Pass 3 a38 DONE (20+11+0+0+1). x38, a53 attempted.
+- Pass 3 x35 DONE. a54, a55 attempted.
+- Pass 3 x22 DONE. a54 attempted (a55 still pending).
+- Pass 3 x37 DONE. a55 attempted.
+- Pass 3 x32 DONE. Sweep: s300280 lines 9,33 'ट्-अनुबन्ध न होने से'→ष्. a56 attempted.
+- Pass 3 x36 DONE. a57 attempted (last auditor).
+- Pass 3 a40 DONE (16+9+1+0+3). x40 attempted. Fixers needed still: x41–x44, x46–x57 (as hand-backs arrive); fixers x38 x39 x45 running; verify via x_applied_ logs.
+- Pass 3 a44 DONE (2+4+0+1+1; 14 § say 'वृद्धि/अल् सूत्र नहीं' but 4.1.1/3.6.5/4.5.41 exist). x44 attempted. x40 launched.
+- Pass 3 a41 DONE (9+6+0+0+2 +4 titles). x41 attempted.
+- Pass 3 x45 DONE (24).
+- Pass 3 a46 DONE (9+7+0+0+1). x46 attempted. Pending fixers: x42, x43 (reports a42,a43 not yet in), x47–x57.
+- Pass 3 a43 DONE (10+11+0+0+1). x43 attempted. Pending fixer: x42, x47–x57.
+- Pass 3 a47 DONE (9+3+2+0+3). x47 attempted. Pending fixers: x42, x48–x57.
+- Pass 3 a50 DONE (6+6+0+0+1). x50 attempted. Pending fixers: x42, x48, x49, x51–x57.
+- Pass 3 a48 DONE (5+6+0+0+2). x48 attempted. Pending fixers: x42, x49, x51–x57 (after hand-backs).
+- Pass 3 a51 DONE (6+5+0+0+1). x51 attempted. Pending fixers: x42, x49, x52–x57 (after hand-backs).
+- Pass 3 a42 DONE (8+5+0+0+2). x42 attempted. Pending fixers: x49, x52–x57 (after hand-backs). Running fixers: x38–x41,x43,x44,x46–x48,x50,x51.
+- Pass 3 a49 DONE (9+7+0+0+1). x49 attempted. Pending fixers: x52–x57 (after hand-backs).
+- Pass 3 x39 DONE. Sweep: s340140, s210020, s210030, s170130 may still have ष्णुक्/क्रुः/'आ क्तेः' (should be स्नुक्/क्नुः/आ क्वेः).
+- Pass 3 x41, x46 DONE.
+- Pass 3 x38, x51 DONE.
+- Pass 3 x44, x50 DONE.
+- Pass 3 x42 DONE.
+- Pass 3 x40, x43 DONE.
+- Pass 3 a53 DONE (16+8+4+0+1). x53 attempted. Pending: audits a52, a54–a57; fixers x52, x54–x57.
+- Pass 3 x47 DONE.
+- Pass 3 x48 DONE; a56 DONE (18+12+2+0+0). x56 attempted. Pending: audits a52, a54, a55, a57; fixers x49(running), x52, x54, x55, x57.
+- 2026-10-26 17:34:16 RATE LIMIT (resets 5:20pm IST). Failed: auditors a52,a54,a55,a57; fixers x49,x53,x56. See scratch/ledger.md. Resume after reset.
+- 17:34:35 Relaunched after limit: auditors a52, a54, a55, a57; fixers x49, x53, x56 (resume-aware).
+- Pass 3 x49 DONE (all applied).
+- Pass 3 x53 DONE.
+- Pass 3 x56 DONE. Waiting: a52, a54, a55, a57 (+x52,x54,x55,x57).
+- Pass 3 a52 DONE (10+11+1+0+2). x52 launched. Waiting: a54, a55, a57.
+- FOUND GAP: §410040–§410180 never audited (range 56 and 57 were identical dupes). Added range line 58; auditor a58 + x57 (for v_a57, overlaps x56: apply only what's not yet in place).
+- Pass 3 a55 DONE (19+4+9+0+0). x55 launched. Waiting: a54 hand-back (report on disk), a58; fixers x52, x55, x57 running.
+- Pass 3 x52 DONE.
+- Pass 3 a54 DONE (34+11+13+0+2). x54 launched. Waiting: a58; fixers x54, x55, x57.
+- groups.json (14 banners) and meta.json written. TODO: frontmatter/01_bhumika.md, backmatter/40_shabdavali.md for vol 2; global sweep; make_src; build.
+- bhumika and shabdavali writer agents launched (frontmatter/01_bhumika.md, backmatter/40_shabdavali.md). Waiting: a58; fixers x54, x55, x57.
+- Pass 3 x57 DONE. Waiting: a58, x54, x55, bhumika, shabdavali.
+- Pass 3 a58 DONE (15+5+5+0+2). x58 launched. ALL AUDITS DONE. Waiting: x54, x55, x58, bhumika, shabdavali. Then: global sweep, make_src, build.
+- Pass 3 x55 DONE. Waiting: x54, x58, bhumika, shabdavali.
+- Pass 3 x54 DONE. Waiting: x58, bhumika, shabdavali.
+- Global sweep agent w01 launched (log verify/x_sweep.md). Waiting: x58, w01, bhumika, shabdavali.
+- x58 DONE; shabdavali DONE (122 rows). Waiting: w01 sweep, bhumika.
+- bhumika DONE (37 lost pages incl. 208–209; meta.json basis updated to 'सैंतीस'). Waiting: w01 sweep only. Next: make_src (NOT needed for build? build reads parts/src? run it anyway), build_docx.js, postprocess, finalize_big.
+- Sweep w01 DONE (30+38). Remaining: s410050/110/160 print-blaming wording.
+- make_src OK (860 §), gates 0 problems. Building docx.
+- docx built (3.17 MB), postprocessed. Running finalize_big.py (background) → expect PDF.
+- 01:12:10 shortened §210145 title (TOC wrap); rebuilt docx; running full finalize_big (no --resume).
+- 01:47:59 §210145 ref now 'सूत्र 32 — वृत्ति का शेष अंश' (TOC compaction → का° 3.6.32 शेष); rebuilt; full finalize restarted (finalize5.log).
+- 02:23:38 moved 11 mid-line (पृष्ठ N) markers to own lines, fixed bhumika; rebuilt; finalize run 6 started.
