@@ -20,6 +20,7 @@ what "done" means.
 | 8 | Body | खण्ड header `[ … ]` as Heading 1 → each `§ N — title` as Heading 2 → six Heading 3 parts |
 | 9 | Back matter | ग्रन्थ-सार · परिशिष्ट · सन्दर्भ ग्रन्थ सूची · शब्दावली (each Heading 1) |
 | 10 | Footer | centred page number on every page |
+| 11 | Header (चलता शीर्षक) | ग्रन्थ-नाम बाएँ + वर्तमान खण्ड (STYLEREF Heading 1) दाएँ, हर पृष्ठ पर; meta.json में `running_title` से छोटा नाम दे सकते हैं |
 
 For a *collection* of independent texts (like अभिषेक-पाठ-संग्रह with 16 ग्रन्थ), each ग्रन्थ is a Heading 1 that
 starts on a new page; अनुच्छेद are Heading 2 and flow continuously (no page break between them).

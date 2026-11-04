@@ -1,0 +1,97 @@
+Pramana_Sangraha_Vyakhya.docx
+body children : 4050  (front 8, body 4040)
+chunks        : 26
+   1  children      0-1      (    1)  
+   2  children      1-13     (   12)  भूमिका
+   3  children     13-211    (  198)  प्रथम प्रस्ताव — कारिका 1–9
+   4  children    211-355    (  144)  प्रमाणसंग्रह, प्रस्ताव 1, कारिका 6␟प्रमाण का फल स्वयं 
+   5  children    355-561    (  206)  द्वितीय प्रस्ताव — कारिका 10–18
+   6  children    561-665    (  104)  प्रमाणसंग्रह, प्रस्ताव 2, कारिका 15␟तर्क की अपेक्षा से
+   7  children    665-862    (  197)  तृतीय प्रस्ताव — कारिका 19–28
+   8  children    862-967    (  105)  प्रमाणसंग्रह, प्रस्ताव 3, कारिका 24␟स्वलक्षण असङ्कीर्ण
+   9  children    967-1158   (  191)  चतुर्थ प्रस्ताव — कारिका 29–39
+  10  children   1158-1341   (  183)  प्रमाणसंग्रह, प्रस्ताव 4, कारिका 33␟समीक्षक अनेकान्त क
+  11  children   1341-1559   (  218)  पञ्चम प्रस्ताव — कारिका 40–50
+  12  children   1559-1776   (  217)  प्रमाणसंग्रह, प्रस्ताव 5, कारिका 42␟त्रिलक्षण-योग में 
+  13  children   1776-1817   (   41)  प्रमाणसंग्रह, प्रस्ताव 5, कारिका 46␟कारिका 46–50: हेत्
+  14  children   1817-2041   (  224)  षष्ठ प्रस्ताव — कारिका 51–62
+  15  children   2041-2260   (  219)  प्रमाणसंग्रह, प्रस्ताव 6, कारिका 53␟कारिका 53–54: प्रक
+  16  children   2260-2434   (  174)  प्रमाणसंग्रह, प्रस्ताव 6, कारिका 56␟व्यभिचारी हेतु, प्
+  17  children   2434-2656   (  222)  सप्तम प्रस्ताव — कारिका 63–72
+  18  children   2656-2848   (  192)  प्रमाणसंग्रह, प्रस्ताव 7, कारिका 65␟स्थापना (संकेत-श्र
+  19  children   2848-3057   (  209)  प्रमाणसंग्रह, प्रस्ताव 7, कारिका 67␟आत्मा का स्वभाव ज्
+  20  children   3057-3198   (  141)  प्रमाणसंग्रह, प्रस्ताव 7, कारिका 67␟पुद्गल का स्पर्शाद
+  21  children   3198-3421   (  223)  अष्टम प्रस्ताव — कारिका 73–85
+  22  children   3421-3614   (  193)  प्रमाणसंग्रह, प्रस्ताव 8, कारिका 74␟शब्द-अर्थ का सम्बन
+  23  children   3614-3808   (  194)  प्रमाणसंग्रह, प्रस्ताव 8, कारिका 77␟क्रम और अर्थ की वि
+  24  children   3808-3839   (   31)  प्रमाणसंग्रह, प्रस्ताव 8, कारिका 85␟नय का लक्षण: प्रमा
+  25  children   3839-4037   (  198)  नवम प्रस्ताव — कारिका 86–87
+  26  children   4037-4040   (    3)  शब्दावली
+TOC entries   : 126
+
+round 1
+   00.docx                        5s  peak=  177MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 4 pages
+   01.docx                        5s  peak=  174MB  ok
+   chunk  1:    1 pages, pages 5-5, 0 bookmarks
+   02.docx                        5s  peak=  177MB  ok
+   chunk  2:    1 pages, pages 6-6, 3 bookmarks
+   03.docx                       15s  peak=  476MB  ok
+   chunk  3:   20 pages, pages 7-26, 49 bookmarks
+   04.docx                       15s  peak=  415MB  ok
+   chunk  4:   15 pages, pages 27-41, 32 bookmarks
+   05.docx                       20s  peak=  560MB  ok
+   chunk  5:   23 pages, pages 42-64, 49 bookmarks
+   06.docx                       15s  peak=  325MB  ok
+   chunk  6:   12 pages, pages 65-76, 24 bookmarks
+   07.docx                       15s  peak=  465MB  ok
+   chunk  7:   20 pages, pages 77-96, 49 bookmarks
+   08.docx                       10s  peak=  321MB  ok
+   chunk  8:   12 pages, pages 97-108, 24 bookmarks
+   09.docx                       15s  peak=  563MB  ok
+   chunk  9:   23 pages, pages 109-131, 41 bookmarks
+   10.docx                       15s  peak=  410MB  ok
+   chunk 10:   18 pages, pages 132-149, 40 bookmarks
+   11.docx                       20s  peak=  588MB  ok
+   chunk 11:   25 pages, pages 150-174, 49 bookmarks
+   12.docx                       20s  peak=  528MB  ok
+   chunk 12:   26 pages, pages 175-200, 48 bookmarks
+   13.docx                       10s  peak=  306MB  ok
+   chunk 13:    6 pages, pages 201-206, 8 bookmarks
+   14.docx                       20s  peak=  611MB  ok
+   chunk 14:   25 pages, pages 207-231, 49 bookmarks
+   15.docx                       20s  peak=  632MB  ok
+   chunk 15:   25 pages, pages 232-256, 48 bookmarks
+   16.docx                       15s  peak=  453MB  ok
+   chunk 16:   19 pages, pages 257-275, 40 bookmarks
+   17.docx                       20s  peak=  546MB  ok
+   chunk 17:   27 pages, pages 276-302, 49 bookmarks
+   18.docx                       15s  peak=  583MB  ok
+   chunk 18:   23 pages, pages 303-325, 40 bookmarks
+   19.docx                       20s  peak=  621MB  ok
+   chunk 19:   25 pages, pages 326-350, 48 bookmarks
+   20.docx                       15s  peak=  466MB  ok
+   chunk 20:   16 pages, pages 351-366, 32 bookmarks
+   21.docx                       15s  peak=  623MB  ok
+   chunk 21:   25 pages, pages 367-391, 49 bookmarks
+   22.docx                       15s  peak=  483MB  ok
+   chunk 22:   21 pages, pages 392-412, 40 bookmarks
+   23.docx                       15s  peak=  394MB  ok
+   chunk 23:   18 pages, pages 413-430, 48 bookmarks
+   24.docx                        5s  peak=  190MB  ok
+   chunk 24:    3 pages, pages 431-433, 8 bookmarks
+   25.docx                       15s  peak=  471MB  ok
+   chunk 25:   19 pages, pages 434-452, 49 bookmarks
+   26.docx                        5s  peak=  175MB  ok
+   chunk 26:    1 pages, pages 453-453, 1 bookmarks
+   headings located: 917 (levels 1-2: 126)
+
+round 2
+   00.docx                        5s  peak=  180MB  ok
+   front matter + TOC: 4 pages
+
+merged: 453 pages
+TOC links inserted: 126 of 126 entries
+pdf: E:\Projects\JinAagam\granth\pramana-sangraha\vyakhya\Pramana_Sangraha_Vyakhya.pdf (8.3 MB)
+front matter + TOC: pages 1-4 | body: pages 5-453

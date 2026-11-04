@@ -79,3 +79,10 @@ granth/*/crops/
 
 # सिद्धिविनिश्चय के रेंडर किए पन्ने — मूल PDF से दोबारा बन जाते हैं
 granth/siddhi-vinishchaya-*/img/
+
+# Cloudflare local state
+.wrangler/
+
+# rendered/scratch page images are never committed
+**/img_low/
+**/scratch/

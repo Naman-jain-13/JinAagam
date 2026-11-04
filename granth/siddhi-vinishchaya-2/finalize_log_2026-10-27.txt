@@ -1,0 +1,265 @@
+Siddhi_Vinishchaya_Tika_Part2_Vyakhya.docx
+body children : 31676  (front 9, body 31665)
+chunks        : 48
+   1  children      0-2      (    2)  
+   2  children      2-810    (  808)  [ षष्ठः प्रस्तावः ] [ हेतुलक्षणसिद्धिः ]
+   3  children    810-1614   (  804)  § 24 — सामान्य-विशेष धर्मों से गम्य-गमक-भाव का पूर्वपक
+   4  children   1614-2416   (  802)  § 46 — टीका: 'खण्डशः संवित्ति' पद की शब्दशः व्याख्या (
+   5  children   2416-3243   (  827)  § 72 — अन्योऽन्याश्रय-दोष और कृत्तिका-शकट अनुमान की तु
+   6  children   3243-4050   (  807)  § 100 — स्वलक्षणों की एक-स्वभावता का पुनर्विचार और आपत
+   7  children   4050-4869   (  819)  § 127 — टीका: स्व-संवित्ति और अर्थ-संवित्ति की भ्रान्त
+   8  children   4869-5669   (  800)  § 153 — कारिका 27 की पद-व्याख्या और अकिञ्चित्कर हेत्वा
+   9  children   5669-6475   (  806)  § 181 — उपादान-उपादेय-क्षण-प्रबन्ध के विकल्प में अन्यो
+  10  children   6475-6784   (  309)  § 208 — कारिका 37: प्रत्यक्ष-व्यावृत्ति की अनिवार्यता,
+  11  children   6784-7617   (  833)  [ सप्तमः प्रस्तावः ] [ शास्त्रसिद्धिः ]
+  12  children   7617-8417   (  800)  § 239 — पूर्वपक्ष के दूसरे व्याख्यान का खण्डन: स्वसन्त
+  13  children   8417-9239   (  822)  § 261 — एकात्म-परिणामवाद का प्रतिपादन और स्व-पर-सन्तान
+  14  children   9239-10053  (  814)  § 287 — ईश्वर और कर्म के सहकारी-सम्बन्ध का विकल्प; कार
+  15  children  10053-10881  (  828)  § 313 — कारिका 19: मोक्ष का सकारात्मक जैन-लक्षण — आत्म
+  16  children  10881-11703  (  822)  § 335 — धर्मकीर्ति के दो व्याख्यानों का निरसन और "कार्
+  17  children  11703-12525  (  822)  § 359 — श्रुतज्ञान के 'प्रत्यनीक' की असिद्धता, तथा श्र
+  18  children  12525-12654  (  129)  § 374 — अतीत-अनागत विषयक शब्द-प्रयोग पर बौद्ध-आक्षेप (
+  19  children  12654-13466  (  812)  [ अष्टमः प्रस्तावः ] [ सर्वज्ञसिद्धिः ]
+  20  children  13466-14272  (  806)  § 392 — अन्योन्याश्रय दोष की आशंका और उसका निराकरण; शा
+  21  children  14272-15073  (  801)  § 416 — टीका: कारिका 11 का पद-विवरण — शक्ति-आत्मा भेदा
+  22  children  15073-15888  (  815)  § 435 — कारिका 19 की टीका : एकान्तवादी अनेकान्तात्मक व
+  23  children  15888-16693  (  805)  § 461 — योगी के मानस-ज्ञान की वैशद्यता का दावा, अणु-मन
+  24  children  16693-17497  (  804)  § 489 — सहकारी-कारण के सहारे मन की कादाचित्कता का तर्क
+  25  children  17497-18285  (  788)  § 512 — कारिका 37 की पद-व्याख्या : ज्ञाता, संवेदनात्मा
+  26  children  18285-19096  (  811)  [ नवमः प्रस्तावः ] [ शब्दसिद्धिः ]
+  27  children  19096-19905  (  809)  § 564 — असंसर्गी परमाणुओं के विच्छिन्न-अविच्छिन्न प्रत
+  28  children  19905-20709  (  804)  § 586 — कारिका 7 की टीका: चित्रज्ञान के नील-पीतादि आका
+  29  children  20709-21515  (  806)  § 609 — कारिका के अभिप्राय का विवरण : अर्थ-विभ्रम-एकान
+  30  children  21515-22335  (  820)  § 631 — कारिका 19 की टीका : अविषयीकृत पदार्थ प्रत्यवमर
+  31  children  22335-23145  (  810)  § 658 — कारिका 26 एवं वृत्ति : ज्ञान नीले रंग के साथ स
+  32  children  23145-23956  (  811)  § 685 — कारिका 34 की वृत्ति का विस्तार — गर्दभी-क्षीरत
+  33  children  23956-24143  (  187)  § 712 — ग्राह्य-ग्राहक-भेद का पुनः पूर्वपक्ष, और पद मे
+  34  children  24143-24972  (  829)  [ दशमः प्रस्तावः ] [ अर्थनयसिद्धिः ]
+  35  children  24972-25789  (  817)  § 745 — सामान्य के सर्वगत होने पर वृत्ति-प्रत्यय-संकर 
+  36  children  25789-26352  (  563)  § 771 — समाधि-विषयक पूर्व-चर्चा का समापन और व्यवहारनय 
+  37  children  26352-27166  (  814)  [ एकादशः प्रस्तावः ] [ शब्दनयसिद्धिः ]
+  38  children  27166-27981  (  815)  § 815 — वेदार्थ-ज्ञापन हेतु से व्याकरण की वेदांगता के 
+  39  children  27981-28781  (  800)  § 835 — शब्द के आकाश-गुणत्व की पूर्वपक्ष-स्थापना में प
+  40  children  28781-29629  (  848)  § 858 — विकल्प-अविकल्प-व्यवस्था का निर्णायक आधार दुर्ल
+  41  children  29629-30440  (  811)  § 881 — कारिका 19: स्वलक्षण भी अनिश्चेय और अनाश्रित — 
+  42  children  30440-30650  (  210)  § 898 — सूत्र 28 का विवेचन (विधि-निषेध की अनेकान्त-अपे
+  43  children  30650-31465  (  815)  [ द्वादशः प्रस्तावः ] [ निक्षेपसिद्धिः ]
+  44  children  31465-31587  (  122)  § 931 — कारिका 12 की टीका का समापन: ग्राह्याकार-भेद और
+  45  children  31587-31635  (   48)  मूल प्रति की प्रशस्ति
+  46  children  31635-31641  (    6)  परिशिष्ट 1 — मूल-कारिकार्ध अनुक्रमणी
+  47  children  31641-31651  (   10)  परिशिष्ट 2 — टीका में उद्धृत श्लोक और वाक्य
+  48  children  31651-31665  (   14)  परिशिष्ट 3 — टीका में निर्दिष्ट आचार्य, ग्रन्थकार, ग्र
+TOC entries   : 953
+
+round 1
+   00.docx                       15s  peak=  624MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 27 pages
+   01.docx                        5s  peak=    0MB  ok
+   chunk  1:    1 pages, pages 28-28, 0 bookmarks
+   02.docx                       30s  peak=  939MB  ok
+   chunk  2:   59 pages, pages 29-87, 162 bookmarks
+   03.docx                       25s  peak=  802MB  ok
+   chunk  3:   51 pages, pages 88-138, 154 bookmarks
+   04.docx                       25s  peak=  892MB  ok
+   chunk  4:   56 pages, pages 139-194, 182 bookmarks
+   05.docx                       25s  peak=  928MB  ok
+   chunk  5:   59 pages, pages 195-253, 196 bookmarks
+   06.docx                       30s  peak=  896MB  ok
+   chunk  6:   59 pages, pages 254-312, 189 bookmarks
+   07.docx                       25s  peak=  912MB  ok
+   chunk  7:   57 pages, pages 313-369, 182 bookmarks
+   08.docx                       25s  peak=  916MB  ok
+   chunk  8:   56 pages, pages 370-425, 196 bookmarks
+   09.docx                       30s  peak=  804MB  ok
+   chunk  9:   59 pages, pages 426-484, 189 bookmarks
+   10.docx                       15s  peak=  420MB  ok
+   chunk 10:   21 pages, pages 485-505, 56 bookmarks
+   11.docx                       30s  peak=  937MB  ok
+   chunk 11:   60 pages, pages 506-565, 162 bookmarks
+   12.docx                       30s  peak= 1020MB  ok
+   chunk 12:   65 pages, pages 566-630, 154 bookmarks
+   13.docx                       30s  peak=  906MB  ok
+   chunk 13:   59 pages, pages 631-689, 182 bookmarks
+   14.docx                       35s  peak= 1009MB  ok
+   chunk 14:   62 pages, pages 690-751, 182 bookmarks
+   15.docx                       30s  peak=  953MB  ok
+   chunk 15:   63 pages, pages 752-814, 154 bookmarks
+   16.docx                       30s  peak=  946MB  ok
+   chunk 16:   59 pages, pages 815-873, 168 bookmarks
+   17.docx                       30s  peak=  897MB  ok
+   chunk 17:   55 pages, pages 874-928, 105 bookmarks
+   18.docx                       10s  peak=  243MB  ok
+   chunk 18:   10 pages, pages 929-938, 21 bookmarks
+   19.docx                       30s  peak=  841MB  ok
+   chunk 19:   54 pages, pages 939-992, 106 bookmarks
+   20.docx                       25s  peak=  889MB  ok
+   chunk 20:   57 pages, pages 993-1049, 168 bookmarks
+   21.docx                       30s  peak=  985MB  ok
+   chunk 21:   60 pages, pages 1050-1109, 133 bookmarks
+   22.docx                       35s  peak= 1089MB  ok
+   chunk 22:   64 pages, pages 1110-1173, 182 bookmarks
+   23.docx                       30s  peak=  886MB  ok
+   chunk 23:   61 pages, pages 1174-1234, 196 bookmarks
+   24.docx                       35s  peak= 1060MB  ok
+   chunk 24:   65 pages, pages 1235-1299, 161 bookmarks
+   25.docx                       30s  peak=  876MB  ok
+   chunk 25:   56 pages, pages 1300-1355, 189 bookmarks
+   26.docx                       30s  peak=  977MB  ok
+   chunk 26:   62 pages, pages 1356-1417, 176 bookmarks
+   27.docx                       35s  peak= 1124MB  ok
+   chunk 27:   65 pages, pages 1418-1482, 154 bookmarks
+   28.docx                       30s  peak=  923MB  ok
+   chunk 28:   58 pages, pages 1483-1540, 161 bookmarks
+   29.docx                       30s  peak=  800MB  ok
+   chunk 29:   55 pages, pages 1541-1595, 154 bookmarks
+   30.docx                       35s  peak=  979MB  ok
+   chunk 30:   64 pages, pages 1596-1659, 189 bookmarks
+   31.docx                       30s  peak= 1043MB  ok
+   chunk 31:   63 pages, pages 1660-1722, 189 bookmarks
+   32.docx                       30s  peak=  998MB  ok
+   chunk 32:   62 pages, pages 1723-1784, 189 bookmarks
+   33.docx                       10s  peak=  321MB  ok
+   chunk 33:   14 pages, pages 1785-1798, 42 bookmarks
+   34.docx                       30s  peak=  996MB  ok
+   chunk 34:   63 pages, pages 1799-1861, 190 bookmarks
+   35.docx                       30s  peak=  883MB  ok
+   chunk 35:   61 pages, pages 1862-1922, 182 bookmarks
+   36.docx                       25s  peak=  796MB  ok
+   chunk 36:   45 pages, pages 1923-1967, 112 bookmarks
+   37.docx                       30s  peak=  886MB  ok
+   chunk 37:   62 pages, pages 1968-2029, 197 bookmarks
+   38.docx                       25s  peak=  887MB  ok
+   chunk 38:   54 pages, pages 2030-2083, 140 bookmarks
+   39.docx                       20s  peak=  663MB  ok
+   chunk 39:   48 pages, pages 2084-2131, 161 bookmarks
+   40.docx                       25s  peak=  832MB  ok
+   chunk 40:   53 pages, pages 2132-2184, 161 bookmarks
+   41.docx                       25s  peak=  886MB  ok
+   chunk 41:   52 pages, pages 2185-2236, 119 bookmarks
+   42.docx                       10s  peak=  331MB  ok
+   chunk 42:   14 pages, pages 2237-2250, 35 bookmarks
+   43.docx                       30s  peak= 1101MB  ok
+   chunk 43:   61 pages, pages 2251-2311, 197 bookmarks
+   44.docx                       10s  peak=  248MB  ok
+   chunk 44:    9 pages, pages 2312-2320, 21 bookmarks
+   45.docx                        5s  peak=  177MB  ok
+   chunk 45:    3 pages, pages 2321-2323, 11 bookmarks
+   46.docx                       10s  peak=  366MB  ok
+   chunk 46:   26 pages, pages 2324-2349, 1 bookmarks
+   47.docx                       15s  peak=  403MB  ok
+   chunk 47:   51 pages, pages 2350-2400, 3 bookmarks
+   48.docx                        5s  peak=  204MB  ok
+   chunk 48:    4 pages, pages 2401-2404, 5 bookmarks
+   headings located: 6558 (levels 1-2: 953)
+
+round 2
+   00.docx                       15s  peak=  580MB  ok
+   front matter + TOC: 28 pages
+   01.docx                        5s  peak=    0MB  ok
+   chunk  1:    1 pages, pages 29-29, 0 bookmarks
+   02.docx                       30s  peak=  938MB  ok
+   chunk  2:   59 pages, pages 30-88, 162 bookmarks
+   03.docx                       25s  peak=  738MB  ok
+   chunk  3:   51 pages, pages 89-139, 154 bookmarks
+   04.docx                       30s  peak=  824MB  ok
+   chunk  4:   56 pages, pages 140-195, 182 bookmarks
+   05.docx                       30s  peak=  837MB  ok
+   chunk  5:   59 pages, pages 196-254, 196 bookmarks
+   06.docx                       30s  peak=  807MB  ok
+   chunk  6:   59 pages, pages 255-313, 189 bookmarks
+   07.docx                       30s  peak=  843MB  ok
+   chunk  7:   57 pages, pages 314-370, 182 bookmarks
+   08.docx                       30s  peak=  827MB  ok
+   chunk  8:   56 pages, pages 371-426, 196 bookmarks
+   09.docx                       30s  peak=  804MB  ok
+   chunk  9:   59 pages, pages 427-485, 189 bookmarks
+   10.docx                       15s  peak=  339MB  ok
+   chunk 10:   21 pages, pages 486-506, 56 bookmarks
+   11.docx                       30s  peak=  941MB  ok
+   chunk 11:   60 pages, pages 507-566, 162 bookmarks
+   12.docx                       30s  peak= 1027MB  ok
+   chunk 12:   65 pages, pages 567-631, 154 bookmarks
+   13.docx                       25s  peak=  907MB  ok
+   chunk 13:   59 pages, pages 632-690, 182 bookmarks
+   14.docx                       35s  peak= 1013MB  ok
+   chunk 14:   62 pages, pages 691-752, 182 bookmarks
+   15.docx                       30s  peak=  941MB  ok
+   chunk 15:   63 pages, pages 753-815, 154 bookmarks
+   16.docx                       30s  peak=  848MB  ok
+   chunk 16:   59 pages, pages 816-874, 168 bookmarks
+   17.docx                       25s  peak=  919MB  ok
+   chunk 17:   55 pages, pages 875-929, 105 bookmarks
+   18.docx                       10s  peak=  331MB  ok
+   chunk 18:   10 pages, pages 930-939, 21 bookmarks
+   19.docx                       25s  peak=  906MB  ok
+   chunk 19:   54 pages, pages 940-993, 106 bookmarks
+   20.docx                       25s  peak=  889MB  ok
+   chunk 20:   57 pages, pages 994-1050, 168 bookmarks
+   21.docx                       30s  peak=  904MB  ok
+   chunk 21:   60 pages, pages 1051-1110, 133 bookmarks
+   22.docx                       35s  peak= 1081MB  ok
+   chunk 22:   64 pages, pages 1111-1174, 182 bookmarks
+   23.docx                       35s  peak=  981MB  ok
+   chunk 23:   61 pages, pages 1175-1235, 196 bookmarks
+   24.docx                       35s  peak= 1058MB  ok
+   chunk 24:   65 pages, pages 1236-1300, 161 bookmarks
+   25.docx                       30s  peak=  875MB  ok
+   chunk 25:   56 pages, pages 1301-1356, 189 bookmarks
+   26.docx                       35s  peak= 1032MB  ok
+   chunk 26:   62 pages, pages 1357-1418, 176 bookmarks
+   27.docx                       35s  peak= 1096MB  ok
+   chunk 27:   65 pages, pages 1419-1483, 154 bookmarks
+   28.docx                       30s  peak=  925MB  ok
+   chunk 28:   58 pages, pages 1484-1541, 161 bookmarks
+   29.docx                       30s  peak=  815MB  ok
+   chunk 29:   55 pages, pages 1542-1596, 154 bookmarks
+   30.docx                       30s  peak= 1024MB  ok
+   chunk 30:   64 pages, pages 1597-1660, 189 bookmarks
+   31.docx                       35s  peak= 1038MB  ok
+   chunk 31:   63 pages, pages 1661-1723, 189 bookmarks
+   32.docx                       30s  peak=  878MB  ok
+   chunk 32:   62 pages, pages 1724-1785, 189 bookmarks
+   33.docx                       15s  peak=  298MB  ok
+   chunk 33:   14 pages, pages 1786-1799, 42 bookmarks
+   34.docx                       30s  peak=  907MB  ok
+   chunk 34:   63 pages, pages 1800-1862, 190 bookmarks
+   35.docx                       30s  peak=  885MB  ok
+   chunk 35:   61 pages, pages 1863-1923, 182 bookmarks
+   36.docx                       25s  peak=  806MB  ok
+   chunk 36:   45 pages, pages 1924-1968, 112 bookmarks
+   37.docx                       30s  peak=  988MB  ok
+   chunk 37:   62 pages, pages 1969-2030, 197 bookmarks
+   38.docx                       25s  peak=  833MB  ok
+   chunk 38:   54 pages, pages 2031-2084, 140 bookmarks
+   39.docx                       20s  peak=  662MB  ok
+   chunk 39:   48 pages, pages 2085-2132, 161 bookmarks
+   40.docx                       25s  peak=  823MB  ok
+   chunk 40:   53 pages, pages 2133-2185, 161 bookmarks
+   41.docx                       25s  peak=  838MB  ok
+   chunk 41:   52 pages, pages 2186-2237, 119 bookmarks
+   42.docx                       10s  peak=  269MB  ok
+   chunk 42:   14 pages, pages 2238-2251, 35 bookmarks
+   43.docx                       30s  peak=  905MB  ok
+   chunk 43:   61 pages, pages 2252-2312, 197 bookmarks
+   44.docx                       10s  peak=  326MB  ok
+   chunk 44:    9 pages, pages 2313-2321, 21 bookmarks
+   45.docx                        5s  peak=  228MB  ok
+   chunk 45:    3 pages, pages 2322-2324, 11 bookmarks
+   46.docx                       10s  peak=  367MB  ok
+   chunk 46:   26 pages, pages 2325-2350, 1 bookmarks
+   47.docx                       15s  peak=  388MB  ok
+   chunk 47:   51 pages, pages 2351-2401, 3 bookmarks
+   48.docx                        5s  peak=  176MB  ok
+   chunk 48:    4 pages, pages 2402-2405, 5 bookmarks
+   headings located: 6558 (levels 1-2: 953)
+
+round 3
+   00.docx                       15s  peak=  547MB  ok
+   front matter + TOC: 28 pages
+
+merged: 2405 pages
+   NOT linking the TOC: found 966 leader lines for 953 entries, so the mapping would be a guess (bookmarks still navigate the whole book)
+TOC links inserted: 0 of 953 entries
+pdf: E:\Projects\JinAagam\granth\siddhi-vinishchaya-2\vyakhya\_new\Siddhi_Vinishchaya_Tika_Part2_Vyakhya.pdf (30.3 MB)
+front matter + TOC: pages 1-28 | body: pages 29-2405

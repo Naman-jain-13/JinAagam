@@ -43,7 +43,16 @@ Everything written goes under <book>_chunks/ and nothing touches the .docx being
 import io, os, re, sys, json, shutil, zipfile, subprocess
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-MAX_CHILDREN = 4200          # ~300 pages a chunk: well inside memory, measured peak ~3 GB
+MAX_CHILDREN = 800           # chunk 08 (~p808) crashed Word twice at 2000 (RPC 0x800706BE)
+                              # children (अधिकार 8, citation-heavy 9-क bullets), then AGAIN at just
+                              # 75-76 children in a different region (अधिकार 12, stacked गाथा-citation
+                              # sub-blocks). Both confirmed by bisection — no single bad paragraph,
+                              # just cumulative formatting/run-switching density, and the danger
+                              # threshold varies by region so no universal constant is provably
+                              # safe. 20 bounds the worst-case chunk (largest single § is 48
+                              # children) at ~68 — below the lowest danger point found so far, with
+                              # some margin. If a chunk still hangs, bisect it (see bisect_chunk.py
+                              # in scratchpad) and lower this further.
 MAX_ROUNDS = 3
 
 args = [a for a in sys.argv[1:] if not a.startswith('--')]
@@ -110,11 +119,31 @@ class Book(object):
         assert 'w:start' in sect, 'no pgNumType to set in sectPr'
         return (self.prefix + markup + sect + self.suffix).encode('utf-8')
 
-    def write(self, out, markup, page_start):
+    def write(self, out, markup, page_start, banner=None):
+        # banner: a खण्ड chunk that does not itself open with a Heading 1 would make the running header's
+        # STYLEREF find nothing and print "Error! No text of specified style in document." on every page.
+        # For such a chunk the field is replaced, in the same faint style, by the banner text that is in
+        # force there (the nearest Heading 1 before it).
         with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as o:
             for n in self.zip.namelist():
                 if n == 'word/document.xml':
                     o.writestr(n, self.document_xml(markup, page_start))
+                elif banner is not None and re.fullmatch(r'word/header\d*\.xml', n):
+                    hx = self.zip.read(n).decode('utf-8')
+                    b = re.search(r'<w:r>(<w:rPr>(?:(?!</w:rPr>).)*</w:rPr>)<w:fldChar w:fldCharType="begin"/></w:r>', hx, re.S)
+                    e = re.search(r'<w:fldChar w:fldCharType="end"/></w:r>', hx)
+                    if b and e:
+                        run = '<w:r>%s<w:t xml:space="preserve">%s</w:t></w:r>' % (b.group(1), esc(banner))
+                        hx = hx[:b.start()] + run + hx[e.end():]
+                    else:
+                        # the builder wrote the field as <w:fldSimple w:instr="STYLEREF ..."> (no fldChar runs)
+                        s = re.search(r'<w:fldSimple[^>]*STYLEREF[^>]*>.*?</w:fldSimple>', hx, re.S)
+                        if s:
+                            run = ('<w:r><w:rPr><w:rFonts w:ascii="Nirmala UI" w:cs="Nirmala UI" w:eastAsia="Nirmala UI" '
+                                   'w:hAnsi="Nirmala UI"/><w:color w:val="555555"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr>'
+                                   '<w:t xml:space="preserve">%s</w:t></w:r>') % esc(banner)
+                            hx = hx[:s.start()] + run + hx[s.end():]
+                    o.writestr(n, hx.encode('utf-8'))
                 else:
                     o.writestr(n, self.zip.read(n))
 
@@ -140,28 +169,71 @@ def esc(s):
 FONT = 'Nirmala UI'
 TAB_POS = 9850        # text width is 11908 - 1000 - 1000 twips; leave a little room for the number
 
+# A दोहा heading carries its visible "अधिकार 1, दोहा 47" text plus a hidden (w:vanish) run holding
+# TOC_MARKER + the descriptive sentence that titleOf() in build_docx.js strips out of the body heading
+# (the reader found that sentence a distraction sitting right above the दोहा itself, but wanted it back
+# in the index). text_of() below reads every <w:t> regardless of run formatting, so the hidden run's
+# text arrives here concatenated onto the visible text, split apart again by TOC_MARKER.
+TOC_MARKER = '␟'
+NUM_TAB = 750          # right-aligned column: bare दोहा number ("47", "19-21", "111*2" — no "अधिकार N,")
+TOPIC_TAB = 950        # left-aligned: the descriptive sentence starts here
+
 
 def toc_paragraph(level, title, page):
-    """One TOC line: title, dot leader, page number — in the TOC1/TOC2 styles the builder defines."""
+    """One TOC line: title, dot leader, page number — in the TOC1/TOC2 styles the builder defines.
+
+    A दोहा entry (level 2, title carrying TOC_MARKER) instead gets three columns — number, topic,
+    page — so the reference itself ("अधिकार 1,") need not be repeated on every line; the अधिकार/
+    प्रकरण banner immediately above already gives that context.
+    """
     style = 'TOC1' if level == 1 else 'TOC2'
     rpr = ('<w:rPr><w:rFonts w:ascii="%s" w:cs="%s" w:eastAsia="%s" w:hAnsi="%s"/></w:rPr>'
            % (FONT, FONT, FONT, FONT))
+    # a युग्म (paired-दोहा) reference like "166–167" (en dash, U+2013 — NOT the plain hyphen of
+    # "19-21", which is fine) breaks Word's layout in this 3-column form: the topic and dot-leader
+    # runs vanish from the render and the page number is orphaned alone on the next line with no
+    # leader dots, so nothing can link to it. Swapping the dash for a hyphen did not fix it either —
+    # the cause is some Word layout quirk specific to that character in this tab position, not
+    # something this script can predict further, so these rare entries (2 of 520) fall back to the
+    # plain single-run TOC line instead of chasing it. The visible in-body heading is unaffected.
+    if level == 2 and TOC_MARKER in title and '–' not in title.split(TOC_MARKER, 1)[0]:
+        ref, topic = title.split(TOC_MARKER, 1)
+        m = re.search(r'(?:दोहा|गाथा|§|कारिका)\s+([^\s,]+)\s*$', ref)
+        num = m.group(1) if m else ref
+        tabs = ('<w:tabs>'
+                '<w:tab w:val="right" w:pos="%d"/>'
+                '<w:tab w:val="left" w:pos="%d"/>'
+                '<w:tab w:val="right" w:leader="dot" w:pos="%d"/>'
+                '</w:tabs>') % (NUM_TAB, TOPIC_TAB, TAB_POS)
+        return (
+            '<w:p><w:pPr><w:pStyle w:val="%s"/>%s</w:pPr>'
+            '<w:r>%s<w:tab/><w:t xml:space="preserve">%s</w:t></w:r>'
+            '<w:r>%s<w:tab/><w:t xml:space="preserve">%s</w:t></w:r>'
+            '<w:r>%s<w:tab/><w:t>%s</w:t></w:r></w:p>'
+            % (style, tabs, rpr, esc(num), rpr, esc(topic), rpr, page)
+        )
+    # fallback (level 1, or a level-2 title with no TOC_MARKER, or the en-dash edge case above):
+    # plain single-run line. A level-2 title still carrying TOC_MARKER here (the en-dash case) must
+    # have its hidden topic text dropped — only the visible "अधिकार N, दोहा M" reference is shown.
+    plain = title.split(TOC_MARKER, 1)[0] if TOC_MARKER in title else title
     return (
         '<w:p><w:pPr><w:pStyle w:val="%s"/>'
         '<w:tabs><w:tab w:val="right" w:leader="dot" w:pos="%d"/></w:tabs>'
         '</w:pPr>'
         '<w:r>%s<w:t xml:space="preserve">%s</w:t></w:r>'
         '<w:r>%s<w:tab/><w:t>%s</w:t></w:r></w:p>'
-        % (style, TAB_POS, rpr, esc(title), rpr, page)
+        % (style, TAB_POS, rpr, esc(plain), rpr, page)
     )
 
 
 # ----------------------------------------------------------------- Word, one chunk at a time
 
 def export(docx, pdf):
+    # LimitSec lowered from the 1200s default: with MAX_CHILDREN this small, a healthy chunk
+    # exports in 5-15s, so a hang is detected (and the retry loop can recover) far sooner.
     r = subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass',
                         '-File', os.path.join(HERE, 'export_chunk.ps1'),
-                        '-Docx', docx, '-Pdf', pdf],
+                        '-Docx', docx, '-Pdf', pdf, '-LimitSec', '150'],
                        stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     line = r.stdout.decode('utf-8', 'replace').strip()
     print('   ' + line.replace('\n', '\n   '))
@@ -199,69 +271,90 @@ def pdf_info(pdf, doc_headings=None):
     return n, [(lvl, title, pg) for (lvl, title), (_, _, pg) in zip(doc_headings, marks)]
 
 
+def without_leading_blanks(children):
+    """Drop empty paragraphs from the front of a chunk.
+
+    In the single-document layout an empty paragraph carrying a page break separated the TOC field
+    from भूमिका. Once the contents becomes its own document that break has nothing in front of it, and
+    it printed a blank page 19 — the only blank page in the book. A chunk already starts on a fresh
+    page, so a leading break is always redundant.
+    """
+    i = 0
+    while i < len(children):
+        tag, markup = children[i]
+        if tag != 'w:p' or re.search(r'<w:t[^>]*>[^<]', markup):
+            break
+        i += 1
+    return children[i:]
+
+
 def headings_in(children):
     """(level, text) for every heading paragraph, in reading order."""
     return [(HEADING_LEVEL[style_of(m)], text_of(m))
             for t, m in children if t == 'w:p' and style_of(m) in HEADING_LEVEL]
 
 
+LEADER = re.compile(r'\d+$')
+_meta = os.path.join(os.path.dirname(os.path.abspath(sys.argv[1])), '..', 'meta.json')
+BOOK_TITLES = ({json.load(io.open(_meta, encoding='utf-8')).get(k, '') for k in ('title', 'running_title')}
+               if os.path.exists(_meta) else set())
+
+
 def link_toc(out, p0, entries):
-    r"""Make the generated TOC lines clickable, as the Word field's \h switch did.
+    """Make the generated TOC lines clickable, as the Word field's \\h switch did.
 
-    Two things make this harder than it looks.
+    Entries are matched to rendered lines **structurally and positionally**, never by text.
 
-    **The rendered text is not readable.** Word's PDF export stores Devanagari glyphs in visual order
-    with a ToUnicode map that does not undo the reordering, so extracting a TOC line gives
-    "अथाटपहर्त् से ज्ञातृव्यापार-हसन्दद्ध" where the heading says "अर्थापत्ति से ज्ञातृव्यापार-सिद्धि".
-    The page LOOKS correct and prints correctly; only the text layer is scrambled. So an entry can
-    never be found by its Devanagari.
+    Not by text because PDF text extraction of Devanagari returns glyphs in visual order: the TOC page
+    that reads मुद्रित इन्द्रियसुख comes back as मुहित इन्तन्द्रयसुख. Matching on that found nothing at
+    all — 0 of 520 — and an earlier attempt at searching for an entry's title instead put 10,431 links
+    on an 1,890-entry contents, most pointing at the wrong § (titles repeat; every § has a '1. मूल पाठ').
 
-    **What survives is the § number.** "§ 72 —" extracts intact, because digits and the section sign
-    are not reordered. Every one of the book's § entries is therefore addressable, and they are the
-    overwhelming majority (1752 of 1819 here). They are matched by number through a dict, not by
-    sequence, so one unmatched line cannot derail the rest.
-
-    The remaining entries are the खण्ड headings (परिच्छेद and प्रकरण), which carry no number. Those
-    are matched positionally: a non-§ line sitting between two § entries is linked to the heading
-    that belongs there in reading order.
-
-    An earlier version matched every entry by `title[:12] in line` and advanced a shared index only on
-    a hit. With the text garbled, the very first entry — a परिच्छेद heading — never matched, the index
-    never moved, and the result was 0 links out of 1881. Never let one unmatchable entry block the
-    others.
+    Structurally: each entry ends with the line carrying its dot leader and page number, so the line to
+    link is the one ending in digits that is not itself a bare page-number footer. On this book that
+    detector finds exactly as many lines as there are entries, and the assertion below refuses to link
+    anything if a future book disagrees — a contents whose links point at the wrong § is worse than one
+    with no links, and both wrong-link bugs above were silent.
     """
-    import fitz, re
-    SEC = re.compile(r"^§\s*(\d+)")
-    by_sec, groups = {}, []
-    for lvl, title, pg in entries:
-        m = SEC.match(title)
-        if m:
-            by_sec[m.group(1)] = int(pg) - 1
-        else:
-            groups.append((title, int(pg) - 1))
-
-    gi = linked = 0
+    import fitz
+    leaders = []
     for pno in range(p0):
-        page = out[pno]
-        for block in page.get_text('dict')['blocks']:
+        lines = []
+        for block in out[pno].get_text('dict')['blocks']:
             for line in block.get('lines', []):
                 txt = ''.join(s['text'] for s in line['spans']).strip()
-                if not txt:
-                    continue
-                m = SEC.match(txt)
-                if m:
-                    tgt = by_sec.get(m.group(1))
-                elif gi < len(groups) and not txt.isdigit():
-                    tgt = groups[gi][1]
-                    gi += 1
+                # a book title such as "… अधिकार 1–7" also ends in a digit; it is not a contents line
+                if txt and not txt.isdigit() and LEADER.search(txt) and txt not in BOOK_TITLES and                         not re.search(r'\d[.।]\d+$', txt) and not re.search(r'पृष्ठ\s*\d+$', txt):
+                    # a wrapped title line may itself end in digits ('… सूत्र 6.25', '… पृष्ठ 718'): those are not leader lines
+                    lines.append((fitz.Rect(line['bbox']), txt))
+        lines.sort(key=lambda L: (round(L[0].y0, 1), L[0].x0))
+        leaders.extend((pno, rect, txt) for rect, txt in lines)
+
+    if len(leaders) != len(entries):
+        print('   NOT linking the TOC: found %d leader lines for %d entries, so the mapping would be '
+              'a guess (bookmarks still navigate the whole book)' % (len(leaders), len(entries)))
+        if os.environ.get('TOC_DEBUG'):
+            i = j = 0
+            while i < len(leaders) and j < len(entries):
+                lp = LEADER.search(leaders[i][2]).group()
+                ep = entries[j][2]
+                if lp == ep:
+                    i += 1; j += 1
                 else:
-                    continue
-                if tgt is None:
-                    continue
-                page.insert_link({'kind': fitz.LINK_GOTO,
-                                  'from': fitz.Rect(line['bbox']), 'page': tgt})
-                linked += 1
-    return linked
+                    print('   DEBUG divergence at leader#%d text=%r (pg %s) vs entry#%d %r (expected pg %s)'
+                          % (i, leaders[i][2][-40:], lp, j, entries[j][1][:60], ep))
+                    break
+            print('   DEBUG tail: %d leaders left, %d entries left' % (len(leaders) - i, len(entries) - j))
+            for k in range(max(0, j - 2), min(len(entries), j + 6)):
+                print('      entry#%d: %r -> pg %s' % (k, entries[k][1][:70], entries[k][2]))
+        return 0
+    bad = [(k, L[2][-30:], e[2]) for k, (L, e) in enumerate(zip(leaders, entries)) if LEADER.search(L[2]).group() != str(e[2])]
+    if bad:
+        print('   NOT linking the TOC: %d leader lines carry a different page number than their entry, first: %r' % (len(bad), bad[0]))
+        return 0
+    for (pno, rect, _), (_, _, pg) in zip(leaders, entries):
+        out[pno].insert_link({'kind': fitz.LINK_GOTO, 'from': rect, 'page': int(pg) - 1})
+    return len(leaders)
 
 
 # ----------------------------------------------------------------- plan the chunks
@@ -286,8 +379,14 @@ if not breaks or breaks[0] != 0:
     breaks = [0] + breaks
 
 chunks, start = [], 0
+def _is_h1(i):
+    return i < len(body_kids) and style_of(body_kids[i][1]) == 'Heading1'
+
+
 for b in breaks[1:] + [len(body_kids)]:
-    if b - start >= MAX_CHILDREN:
+    # also cut at every Heading 1, so a chunk never holds a खण्ड banner except as its first element:
+    # then every page of a chunk shows one and the same banner in the running header.
+    if b - start >= MAX_CHILDREN or (_is_h1(b) and b > start):
         chunks.append((start, b))
         start = b
 if start < len(body_kids):
@@ -329,11 +428,12 @@ while round_no < MAX_ROUNDS:
     round_no += 1
     print('\nround %d' % round_no)
 
-    # front matter + TOC, always page 1
+    # front matter + TOC, always page 1. --resume exists to skip re-exporting the expensive body
+    # chunks (minutes each); this one is ~10s and its content (the TOC's real page numbers) changes
+    # every round by design, so it is always re-exported, resume or not.
     fdocx, fpdf = chunk_path(0, 'docx'), chunk_path(0, 'pdf')
     book.write(fdocx, front_markup(entries), 1)
-    if not (RESUME and os.path.exists(fpdf)):
-        export(fdocx, fpdf)
+    export(fdocx, fpdf)
     new_p0, _ = pdf_info(fpdf)          # only the page count matters here; the TOC lists the body
     print('   front matter + TOC: %d pages' % new_p0)
 
@@ -345,10 +445,15 @@ while round_no < MAX_ROUNDS:
     offset, chunk_pdfs, found = p0, [], []
     for i, (a, b) in enumerate(chunks, 1):
         dx, pf = chunk_path(i, 'docx'), chunk_path(i, 'pdf')
-        book.write(dx, ''.join(m for _, m in body_kids[a:b]), offset + 1)
+        kids_here = without_leading_blanks(body_kids[a:b])
+        first_is_h1 = bool(kids_here) and style_of(kids_here[0][1]) == 'Heading1'
+        banner = None
+        if not first_is_h1:
+            banner = next((text_of(m) for t, m in reversed(body_kids[:a]) if t == 'w:p' and style_of(m) == 'Heading1'), '')
+        book.write(dx, ''.join(m for _, m in kids_here), offset + 1, banner)
         if not (RESUME and os.path.exists(pf)):
             export(dx, pf)
-        n, toc = pdf_info(pf, headings_in(body_kids[a:b]))
+        n, toc = pdf_info(pf, headings_in(kids_here))
         print('   chunk %2d: %4d pages, pages %d-%d, %d bookmarks' % (i, n, offset + 1, offset + n, len(toc)))
         for lvl, title, pg in toc:
             found.append((lvl, title, pg + offset))
@@ -373,9 +478,13 @@ print('\nmerged: %d pages' % out.page_count)
 # One bookmark tree for the whole book, from the same data the TOC was built from. insert_pdf does
 # not carry outlines across, so without this the merged PDF would have no navigation at all.
 # Levels must not jump (1 -> 3 is rejected), so each level is clamped to one more than the previous.
+# A दोहा heading's title still carries TOC_MARKER + topic at this point (same raw text_of() output
+# toc_paragraph split on) — the PDF outline panel is a single-line label, not a table, so join the two
+# with a dash rather than showing the marker character raw.
 tree, prev = [], 0
 for lvl, title, pg in all_headings:
     lvl = min(lvl, prev + 1)
+    title = title.replace(TOC_MARKER, ' — ')
     tree.append([lvl, title, pg])
     prev = lvl
 out.set_toc(tree)

@@ -1,0 +1,69 @@
+Siddhi_Vinishchaya_Tika_Part1_Vyakhya.docx
+body children : 35904  (front 9, body 35893)
+chunks        : 9
+   1  children      0-4217   ( 4217)  [ प्रथमः प्रस्तावः ] [ प्रत्यक्षसिद्धिः ]
+   2  children   4217-8420   ( 4203)  § 127 — हाथ और शरीर का भेद विभाग-भेद से सिद्ध करने में
+   3  children   8420-12632  ( 4212)  § 273 — 'विशद' विशेषण से ऐन्द्रिय-सन्निकर्ष-लक्षण का न
+   4  children  12632-16846  ( 4214)  § 416 — कारिका 8: असत् से व्यवच्छिन्न विकल्प के समान स
+   5  children  16846-21081  ( 4235)  § 565 — 'सामान्यविषया व्याप्तिः': अर्चट का आक्षेप और '
+   6  children  21081-25300  ( 4219)  § 711 — मति-श्रुत का भेद: शब्द-संसर्ग के बाद का ज्ञान 
+   7  children  25300-29514  ( 4214)  § 861 — हिंसा से हिरण्यादि-लाभ के आधार पर उसे धर्म-साध
+   8  children  29514-33719  ( 4205)  § 1008 — टीका: कारिका 19 के 'सामग्री' और 'शक्तिमान्' प
+   9  children  33719-35893  ( 2174)  § 1147 — उत्तर: अतिरिक्त वचन से हेतु की व्याप्ति बाधित
+TOC entries   : 1216
+
+round 1
+   00.docx                       25s  peak=  953MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 36 pages
+   01.docx                      125s  peak= 3805MB  ok
+   chunk  1:  301 pages, pages 37-337, 883 bookmarks
+   02.docx                       90s  peak= 3094MB  ok
+   chunk  2:  261 pages, pages 338-598, 1022 bookmarks
+   03.docx                      105s  peak= 3497MB  ok
+   chunk  3:  286 pages, pages 599-884, 1002 bookmarks
+   04.docx                       95s  peak= 3228MB  ok
+   chunk  4:  276 pages, pages 885-1160, 1044 bookmarks
+   05.docx                      105s  peak= 3450MB  ok
+   chunk  5:  283 pages, pages 1161-1443, 1022 bookmarks
+   06.docx                      120s  peak= 3897MB  ok
+   chunk  6:  307 pages, pages 1444-1750, 1051 bookmarks
+   07.docx                      120s  peak= 3837MB  ok
+   chunk  7:  303 pages, pages 1751-2053, 1029 bookmarks
+   08.docx                      115s  peak= 3741MB  ok
+   chunk  8:  297 pages, pages 2054-2350, 974 bookmarks
+   09.docx                       65s  peak= 2011MB  ok
+   chunk  9:  160 pages, pages 2351-2510, 443 bookmarks
+   headings located: 8470 (levels 1-2: 1216)
+
+round 2
+   00.docx                       25s  peak=  922MB  ok
+   front matter + TOC: 37 pages
+   01.docx                      115s  peak= 3884MB  ok
+   chunk  1:  301 pages, pages 38-338, 883 bookmarks
+   02.docx                       90s  peak= 3123MB  ok
+   chunk  2:  261 pages, pages 339-599, 1022 bookmarks
+   03.docx                      105s  peak= 3460MB  ok
+   chunk  3:  286 pages, pages 600-885, 1002 bookmarks
+   04.docx                       95s  peak= 3234MB  ok
+   chunk  4:  276 pages, pages 886-1161, 1044 bookmarks
+   05.docx                      105s  peak= 3307MB  ok
+   chunk  5:  283 pages, pages 1162-1444, 1022 bookmarks
+   06.docx                      120s  peak= 3976MB  ok
+   chunk  6:  307 pages, pages 1445-1751, 1051 bookmarks
+   07.docx                      120s  peak= 3876MB  ok
+   chunk  7:  303 pages, pages 1752-2054, 1029 bookmarks
+   08.docx                      115s  peak= 3772MB  ok
+   chunk  8:  297 pages, pages 2055-2351, 974 bookmarks
+   09.docx                       65s  peak= 2064MB  ok
+   chunk  9:  160 pages, pages 2352-2511, 443 bookmarks
+   headings located: 8470 (levels 1-2: 1216)
+
+round 3
+   00.docx                       20s  peak=  958MB  ok
+   front matter + TOC: 37 pages
+
+merged: 2511 pages
+TOC links inserted: 1216 of 1216 entries
+pdf: E:\Projects\JinAagam\granth\siddhi-vinishchaya-1\vyakhya\Siddhi_Vinishchaya_Tika_Part1_Vyakhya.pdf (26.0 MB)
+front matter + TOC: pages 1-37 | body: pages 38-2511

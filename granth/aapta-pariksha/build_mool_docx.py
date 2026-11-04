@@ -5,10 +5,12 @@
 """
 import glob, io, json, os, re
 from docx import Document
-from docx.enum.text import WD_ALIGN_PARAGRAPH
+from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
+from docx.enum.style import WD_STYLE_TYPE
+from docx.enum.section import WD_SECTION
 from docx.oxml import OxmlElement
 from docx.oxml.ns import qn
-from docx.shared import Pt, RGBColor, Cm
+from docx.shared import Pt, RGBColor, Cm, Twips
 
 WORK = os.path.abspath(".")
 META = json.load(io.open(os.path.join(WORK, "mool_book", "meta.json"), encoding="utf-8"))
@@ -59,6 +61,27 @@ for name, size, color in (("Heading 1", 15, "7A2E00"), ("Heading 2", 12, "1F4E79
     for a in ("w:ascii","w:hAnsi","w:cs","w:eastAsia"): rf.set(qn(a), FONT)
     rpr.append(rf)
 
+# चलता शीर्षक: ग्रन्थ-नाम (बाएँ) + वर्तमान खण्ड का छोटा नाम (दाएँ)।
+# पूरा Heading 1 लम्बा होकर दो पंक्ति में टूटता था, इसलिए उसका केवल " — " से पहले का अंश
+# 'RunHead' अक्षर-शैली में रखा जाता है और header उसी को STYLEREF से उठाता है।
+# आवरण + विषय-सूची अलग खण्ड (section) में हैं, जिसके header में केवल ग्रन्थ-नाम है — वरना STYLEREF
+# आगे खोजकर वहाँ भी पहले अध्याय का नाम छाप देता।
+doc.styles.add_style("RunHead", WD_STYLE_TYPE.CHARACTER)
+
+def running_header(section, with_chapter):
+    hp = section.header.paragraphs[0]
+    tabs = hp.paragraph_format.tab_stops
+    tabs.add_tab_stop(Twips(4680), WD_TAB_ALIGNMENT.CLEAR)   # Header शैली का centre-tab हटाओ
+    tabs.add_tab_stop(section.page_width - section.left_margin - section.right_margin, WD_TAB_ALIGNMENT.RIGHT)
+    ppr = hp._p.get_or_add_pPr(); bdr = OxmlElement("w:pBdr"); bot = OxmlElement("w:bottom")
+    for k, v in (("w:val", "single"), ("w:sz", "4"), ("w:space", "2"), ("w:color", "999999")): bot.set(qn(k), v)
+    bdr.append(bot); ppr.append(bdr)
+    set_font(hp.add_run(META.get("running_title", META["title"])), 9, color="555555")
+    if with_chapter:
+        set_font(hp.add_run("\t"), 9)
+        hr = hp.add_run(); set_font(hr, 9, color="555555"); add_field(hr, ' STYLEREF "RunHead" ')
+
+running_header(sec, with_chapter=False)
 fp = sec.footer.paragraphs[0]; fp.alignment = WD_ALIGN_PARAGRAPH.CENTER
 fr = fp.add_run(); set_font(fr, 10); add_field(fr, " PAGE ")
 
@@ -78,7 +101,10 @@ doc.add_page_break()
 # ---------- विषय-सूची ----------
 para("विषय-सूची", 15, color="7A2E00", bold=True, after=8)   # Heading 1 नहीं — वरना TOC में स्वयं आ जाता है
 p = doc.add_paragraph(); r = p.add_run(); add_field(r, "TOC " + chr(92) + chr(111) + " " + chr(34) + "1-1" + chr(34) + " " + chr(92) + "h " + chr(92) + "z " + chr(92) + "u")
-doc.add_page_break()
+body_sec = doc.add_section(WD_SECTION.NEW_PAGE)   # पाठ नए खण्ड से — header में अध्याय-नाम भी
+body_sec.header.is_linked_to_previous = False
+running_header(body_sec, with_chapter=True)
+first_h1 = True
 
 # ---------- पाठ ----------
 VERSE = re.compile(r'॥\s*[०-९0-9]+\s*॥\s*$')
@@ -121,9 +147,15 @@ for f in sorted(glob.glob(os.path.join(WORK, "mool_book", "parts", "*.md"))):
                  "999999", before=2, after=0)
             continue
         if s.startswith("# "):
-            doc.add_page_break()
+            if not first_h1: doc.add_page_break()   # पहला अध्याय तो section-break से ही नए पृष्ठ पर है
+            first_h1 = False
             hh = doc.add_heading(level=1); hh.alignment = C
-            set_font(hh.add_run(s[2:]), 15, bold=True, color="7A2E00")
+            # "[ 3. ईश्वर-परीक्षा — लम्बा विवरण ]" → "3. ईश्वर-परीक्षा" RunHead शैली में, शेष सामान्य
+            mh = re.match(r'^(\[\s*)?(.+?)(\s+—\s+.*?)?(\s*\])?$', s[2:])
+            for txt, rh in ((mh.group(1), 0), (mh.group(2), 1), (mh.group(3), 0), (mh.group(4), 0)):
+                if not txt: continue
+                run = hh.add_run(txt, style="RunHead" if rh else None)
+                set_font(run, 15, bold=True, color="7A2E00")
             mode = None; continue
         if s.startswith("### "):
             mode = s[4:].strip()

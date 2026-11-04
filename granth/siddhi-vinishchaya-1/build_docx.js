@@ -16,7 +16,7 @@ const path = require('path');
 const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, TableOfContents,
   Table, TableRow, TableCell, WidthType, BorderStyle, ShadingType, convertInchesToTwip,
-  Footer, PageNumber, PageBreak
+  Footer, Header, SimpleField, TabStopType, PageNumber, PageBreak
 } = require('docx');
 
 const WORK = path.resolve(process.argv[2] || '.');
@@ -272,6 +272,16 @@ for (const num of [...parts.keys()].sort((a, b) => a - b)) {
 body.push(new Paragraph({ children: [new PageBreak()] }));
 body.push(...renderMarkdownDir(BACK_DIR));
 
+const RUNNING_HEAD = META.running_title || META.title;  // चलता शीर्षक: ग्रन्थ-नाम (बाएँ) + वर्तमान खण्ड (दाएँ)
+const runHeader = new Header({ children: [new Paragraph({
+  tabStops: [{ type: TabStopType.RIGHT, position: 9270 }],
+  border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: '999999', space: 2 } },
+  children: [
+    new TextRun({ text: RUNNING_HEAD, size: 18, color: '555555', font: FONT }),
+    new TextRun({ text: '	', size: 18, font: FONT }),
+    new SimpleField('STYLEREF "Heading 1"', ''),
+  ] })] });
+
 const doc = new Document({
   creator: META.creator || 'JinAagam',
   title: META.title,
@@ -288,6 +298,7 @@ const doc = new Document({
   },
   sections: [{
     properties: { page: { size: { width: convertInchesToTwip(8.27), height: convertInchesToTwip(11.69) }, margin: { top: 900, bottom: 900, left: 1000, right: 1000 } } },
+    headers: { default: runHeader },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ children: [PageNumber.CURRENT], size: 20, font: FONT })] })] }) },
     children: front.concat(body)
   }]

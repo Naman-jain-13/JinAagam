@@ -192,3 +192,11 @@ page.py से सीधे पुष्टि की; पहले का "756"
   सूची/तालिका-रूप में, § vyakhya-template में नहीं; अभी शुरू नहीं हुआ।
 - GitHub Releases पर docx/pdf अपलोड — इस मशीन पर `gh` CLI उपलब्ध नहीं, मैन्युअल
   चरण रह गया (भाग 1 जैसा ही)।
+
+## 2026-10-26 — परिशिष्ट जुड़ा, PDF अटकी
+- backmatter: 50_prashasti, 51_karika_anukram, 52_uddharan_suchi, 53_nyay_nama_suchi (build_parishisht.py). docx बना (3.1 MB).
+- पुरानी finalize_big (finalize_big_old.py) से PDF 2401 पृ. बनी पर पृ. 630–938 पर "Error! No text of specified style" (309 पृ.).
+- नई banner-वाली finalize_big (mulachar से, MAX_CHILDREN 800) — Word बार-बार RPC 0x800706BE पर गिरा (02/08 chunk)। मशीन खाली होने पर
+  (कोई और Word/भारी काम न हो) फिर चलाएँ: `rm -rf vyakhya/*_chunks; PYTHONUTF8=1 python finalize_big.py vyakhya/<docx>`। फिर Error-जाँच, फिर Release upload।
+- 2026-10-27: Siddhi-2 finalize (800-child chunks) first run gave 1880 Error! pages + TOC 0/953 linked: builder's header uses <w:fldSimple STYLEREF> which the banner regex (fldChar only) missed. Patched finalize_big.py (siddhi-2) to also replace fldSimple; rerunning into vyakhya/_new (old files untouched). TOC link gate: 966 leader lines vs 953 entries — check again after rerun.
+- 2026-10-27: Siddhi-2 REBUILT & INSTALLED: 2405 pp, 0 Error pages, 933 § present, TOC 953/953 linked; sample page (running header banner) checked. finalize_big.py (siddhi-2) now (a) replaces <w:fldSimple STYLEREF> by banner in chunk headers, (b) detects TOC leader lines without assuming dots (excludes lines ending 'N.NN' / 'पृष्ठ N') and (c) verifies leader page numbers against entries before linking. Old docx+pdf (Oct 26) kept in vyakhya/_previous_builds. Next: Release upload (docx+pdf part 2; part 1 already uploaded).

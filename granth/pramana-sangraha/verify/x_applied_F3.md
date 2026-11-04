@@ -1,0 +1,28 @@
+# Pass-3 findings applied — §10010–§10140 (F3)
+
+- §10010 T4 (three दोष run together) → applied: enumerated (1)(2)(3), कल्पना-गौरव made the separate third दोष.
+- §10010 part 10 bullet 2 (process language) → adjusted: प्रमाणवार्त्तिक, स्वार्थानुमान (लगभग कारिका 73, "इन्द्रियादिवत्").
+- §10020 T2–T3 `विषया` → `विद्यया`, `अवलोक्यते` → `अवलोकते` → applied in parts/ after scan check (p12, line 13–14: द्य conjunct and plain क clear); propagated to parts 3, 4, 6 (T2, T3), 7 ("प्रभु" bullet rewritten), 7-क (bullet rewritten with a new दृष्टान्त), 10; old सन्दिग्ध notes removed.
+- §10020 T3–T4 तुला sentence (नाम = पलड़े का झुकना, not the Buddhist नामरूप) → applied: parts 3, 4, 6 (T3, T4), 7 (तुला + उपहास bullets, सीमा), 7-क, 9 table row, 10; § title in parts/ adjusted to match.
+- §10020 9-क चर्चा (lightning/thunder दृष्टान्त) → applied (धुआँ → आग).
+- §10030 9-क चिन्तन (औषधि दृष्टान्त is अनैकान्तिक) → adjusted: used "जल ठण्डा है, क्योंकि खौल रहा है" instead of the auditor's room example (voices could come from elsewhere).
+- §10040 T2 `भावान्तराविशेषिणः` → applied in parts 4 and 6.
+- §10040 part 10 bullet 2 → applied (न्यायबिन्दु, तृतीय परिच्छेद).
+- §10050 T6 `वाच्यतायां` → `अवाच्यतायां` → applied in parts/ after scan check (p13 line 17: full र + वा); parts 6, 7 (one sentence added), 10 propagated; सन्दिग्ध marker removed.
+- §10050 7-क/9-क स्वतः-पक्ष दृष्टान्त → applied (7-क as suggested; 9-क question reworded, new coin दृष्टान्त).
+- §10060 T2 `चलनोन्यान्यः (?) ताद्दशो` → `चलनोन्नान्यः (?) तादृशो` → applied in parts/ after scan check (p13 line 20); part 6 bracket and part 10 updated.
+- §10060 T1 प्रभवाभाव → adjusted: kept the तत्पुरुष reading (fits the "स्वयमदृश्येऽपि" context); द्वन्द्व alternative added to part 10 (bullets merged to stay at 3).
+- §10070 9-क bullet 1 tag → applied (`[सुझाव]`, mechanism credited to the व्याख्याकार).
+- §10070 part 7 cross-reference → adjusted: "कारिका 41 के अनन्तर वृत्ति, § 42–43, जो कारिका 40 के पूर्वार्ध को लागू करती है".
+- §10080 9-क bullet 1 tag → applied.
+- §10080 परमाणु / विज्ञानवादी → applied in parts 7, 7-क, 9-क.
+- §10080 T4 विशेषण/विशेषेण + part 10 "(षेण)" → applied (bracket reading translated; part 10 quotes "(पेण)").
+- §10080 T2 "(भी)" → applied; part 9 table cell no longer credits the text with the "सह" argument.
+- §10090 T3 सर्वहेतूनाम् → applied in parts 6, 7, 7-क, 9.
+- §10090 9-क दृष्टान्त (गर्जन → वर्षा) → applied (धुआँ → अग्नि).
+- §10100 T2 तत्त्वव्यतिक्रमेण → adjusted: instrumental taken as manner, not a second हेतु; auditor's line was self-contradictory ("अतिक्रमण करके" + "रूप आदि सहित"), so a marked possible reading was written; alternative in part 10.
+- §10120 T3 असिद्धलक्षणेन → applied (अन्तर्भाव reading) in parts 6, 7, 7-क; the other reading in part 10 (कारिका 49 lists अज्ञात on its own); part 10 bullets merged to stay at 3.
+- §10130 T6 speaker → applied in parts 6 and 7.
+- §10140 the two different sets of three (part 7 vs 7-क/9-क) → applied in 7-क and 9-क.
+- §10130/§10140 title locators → applied in parts/ (कारिका 44; कारिका 45).
+- §10080 `(पेण)`, §10090 T1, §10120 T2 and others listed STANDS by the auditor → no change.
