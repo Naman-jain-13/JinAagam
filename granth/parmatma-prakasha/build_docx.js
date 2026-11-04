@@ -15,7 +15,7 @@ const path = require('path');
 const {
   Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType, TableOfContents,
   Table, TableRow, TableCell, WidthType, BorderStyle, ShadingType, convertInchesToTwip,
-  Footer, PageNumber, PageBreak
+  Footer, Header, SimpleField, TabStopType, PageNumber, PageBreak
 } = require('docx');
 
 const WORK = path.resolve(process.argv[2] || '.');
@@ -191,6 +191,9 @@ function parseAddendum(num) {
 }
 // Classify a sub-section heading into one of the six parts (by keyword, so numbering style doesn't matter).
 const kind = h => {
+  // प्रायोगिक भाग (मूलाचार की रीति पर) — optional; printed only where an addenda file carries them
+  if (h.includes('युक्तिसंगत') || h.includes('उद्देश्य')) return 7.6;
+  if (h.includes('आचरण-विधि') || h.includes('अभ्यास')) return 9.5;
   if (h.includes('छाया')) return 2;
   if (h.includes('अन्वयार्थ')) return 4;
   if (h.includes('अन्वय')) return 3;
@@ -356,12 +359,16 @@ function renderSection(s) {
   if (bhav.length) out.push(...renderBlock(bhav));
   byKind(7).forEach(x => out.push(...renderBlock(x.lines)));
   byKind(7.5).forEach(x => out.push(...renderBlock(x.lines)));
+  const yk = byKind(7.6);
+  if (yk.length) { out.push(h3('साधना का युक्तिसंगत उद्देश्य')); yk.forEach(x => out.push(...renderBlock(x.lines))); }
   out.push(h3('सरल उदाहरण'));
   const ex = byKind(8);
   if (ex.length) ex.forEach(x => out.push(...renderBlock(x.lines))); else out.push(pNormal('इस अनुच्छेद हेतु पृथक् उदाहरण आवश्यक नहीं।'));
   out.push(h3('तुलनात्मक तालिका / चार्ट'));
   const tb = byKind(9);
   if (tb.length) tb.forEach(x => out.push(...renderBlock(x.lines))); else out.push(pNormal('इस अनुच्छेद हेतु तालिका आवश्यक नहीं।'));
+  const ac = byKind(9.5);
+  if (ac.length) { out.push(h3('जीवन में उतारने की विधि — चिन्तन, अभ्यास एवं चर्चा')); ac.forEach(x => out.push(...renderBlock(x.lines))); }
   out.push(h3('सन्दर्भ एवं पाद-टिप्पणी'));
   const rf = byKind(10);
   rf.forEach(x => out.push(...renderBlock(x.lines)));
@@ -397,6 +404,11 @@ const front = [];
 if (META.author_line) front.push(center(META.author_line, 30, { bold: true, after: 60 }));
 front.push(center(META.title, 48, { bold: true, color: '7A1F1F', after: 240 }));
 if (META.subtitle) front.push(center(META.subtitle.replace('{N}', String(parts.size)), BODY, { after: 200 }));
+// मूल ग्रन्थ का स्रोत — जिस मुद्रित संस्करण से पाठ लिया गया, उसका पूरा परिचय (आवरण-पृष्ठ से)
+if (META.source_edition) {
+  front.push(center(META.source_edition.heading || 'मूल ग्रन्थ का स्रोत', 26, { bold: true, color: '7A1F1F', after: 80 }));
+  for (const [label, value] of META.source_edition.rows) front.push(pNormal(`**${label}:** ${value}`));
+}
 if (META.basis) front.push(pNormal(`**आधार:** ${META.basis}`));
 front.push(pNormal(META.structure || '**प्रत्येक अनुच्छेद की संरचना:** 1. मूल पाठ → 2. हिन्दी अनुवाद → 3. जैनागम के अनुसार विस्तृत व्याख्या → 4. सरल उदाहरण → 5. तुलनात्मक तालिका / चार्ट → 6. सन्दर्भ एवं पाद-टिप्पणी'));
 if (META.subject) front.push(pNormal(`**ग्रन्थ का विषय:** ${META.subject}`));
@@ -414,6 +426,16 @@ for (const num of [...parts.keys()].sort((a, b) => a - b)) {
   body.push(...renderSection(parts.get(num)));
 }
 body.push(...renderMarkdownDir(BACK_DIR));
+
+const RUNNING_HEAD = META.running_title || META.title;  // चलता शीर्षक: ग्रन्थ-नाम (बाएँ) + वर्तमान खण्ड (दाएँ)
+const runHeader = new Header({ children: [new Paragraph({
+  tabStops: [{ type: TabStopType.RIGHT, position: 9270 }],
+  border: { bottom: { style: BorderStyle.SINGLE, size: 4, color: '999999', space: 2 } },
+  children: [
+    new TextRun({ text: RUNNING_HEAD, size: 18, color: '555555', font: FONT }),
+    new TextRun({ text: '	', size: 18, font: FONT }),
+    new SimpleField('STYLEREF "Heading 1"', ''),
+  ] })] });
 
 const doc = new Document({
   creator: META.creator || 'JinAagam',
@@ -438,6 +460,7 @@ const doc = new Document({
   },
   sections: [{
     properties: { page: { size: { width: convertInchesToTwip(8.27), height: convertInchesToTwip(11.69) }, margin: { top: 900, bottom: 900, left: 1000, right: 1000 } } },
+    headers: { default: runHeader },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.CENTER, children: [new TextRun({ children: [PageNumber.CURRENT], size: 20, font: FONT })] })] }) },
     children: front.concat(body)
   }]

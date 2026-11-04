@@ -30,6 +30,11 @@ if ($Child) {
 
 Get-Process WINWORD -ErrorAction SilentlyContinue | Stop-Process -Force -ErrorAction SilentlyContinue
 Start-Sleep 2
+# A force-killed Word leaves a hidden 'start in safe mode / recover documents?' prompt behind, and the next
+# COM launch then sits on it forever (seen 2026-10-22: a 36 KB chunk 'hung' for 20 min at 170 MB). Clear the
+# Resiliency key and any owner-lock file before every launch.
+Remove-Item 'HKCU:\Software\Microsoft\Office\16.0\Word\Resiliency' -Recurse -Force -ErrorAction SilentlyContinue
+Get-ChildItem (Split-Path $Docx) -Filter '~$*' -Force -ErrorAction SilentlyContinue | Remove-Item -Force -ErrorAction SilentlyContinue
 Remove-Item $Pdf -Force -ErrorAction SilentlyContinue
 $marker = [System.IO.Path]::GetTempFileName()
 Remove-Item $marker -Force -ErrorAction SilentlyContinue

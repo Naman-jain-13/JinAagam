@@ -245,3 +245,32 @@ assignment file generated before they were found.
 **Rule for the next ग्रन्थ: regenerate every derived file immediately after any repair to `parts/`, and make
 the completion check compare against the source, never against the plan.** A plan that is wrong will look
 perfectly complete.
+
+## Passes 4–6 (2026-10-21): the printed Hindi audited, and our own transcription found unfaithful
+
+**Asked for:** check the edition's printed हिन्दी अर्थ/भावार्थ (part 5 — पं. दौलतरामजी; योगसार: पं. डॉ. जगदीशचन्द्र
+शास्त्री) and list its faults in a separate परिशिष्ट; put the source edition's details on the front page.
+
+**Pass 4** (`pass4_instructions.md`, 13 Opus agents, `verify/h*.md`) audited part 5 against दोहा/छाया/टीका. Edition
+faults → `backmatter/35_parishisht_mudrit_hindi.md`: 54 त्रुटि, 39 लोप, 13 भ्रामक वर्धन, 102 वैकल्पिक अर्थ.
+
+**The bigger finding was ours.** Checking each finding on the scan exposed that pass 1 had not reproduced the print:
+part 5 lacked the पातनिका in ~74 §, whole printed pages of Hindi were missing (pp. 102, 104, 139, 246, 276), some
+part-5 text was a paraphrase or not in print at all, and part 6 (the टीका) had meaning-reversing slips —
+`पुनः शुद्ध` for printed `पुनरशुद्ध` (§10010 T17, which pass 3 had "confirmed at 1000 dpi"), lost `न` at §20360,
+§20250, §20820, §20940, `रहितैः` for `रतैः` at §21114. ~25 part-10 notes charged the edition with our errors.
+
+**Pass 5** (`pass5_collation_instructions.md`, 20 Sonnet agents by batch file + a seam agent, `verify/c*.md`)
+collated parts 1/2/5/6 of all 447 § against the scans: ~700 corrections, ~160 meaning-bearing. Backup of the
+pre-collation state: `_backup_before_collation/`.
+**Pass 6** (`pass6_rework_instructions.md`, 10 Opus agents, `verify/r*.md`) carried those into addenda: ~410
+changes in ~213 § — part-6 Hindi re-rendered, wrong part-10 notes deleted/rewritten, मूल changes carried into
+अन्वय/अन्वयार्थ.
+
+**Lessons**
+- A pass that audits the Hindi against *our* Sanskrit cannot see a transcription error — both sides inherit it.
+  Only the page catches it. Collate the transcription against the scan as its own pass, before anything is built on it.
+- Agents assigned by § range edit shared batch files; assign by **file**. Then check every **seam** between files
+  separately — the first/last § of each file straddles a page nobody owned.
+- Parallel agents must not share helper-script names in a common scratch dir (`rep.py` was overwritten mid-run).
+  Give each its own subfolder. Verify afterwards that every changed file is in some log, and normalise CRLF.
