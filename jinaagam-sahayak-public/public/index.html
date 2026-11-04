@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>जिनागम सहायक</title>
+<meta name="description" content="जैन-दर्शन के 10 ग्रन्थों की हिन्दी व्याख्या में से प्रश्न का उत्तर खोजने वाला AI सहायक।">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Eczar:wght@500;600;700&family=Hind:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#EAE7E0; --surface:#F7F5F1; --surface-2:#DFDBD1;
+  --fg:#2A2521; --fg-muted:#6B6358; --border:#D2CDC1;
+  --accent:#8B2635; --accent-fg:#FBF3F0; --accent-2:#8A6A1F;
+  --shadow:0 1px 2px rgba(42,37,33,.08),0 4px 14px rgba(42,37,33,.06);
+  --font-display:'Eczar',Georgia,serif; --font-body:'Hind','Noto Sans Devanagari',sans-serif; --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#1B1713; --surface:#241F19; --surface-2:#2E2820;
+    --fg:#EDE6DC; --fg-muted:#A89C8C; --border:#3A332A;
+    --accent:#D37684; --accent-fg:#241016; --accent-2:#D8B646;
+    --shadow:0 1px 2px rgba(0,0,0,.35),0 6px 18px rgba(0,0,0,.3);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1B1713; --surface:#241F19; --surface-2:#2E2820;
+  --fg:#EDE6DC; --fg-muted:#A89C8C; --border:#3A332A;
+  --accent:#D37684; --accent-fg:#241016; --accent-2:#D8B646;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 6px 18px rgba(0,0,0,.3);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg); color:var(--fg); font-family:var(--font-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px)); padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:28px 48px; line-height:1.6;
+}
+.wrap{max-width:720px;margin:0 auto}
+header{text-align:center;margin-bottom:18px}
+h1{
+  font-family:var(--font-display); font-weight:700; font-size:clamp(28px,6vw,38px);
+  margin:0 0 6px; color:var(--fg); text-wrap:balance; letter-spacing:.01em;
+}
+.tagline{color:var(--fg-muted); font-size:15px; margin:0; text-wrap:balance}
+.rule{height:9px;margin:18px auto 26px;max-width:260px;
+  background-image:
+    linear-gradient(var(--accent-2),var(--accent-2)),
+    linear-gradient(var(--border),var(--border));
+  background-size:100% 1px,100% 1px; background-position:top,bottom; background-repeat:no-repeat;
+}
+.askbox{
+  background:var(--surface); border:1px solid var(--border); border-radius:14px;
+  padding:16px; box-shadow:var(--shadow); display:flex; flex-direction:column; gap:10px;
+}
+textarea#q,input#code{
+  width:100%; border:1px solid var(--border); border-radius:10px;
+  background:var(--bg); color:var(--fg); font:16px/1.5 var(--font-body); padding:12px 14px;
+}
+textarea#q{min-height:64px; resize:vertical}
+textarea#q::placeholder,input#code::placeholder{color:var(--fg-muted)}
+textarea#q:focus,input#code:focus{outline:2px solid var(--accent); outline-offset:1px}
+.askrow{display:flex; justify-content:flex-end; align-items:center; gap:10px; flex-wrap:wrap}
+.hint{color:var(--fg-muted); font-size:13px; margin-right:auto}
+button{font-family:var(--font-body); font-weight:600; font-size:15px; cursor:pointer; border:none; border-radius:10px}
+button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+#askBtn,#codeBtn{background:var(--accent); color:var(--accent-fg); padding:10px 22px}
+#askBtn:disabled,#codeBtn:disabled{opacity:.55; cursor:default}
+#askBtn:not(:disabled):hover,#codeBtn:not(:disabled):hover{filter:brightness(1.07)}
+.examples{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+.ex{
+  background:var(--surface-2); color:var(--fg); border:1px solid var(--border); border-radius:999px;
+  padding:6px 14px; font-size:13px; cursor:pointer;
+}
+.ex:hover{border-color:var(--accent)}
+#answerArea{margin-top:26px}
+#answerCard{
+  background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px;
+  box-shadow:var(--shadow); min-width:0;
+}
+#answerText{white-space:pre-wrap; font-size:16px; line-height:1.75; min-width:0}
+#answerText .cite{color:var(--accent); font-family:var(--font-mono); font-size:.85em; font-variant-numeric:tabular-nums}
+.loading{color:var(--fg-muted); font-style:italic}
+.unavailable{color:var(--fg-muted)}
+#sources{margin-top:18px; display:flex; flex-direction:column; gap:10px}
+.src{border:1px solid var(--border); border-radius:10px; padding:12px 14px; background:var(--bg); min-width:0}
+.src .meta{display:flex; gap:8px; flex-wrap:wrap; align-items:baseline; margin-bottom:5px}
+.src .num{font-family:var(--font-mono); color:var(--accent); font-weight:500; font-size:13px}
+.src .gname{font-weight:600; font-size:14px}
+.src .page{color:var(--fg-muted); font-size:12.5px; font-family:var(--font-mono); font-variant-numeric:tabular-nums}
+.src .grp{color:var(--accent-2); font-size:12px; margin-bottom:4px}
+.src .title{font-size:14px; color:var(--fg); margin-bottom:4px}
+.src .excerpt{color:var(--fg-muted); font-size:13.5px; overflow-wrap:anywhere}
+.sources-head{font-size:13px; color:var(--fg-muted); margin:0 0 2px; text-transform:uppercase; letter-spacing:.04em}
+.direct-toggle{text-align:center; margin-top:28px}
+.direct-toggle button{background:none; color:var(--fg-muted); font-size:13px; text-decoration:underline; padding:4px}
+footer{margin-top:40px; text-align:center; color:var(--fg-muted); font-size:12.5px; line-height:1.7}
+footer .granths{margin-top:6px; font-size:12px}
+.gate{position:fixed; inset:0; background:rgba(0,0,0,.45); display:flex; align-items:center; justify-content:center; padding:16px; z-index:50}
+.gate-card{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:22px; max-width:360px; width:100%; box-shadow:var(--shadow)}
+.gate-card h2{font-family:var(--font-display); font-size:20px; margin:0 0 8px}
+.gate-card p{color:var(--fg-muted); font-size:13.5px; margin:0 0 14px}
+.gate-row{display:flex; gap:8px}
+.gate-err{color:var(--accent); font-size:13px; margin-top:8px; min-height:1em}
+[hidden]{display:none!important}
+@media (max-width:480px){
+  h1{font-size:26px}
+  .askrow{justify-content:stretch}
+  .hint{width:100%; margin-right:0}
+  #askBtn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-card">
+    <h2>जिनागम सहायक</h2>
+    <p>यह पेज एक एक्सेस-कोड से सुरक्षित है — जिसने आपको लिंक भेजा है उससे कोड लीजिए।</p>
+    <div class="gate-row">
+      <input id="code" type="password" placeholder="एक्सेस-कोड" autocomplete="off">
+      <button id="codeBtn">खोलें</button>
+    </div>
+    <div class="gate-err" id="gateErr"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <header>
+    <h1>जिनागम सहायक</h1>
+    <p class="tagline">जैन-दर्शन ग्रन्थों की हिन्दी व्याख्या में से — अपना प्रश्न पूछिए</p>
+  </header>
+  <div class="rule"></div>
+
+  <div class="askbox">
+    <textarea id="q" placeholder="जैसे: अनेकान्त क्या है? प्रमाण का लक्षण क्या है? सर्वज्ञ की सिद्धि कैसे होती है?"></textarea>
+    <div class="askrow">
+      <span class="hint" id="statusHint">डेटा लोड हो रहा है…</span>
+      <button id="askBtn" disabled>पूछें</button>
+    </div>
+    <div class="examples" id="examples"></div>
+  </div>
+
+  <div id="answerArea" hidden>
+    <div id="answerCard"><div id="answerText"></div></div>
+    <div id="sources"></div>
+  </div>
+
+  <div class="direct-toggle">
+    <button id="directBtn" type="button">AI के बिना — सीधे कीवर्ड-मिलान देखें</button>
+  </div>
+
+  <footer>
+    यह एक सहायक-उपकरण है — उत्तर कृत्रिम बुद्धि (AI) द्वारा ग्रन्थ-अंशों के आधार पर बनाए जाते हैं;
+    प्रामाणिक उद्धरण हेतु सदैव मूल ग्रन्थ से मिलान करें।
+    <div class="granths" id="granthList"></div>
+  </footer>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const qEl = $('#q'), askBtn = $('#askBtn'), statusHint = $('#statusHint');
+const answerArea = $('#answerArea'), answerText = $('#answerText'), sourcesEl = $('#sources');
+let CORPUS = null, GRANTHS = {};
+
+// ---------- access-code gate (client-side convenience only; the real check is server-side) ----------
+const gate = $('#gate'), codeEl = $('#code'), codeBtn = $('#codeBtn'), gateErr = $('#gateErr');
+function getCode(){ try { return localStorage.getItem('jinagam_code') || ''; } catch(e){ return ''; } }
+function setCode(c){ try { localStorage.setItem('jinagam_code', c); } catch(e){} }
+if (getCode()) gate.hidden = true;
+codeBtn.addEventListener('click', () => {
+  const c = codeEl.value.trim();
+  if (!c) return;
+  setCode(c);
+  gate.hidden = true;
+  gateErr.textContent = '';
+});
+codeEl.addEventListener('keydown', e => { if (e.key === 'Enter') codeBtn.click(); });
+
+function tokenize(s){
+  try { return (s||'').toLowerCase().split(/[^\p{L}\p{N}]+/u).filter(w=>w.length>1); }
+  catch(e){ return (s||'').toLowerCase().split(/\s+/).filter(w=>w.length>1); }
+}
+
+function search(query, topN){
+  topN = topN || 6;
+  const qTokens = [...new Set(tokenize(query))];
+  if (!qTokens.length || !CORPUS) return [];
+  const scored = [];
+  for (const s of CORPUS) {
+    let score = 0;
+    for (const qt of qTokens) {
+      if (s.t.includes(qt)) score += 4;
+      if (s.grp && s.grp.includes(qt)) score += 2;
+      if (s.x.includes(qt)) score += 1;
+    }
+    if (score > 0) scored.push([score, s]);
+  }
+  scored.sort((a,b)=>b[0]-a[0]);
+  return scored.slice(0, topN).map(r=>r[1]);
+}
+
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function renderSources(matches){
+  if (!matches.length) { sourcesEl.innerHTML = '<p class="unavailable">कोई सीधा मिलान नहीं मिला।</p>'; return; }
+  sourcesEl.innerHTML = '<p class="sources-head">सन्दर्भ</p>' + matches.map((s,i) => {
+    const g = GRANTHS[s.g] || {};
+    return `<div class="src">
+      <div class="meta">
+        <span class="num">[${i+1}]</span>
+        <span class="gname">${esc(g.hi||s.g)}</span>
+        <span class="page">अनुच्छेद §${esc(s.k)}${s.p ? ' · पृष्ठ ' + esc(s.p) : ''}</span>
+      </div>
+      ${s.grp ? `<div class="grp">${esc(s.grp)}</div>` : ''}
+      <div class="title">${esc(s.t)}</div>
+      <div class="excerpt">${esc(s.x)}</div>
+    </div>`;
+  }).join('');
+}
+
+function buildContext(matches){
+  return matches.map((s,i) => {
+    const g = GRANTHS[s.g] || {};
+    return `[${i+1}] ग्रन्थ: ${g.hi||s.g} | अनुच्छेद: §${s.k}${s.p ? ' | पृष्ठ: '+s.p : ''}${s.grp ? ' | '+s.grp : ''}\n${s.t}\n${s.x}`;
+  }).join('\n\n');
+}
+
+function renderAnswerText(text){
+  answerText.innerHTML = esc(text).replace(/\[(\d+)\]/g, '<span class="cite">[$1]</span>');
+}
+
+async function ask(){
+  const q = qEl.value.trim();
+  if (!q || !CORPUS) return;
+  if (!getCode()) { gate.hidden = false; return; }
+  askBtn.disabled = true;
+  answerArea.hidden = false;
+  answerText.innerHTML = '<span class="loading">सोच रहा हूँ…</span>';
+  sourcesEl.innerHTML = '';
+  const matches = search(q, 5);
+  const context = buildContext(matches);
+
+  try {
+    const res = await fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-access-code': getCode() },
+      body: JSON.stringify({ question: q, context }),
+    });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 401) {
+      try { localStorage.removeItem('jinagam_code'); } catch(e){}
+      gate.hidden = false;
+      gateErr.textContent = 'एक्सेस-कोड गलत है — फिर कोशिश करें।';
+      answerArea.hidden = true;
+      return;
+    }
+    if (!res.ok) {
+      answerText.innerHTML = '<span class="unavailable">' + esc(data.message || 'उत्तर नहीं बन पाया।') + '</span>';
+      renderSources(matches);
+      return;
+    }
+    renderAnswerText(data.text || '');
+    renderSources(matches);
+  } catch (e) {
+    answerText.innerHTML = '<span class="unavailable">नेटवर्क त्रुटि — फिर कोशिश करें।</span>';
+    renderSources(matches);
+  } finally {
+    askBtn.disabled = false;
+  }
+}
+
+function directSearch(){
+  const q = qEl.value.trim();
+  if (!q || !CORPUS) return;
+  answerArea.hidden = false;
+  answerText.innerHTML = '<span class="unavailable">सीधा कीवर्ड-मिलान (AI उत्तर नहीं):</span>';
+  renderSources(search(q, 10));
+}
+
+askBtn.addEventListener('click', ask);
+$('#directBtn').addEventListener('click', directSearch);
+qEl.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask(); } });
+
+const EXAMPLES = ['अनेकान्त क्या है?', 'प्रमाण का लक्षण', 'सर्वज्ञ की सिद्धि कैसे होती है?', 'स्याद्वाद और सप्तभंगी'];
+$('#examples').innerHTML = EXAMPLES.map(t => `<button type="button" class="ex">${esc(t)}</button>`).join('');
+$('#examples').addEventListener('click', e => {
+  if (e.target.classList.contains('ex')) { qEl.value = e.target.textContent; ask(); }
+});
+
+fetch('search_corpus.json').then(r => r.json()).then(d => {
+  CORPUS = d.sections;
+  d.granths.forEach(g => GRANTHS[g.id] = g);
+  let last = {};
+  CORPUS.forEach(s => { if (s.grp) last[s.g] = s.grp; else s.grp = last[s.g] || ''; });
+  askBtn.disabled = false;
+  statusHint.textContent = CORPUS.length.toLocaleString('hi-IN') + ' अनुच्छेदों में, ' + d.granths.length + ' ग्रन्थों में खोजता है';
+  $('#granthList').textContent = d.granths.map(g => g.hi).join(' · ');
+}).catch(() => {
+  statusHint.textContent = 'डेटा लोड नहीं हो सका';
+});
+</script>
+</body>
+</html>

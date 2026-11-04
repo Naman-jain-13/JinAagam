@@ -1,0 +1,11 @@
+name = "jinagam-sahayak"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+[[kv_namespaces]]
+binding = "RATE_LIMIT_KV"
+id = "ae15ffebbb5a415fb807b9df83c57491"
