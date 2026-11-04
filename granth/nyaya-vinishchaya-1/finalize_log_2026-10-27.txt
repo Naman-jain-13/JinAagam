@@ -1,0 +1,79 @@
+Nyaya_Vinishchaya_Vivarana_Part1_Vyakhya.docx
+body children : 44094  (front 9, body 44083)
+chunks        : 11
+   1  children      0-4260   ( 4260)  भूमिका
+   2  children   4260-8488   ( 4228)  § 102 — सम्बन्ध-कथन संशय हटाने से प्रवृत्ति का कारण; क
+   3  children   8488-12710  ( 4222)  § 213 — पद और वाक्य के सङ्केत-सापेक्ष होने से वाक्यार्
+   4  children  12710-16949  ( 4239)  § 332 — श्लोक 458–459 और टीका: प्रत्यक्ष-वेदन से अभिन्
+   5  children  16949-21160  ( 4211)  § 444 — विवरण-श्लोक ॥581॥–॥589॥: भोग का नियत-वेदन, अग्
+   6  children  21160-25361  ( 4201)  § 552 — एकान्त के प्रतिषेध का परिज्ञान जात्यन्तर (अनेक
+   7  children  25361-29563  ( 4202)  § 663 — सर्वज्ञत्व-आपत्ति: समस्त अनागत-काल के पर्याय क
+   8  children  29563-33800  ( 4237)  § 769 — द्विचन्द्र के दृष्टान्त का खण्डन: साध्य-विकलता
+   9  children  33800-38022  ( 4222)  § 878 — गौरव की अधिकता और उसके कार्य-भेद की कारिका, तथ
+  10  children  38022-42230  ( 4208)  § 997 — कार्य-काल की प्राप्ति, परस्पराश्रय और अतिप्रसङ
+  11  children  42230-44083  ( 1853)  § 1120 — कारिका ॥159॥: सब अभिलापी विकल्पों की सर्वथा व
+TOC entries   : 1238
+
+round 1
+   00.docx                       25s  peak=  917MB  ok
+warning: The `fitz` API is deprecated and will be removed in future. Use `import pymupdf` instead.
+   front matter + TOC: 40 pages
+   01.docx                      100s  peak= 3364MB  ok
+   chunk  1:  274 pages, pages 41-314, 715 bookmarks
+   02.docx                      105s  peak= 3514MB  ok
+   chunk  2:  280 pages, pages 315-594, 782 bookmarks
+   03.docx                      110s  peak= 3541MB  ok
+   chunk  3:  285 pages, pages 595-879, 838 bookmarks
+   04.docx                      120s  peak= 3917MB  ok
+   chunk  4:  292 pages, pages 880-1171, 788 bookmarks
+   05.docx                      115s  peak= 3592MB  ok
+   chunk  5:  281 pages, pages 1172-1452, 759 bookmarks
+   06.docx                      125s  peak= 4108MB  ok
+   chunk  6:  302 pages, pages 1453-1754, 780 bookmarks
+   07.docx                      105s  peak= 3522MB  ok
+   chunk  7:  277 pages, pages 1755-2031, 745 bookmarks
+   08.docx                      125s  peak= 4066MB  ok
+   chunk  8:  304 pages, pages 2032-2335, 766 bookmarks
+   09.docx                      120s  peak= 3513MB  ok
+   chunk  9:  290 pages, pages 2336-2625, 837 bookmarks
+   10.docx                      115s  peak= 3837MB  ok
+   chunk 10:  292 pages, pages 2626-2917, 865 bookmarks
+   11.docx                       65s  peak= 2112MB  ok
+   chunk 11:  147 pages, pages 2918-3064, 365 bookmarks
+   headings located: 8240 (levels 1-2: 1238)
+
+round 2
+   00.docx                       25s  peak=  958MB  ok
+   front matter + TOC: 41 pages
+   01.docx                      100s  peak= 3328MB  ok
+   chunk  1:  274 pages, pages 42-315, 715 bookmarks
+   02.docx                      110s  peak= 3636MB  ok
+   chunk  2:  280 pages, pages 316-595, 782 bookmarks
+   03.docx                      110s  peak= 3506MB  ok
+   chunk  3:  285 pages, pages 596-880, 838 bookmarks
+   04.docx                      120s  peak= 3856MB  ok
+   chunk  4:  292 pages, pages 881-1172, 788 bookmarks
+   05.docx                      110s  peak= 3609MB  ok
+   chunk  5:  281 pages, pages 1173-1453, 759 bookmarks
+   06.docx                      130s  peak= 3812MB  ok
+   chunk  6:  302 pages, pages 1454-1755, 780 bookmarks
+   07.docx                      105s  peak= 3568MB  ok
+   chunk  7:  277 pages, pages 1756-2032, 745 bookmarks
+   08.docx                      125s  peak= 4113MB  ok
+   chunk  8:  304 pages, pages 2033-2336, 766 bookmarks
+   09.docx                      115s  peak= 3743MB  ok
+   chunk  9:  290 pages, pages 2337-2626, 837 bookmarks
+   10.docx                      115s  peak= 3851MB  ok
+   chunk 10:  292 pages, pages 2627-2918, 865 bookmarks
+   11.docx                       65s  peak= 2102MB  ok
+   chunk 11:  147 pages, pages 2919-3065, 365 bookmarks
+   headings located: 8240 (levels 1-2: 1238)
+
+round 3
+   00.docx                       25s  peak=  880MB  ok
+   front matter + TOC: 41 pages
+
+merged: 3065 pages
+TOC links inserted: 1238 of 1238 entries
+pdf: E:\Projects\JinAagam\granth\nyaya-vinishchaya-1\vyakhya\_new\Nyaya_Vinishchaya_Vivarana_Part1_Vyakhya.pdf (31.3 MB)
+front matter + TOC: pages 1-41 | body: pages 42-3065
