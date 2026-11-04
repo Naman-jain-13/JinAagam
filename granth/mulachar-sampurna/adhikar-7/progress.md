@@ -1,6 +1,6 @@
 # मूलाचार अधिकार 7 (षडावश्यक, गाथा 502–692) — progress / HOW TO RESUME
 Scan p0442–p0562 (printed = scan − 58); last गाथा 692 on p0558; closing line top of p0562; p0559–0561 = Hindi विशेषार्थ + Prakrit
-कृतिकर्म/भक्ति text (no numbered गाथा); p0563+ = गाथानुक्रमणिका/शब्दकोश (not text). Specs adapted from mulachar-5.
+कृतिकर्म/भक्ति text (no numbered गाथा); p0563+ = गाथानुक्रमणिका/शब्दकोश (not text). Specs adapted from adhikar-5.
 ## Status 2026-10-25
 - Pass 1 DONE (191 §, गाथा 502–692; dedups §5520/§5980; batch11 page numbers corrected to scan−58). src built; pass 2 via pass2_batches.txt + resume_status.py.
   scratch prefix m7NN_). Then same pipeline as अधिकार 6.

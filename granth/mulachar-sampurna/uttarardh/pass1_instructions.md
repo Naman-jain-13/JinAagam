@@ -24,7 +24,7 @@ python -c "import pymupdf; d=pymupdf.open(r'mool/Mulachar_Uttarardh_Aryika_Jnanm
 ## The five अधिकार in this volume (गाथा 683–1249, 567 गाथा total)
 
 This is the **उत्तरार्ध** (latter half) of मूलाचार — the whole ग्रन्थ ends at the close of अधिकार 12. Note: पूर्वार्ध (already covered by
-`mulachar`/`mulachar-2`…`mulachar-5`) actually runs अधिकार **1–7**, not 1–5 — अधिकार 6 (पिण्डशुद्धि) and 7 (षडावश्यक) are not in this PDF and are a
+`mulachar`/`adhikar-2`…`adhikar-5`) actually runs अधिकार **1–7**, not 1–5 — अधिकार 6 (पिण्डशुद्धि) and 7 (षडावश्यक) are not in this PDF and are a
 separate, not-yet-done gap; do not confuse them with the five अधिकार below.
 
 | अधिकार | नाम | गाथा range | opens (scan/printed) | closes (scan/printed) | closing कोलोफ़न (exact, for recognising the boundary) |

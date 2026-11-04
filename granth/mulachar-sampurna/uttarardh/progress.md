@@ -1,7 +1,7 @@
 # मूलाचार उत्तरार्ध (अधिकार 8–12) — progress / HOW TO RESUME
 
 Scan: `mool/Mulachar_Uttarardh_Aryika_Jnanmati.pdf`, 456 pages. Same independent 3-pass pipeline as
-`mulachar-5` (see pass1/2/3_instructions.md): pass 1 Sanskrit+Prakrit only → `make_src.py` → pass 2
+`adhikar-5` (see pass1/2/3_instructions.md): pass 1 Sanskrit+Prakrit only → `make_src.py` → pass 2
 from `src/` only → pass 3 audit (scans allowed, above the rule only; `crop_above_rule.py`) → fixers →
 `apply_titles.py` → build.
 
