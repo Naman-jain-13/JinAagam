@@ -1,0 +1,139 @@
+1	0.80	64
+3	0.43	61
+22	0.53	414
+23	0.37	63
+24	0.54	106
+25	0.52	582
+26	0.53	343
+27	0.53	1112
+28	0.50	450
+29	0.52	920
+30	0.49	388
+31	0.48	528
+32	0.55	753
+33	0.60	1043
+34	0.51	425
+35	0.57	795
+36	0.58	471
+37	0.54	370
+38	table
+39	table
+158	table
+159	table
+160	table
+161	table
+162	table
+163	table
+164	table
+165	table
+166	table
+167	table
+168	table
+169	table
+170	table
+171	table
+172	table
+173	table
+174	table
+175	table
+176	table
+177	table
+178	table
+179	table
+180	table
+181	table
+182	table
+183	table
+184	table
+185	table
+186	table
+187	table
+188	table
+189	table
+190	table
+193	table
+194	table
+195	table
+213	table
+214	table
+278	table
+279	table
+280	0.65	1063
+281	table
+282	table
+283	table
+284	table
+285	table
+325	table
+327	table
+328	table
+329	table
+331	table
+332	table
+338	table
+339	table
+340	table
+341	table
+342	table
+343	table
+344	table
+345	table
+346	table
+347	table
+348	table
+349	table
+351	table
+352	table
+353	table
+355	table
+356	table
+357	table
+358	table
+359	table
+360	table
+361	table
+362	table
+363	table
+384	0.56	0
+385	0.52	250
+386	table
+390	table
+391	table
+392	table
+393	table
+394	table
+395	table
+396	table
+397	table
+398	table
+399	table
+400	table
+401	table
+402	table
+403	table
+404	table
+405	table
+406	table
+407	table
+408	table
+409	table
+410	table
+411	table
+412	0.53	1388
+414	table
+415	table
+416	table
+417	0.67	1993
+418	0.55	1180
+419	table
+420	table
+421	table
+422	table
+423	table
+426	table
+427	table
+462	table
+480	table
+489	0.00	0
+490	0.84	38
+491	0.00	0

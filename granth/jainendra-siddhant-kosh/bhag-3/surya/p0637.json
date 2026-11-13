@@ -1,0 +1,1 @@
+{"blocks": [{"polygon": [[0.0, 0.0], [1588.0, 0.0], [1588.0, 2245.0], [0.0, 2245.0]], "confidence": 0.9994500279402958, "label": "BlankPage", "raw_label": "Blank-Page", "reading_order": 0, "html": "", "skipped": true, "error": false, "bbox": [0.0, 0.0, 1588.0, 2245.0]}], "image_bbox": [0.0, 0.0, 1588.0, 2245.0]}

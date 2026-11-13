@@ -1,0 +1,9 @@
+# OCR tool binaries (CUDA llama, tessdata) — local only, too big for GitHub
+ocr/llama-cuda/
+ocr/tessdata/
+# scratch / regenerable
+**/ocr_tmp/
+**/out/
+*.png
+*.log
+__pycache__/
